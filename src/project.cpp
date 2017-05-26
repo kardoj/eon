@@ -31,7 +31,7 @@ bool Project::add(char name[], char datetime[])
     fp = fopen("./timrdata/projects/projects.txt", "a");
     if (fp != NULL)
     {
-        string line = string(id_str) + " " + string(name) + " " + string(datetime) + " " + string(datetime) + "\n";
+        string line = string(id_str) + " \"" + string(name) + "\" " + string(datetime) + " " + string(datetime) + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
     }
