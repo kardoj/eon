@@ -1,12 +1,12 @@
-#ifndef DIRTREE_H
-#define DIRTREE_H
+#ifndef TREE_H
+#define TREE_H
 
-class DirTree
+class Tree
 {
     public:
-        DirTree();
-        virtual ~DirTree();
-        void init();
+        Tree();
+        virtual ~Tree();
+        bool init();
         bool is_timr_dir();
         void ensure_data_dir(int year);
 

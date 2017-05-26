@@ -5,8 +5,9 @@ Timr is a command line tool for task time management and statistics. Data is sav
 ### Usage
 `timr init` creates a new timr directory in the current directory. Timr will create a directory called `timrdata` which will contain all its files.
 
-### In the making
 `timr addproject "timr"` - will add a new project identificator timr that can be used for tasks. Every entry must have a reference to a project.
+
+### In the making
 
 `timr set -d/--date 25.05.2017 -p/--project "timr"` - will set the date and project so that they will not be required on every new entry.
 

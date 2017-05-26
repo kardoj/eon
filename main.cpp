@@ -1,7 +1,8 @@
-#include <add.h>
+#include <adder.h>
 #include <ctime>
-#include <dirtree.h>
+#include <tree.h>
 #include <iostream>
+#include <project.h>
 #include <stdio.h>
 #include <string>
 
@@ -11,8 +12,10 @@ int main(int argc, char* argv[])
 {
     time_t t = time(0);
     tm *local = localtime(&t);
-    int month, year;
-    DirTree *tree = new DirTree();
+    int year, month, day, hour, minute, second;
+    char datetime[20];
+    Tree *tree = new Tree();
+    Project *project;
 
     // The first argument is always the program name
     if (argc < 2)
@@ -27,21 +30,53 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    // Set current month and year
-    month = local->tm_mon + 1;
+    // Set current date and time
     year = local->tm_year + 1900;
+    month = local->tm_mon + 1;
+    day = local->tm_mday;
+    hour = local->tm_hour;
+    minute = local->tm_min;
+    second = local->tm_sec;
+    sprintf(datetime, "%d-%d-%d_%d:%d:%d", year, month, day, hour, minute, second);
 
     if (((string) "add").compare(argv[1]) == 0)
     {
-        cout << "Running the add command" << endl;
+        cout << "Running the add command";
     }
     else if (((string) "init").compare(argv[1]) == 0)
     {
-        if (tree->is_timr_dir()) {
+        if (tree->is_timr_dir())
+        {
             cout << "Directory is already a timr directory.";
-        } else {
-            tree->init();
-            cout << "Created a new timr directory.";
+        }
+        else
+        {
+            if (tree->init()) {
+                cout << "Created a new timr directory.";
+            }
+            else
+            {
+                cout << "Something went wrong while setting up timr.";
+            }
+        }
+    }
+    else if (((string) "addproject").compare(argv[1]) == 0)
+    {
+        if (argc < 3)
+        {
+            cout << "No project name entered, nothing to do.";
+        }
+        else
+        {
+            project = new Project();
+            if (project->add(argv[2], datetime))
+            {
+                cout << "New project " << argv[2] << " was added.";
+            }
+            else
+            {
+                cout << "There was a problem adding a new project.";
+            }
         }
     }
     else
