@@ -1,4 +1,3 @@
-#include <adder.h>
 #include <ctime>
 #include <tree.h>
 #include <iostream>
@@ -10,11 +9,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    time_t t = time(0);
-    tm *local = localtime(&t);
+    time_t t;
+    tm *local;
     int year, month, day, hour, minute, second;
     char datetime[20];
-    Tree *tree = new Tree();
+    Tree *tree;
     Project *project;
 
     // The first argument is always the program name
@@ -31,6 +30,8 @@ int main(int argc, char* argv[])
     }
 
     // Set current date and time
+    t = time(0);
+    local = localtime(&t);
     year = local->tm_year + 1900;
     month = local->tm_mon + 1;
     day = local->tm_mday;
@@ -45,6 +46,7 @@ int main(int argc, char* argv[])
     }
     else if (((string) "init").compare(argv[1]) == 0)
     {
+        tree = new Tree();
         if (tree->is_timr_dir())
         {
             cout << "Directory is already a timr directory.";
