@@ -3,9 +3,6 @@
 #include <tree.h>
 #include <iostream>
 #include <stdio.h>
-#include <string>
-
-using namespace std;
 
 Tree::Tree() {}
 Tree::~Tree() {}
