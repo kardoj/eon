@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     time_t t;
     tm *local;
     int year, month, day, hour, minute, second;
-    char datetime[20];
+    char dte[11], tme[9];
     Tree *tree;
     Project *project;
 
@@ -38,7 +38,8 @@ int main(int argc, char* argv[])
     hour = local->tm_hour;
     minute = local->tm_min;
     second = local->tm_sec;
-    sprintf(datetime, "%d-%d-%d_%d:%d:%d", year, month, day, hour, minute, second);
+    sprintf(dte, "%d-%d-%d", year, month, day);
+    sprintf(tme, "%d:%d:%d", hour, minute, second);
 
     if (((string) "add").compare(argv[1]) == 0)
     {
@@ -71,7 +72,7 @@ int main(int argc, char* argv[])
         else
         {
             project = new Project();
-            if (project->add(argv[2], datetime))
+            if (project->add(argv[2], dte, tme))
             {
                 cout << "New project " << argv[2] << " was added.";
             }

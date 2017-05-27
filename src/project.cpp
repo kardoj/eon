@@ -9,7 +9,7 @@ using namespace std;
 Project::Project() {}
 Project::~Project() {}
 
-bool Project::add(char name[], char datetime[])
+bool Project::add(char name[], char dte[], char tme[])
 {
     FILE *fp;
     int id_max_length = 13;
@@ -31,7 +31,8 @@ bool Project::add(char name[], char datetime[])
     fp = fopen("./eondata/projects/projects.txt", "a");
     if (fp != NULL)
     {
-        string line = string(id_str) + " \"" + string(name) + "\" " + string(datetime) + " " + string(datetime) + "\n";
+        string datetime = string(dte) + "_" + string(tme);
+        string line = string(id_str) + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
     }

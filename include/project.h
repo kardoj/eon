@@ -6,7 +6,7 @@ class Project
     public:
         Project();
         virtual ~Project();
-        bool add(char name[], char datetime[]);
+        bool add(char name[], char dte[], char tme[]);
 
     protected:
 
