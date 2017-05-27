@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            if (tree->init()) {
+            if (tree->init(dte, tme)) {
                 cout << "Created a new eon directory.";
             }
             else

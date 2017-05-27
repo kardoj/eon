@@ -3,6 +3,7 @@
 #include <tree.h>
 #include <iostream>
 #include <stdio.h>
+#include <string>
 
 using namespace std;
 
@@ -16,17 +17,33 @@ bool Tree::is_eon_dir() {
     return exists;
 }
 
-bool Tree::init() {
+bool Tree::init(char dte[], char tme[]) {
     mkdir("./eondata");
-    mkdir("./eondata/config");
-    mkdir("./eondata/data");
+    mkdir("./eondata/entries");
     mkdir("./eondata/projects");
 
+    bool projects_id = create_file("./eondata/projects/next_id.txt", "2");
+
+    string datetime = string(dte) + "_" + string(tme);
+    bool first_project = create_file("./eondata/projects/projects.txt", "1 general " + datetime + " " + datetime + "\n");
+
+    bool entries_id = create_file("./eondata/entries/next_id.txt", "1");
+    bool config = create_file("./eondata/config.txt", initial_config_string(dte));
+
+    return projects_id && first_project && entries_id && config;
+}
+
+string Tree::initial_config_string(char dte[])
+{
+    return "date=" + string(dte) + "\nproject=1";
+}
+
+bool Tree::create_file(string path, string data) {
     FILE *fp;
-    fp = fopen("./eondata/projects/next_id.txt", "w");
+    fp = fopen(path.c_str(), "w");
     if (fp != NULL)
     {
-        fputs("1", fp);
+        fputs(data.c_str(), fp);
         fclose(fp);
         return true;
     }
