@@ -25,7 +25,7 @@ bool Tree::init(char dte[], char tme[]) {
     bool projects_id = create_file("./eondata/projects/next_id.txt", "2");
 
     string datetime = string(dte) + "_" + string(tme);
-    bool first_project = create_file("./eondata/projects/projects.txt", "1 general " + datetime + " " + datetime + "\n");
+    bool first_project = create_file("./eondata/projects/projects.txt", "1 general " + datetime + " " + datetime, true);
 
     bool entries_id = create_file("./eondata/entries/next_id.txt", "1");
     bool config = create_file("./eondata/config.txt", initial_config_string(dte));
@@ -38,12 +38,13 @@ string Tree::initial_config_string(char dte[])
     return "date=" + string(dte) + "\nproject=1";
 }
 
-bool Tree::create_file(string path, string data) {
+bool Tree::create_file(string path, string data, bool add_nl/*=false*/) {
     FILE *fp;
     fp = fopen(path.c_str(), "w");
     if (fp != NULL)
     {
         fputs(data.c_str(), fp);
+        if (add_nl) fputs("\n", fp);
         fclose(fp);
         return true;
     }

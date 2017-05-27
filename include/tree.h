@@ -16,7 +16,7 @@ class Tree
     protected:
 
     private:
-        bool create_file(string path, string data);
+        bool create_file(string path, string data, bool add_nl = false);
         string initial_config_string(char dte[]);
 };
 
