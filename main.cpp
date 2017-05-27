@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    if (!(((string) "init").compare(argv[1]) == 0) && !tree->is_timr_dir())
+    if (!(((string) "init").compare(argv[1]) == 0) && !tree->is_eon_dir())
     {
-        cout << "Directory is not a timr directory. Run timr init to make it one.";
+        cout << "Directory is not an eon directory. Run eon init to make it one.";
         return 0;
     }
 
@@ -47,18 +47,18 @@ int main(int argc, char* argv[])
     else if (((string) "init").compare(argv[1]) == 0)
     {
         tree = new Tree();
-        if (tree->is_timr_dir())
+        if (tree->is_eon_dir())
         {
-            cout << "Directory is already a timr directory.";
+            cout << "Directory is already an eon directory.";
         }
         else
         {
             if (tree->init()) {
-                cout << "Created a new timr directory.";
+                cout << "Created a new eon directory.";
             }
             else
             {
-                cout << "Something went wrong while setting up timr.";
+                cout << "Something went wrong while setting up eon.";
             }
         }
     }

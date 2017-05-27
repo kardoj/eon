@@ -9,21 +9,21 @@ using namespace std;
 Tree::Tree() {}
 Tree::~Tree() {}
 
-bool Tree::is_timr_dir() {
-    DIR *d = opendir("./timrdata");
+bool Tree::is_eon_dir() {
+    DIR *d = opendir("./eondata");
     bool exists = d != NULL ? true : false;
     closedir(d);
     return exists;
 }
 
 bool Tree::init() {
-    mkdir("./timrdata");
-    mkdir("./timrdata/config");
-    mkdir("./timrdata/data");
-    mkdir("./timrdata/projects");
+    mkdir("./eondata");
+    mkdir("./eondata/config");
+    mkdir("./eondata/data");
+    mkdir("./eondata/projects");
 
     FILE *fp;
-    fp = fopen("./timrdata/projects/next_id.txt", "w");
+    fp = fopen("./eondata/projects/next_id.txt", "w");
     if (fp != NULL)
     {
         fputs("1", fp);

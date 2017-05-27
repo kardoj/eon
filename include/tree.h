@@ -7,7 +7,7 @@ class Tree
         Tree();
         virtual ~Tree();
         bool init();
-        bool is_timr_dir();
+        bool is_eon_dir();
         void ensure_data_dir(int year);
 
     protected:

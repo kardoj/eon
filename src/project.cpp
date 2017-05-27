@@ -16,7 +16,7 @@ bool Project::add(char name[], char datetime[])
     char id_str[id_max_length];
 
     // Getting the id
-    fp = fopen("./timrdata/projects/next_id.txt", "r");
+    fp = fopen("./eondata/projects/next_id.txt", "r");
     if (fp != NULL)
     {
         fgets(id_str, id_max_length, fp);
@@ -28,7 +28,7 @@ bool Project::add(char name[], char datetime[])
     }
 
     // Saving the new project
-    fp = fopen("./timrdata/projects/projects.txt", "a");
+    fp = fopen("./eondata/projects/projects.txt", "a");
     if (fp != NULL)
     {
         string line = string(id_str) + " \"" + string(name) + "\" " + string(datetime) + " " + string(datetime) + "\n";
@@ -42,7 +42,7 @@ bool Project::add(char name[], char datetime[])
 
     // Incrementing and writing the next id
     int next_id = atoi(id_str) + 1;
-    fp = fopen("./timrdata/projects/next_id.txt", "w");
+    fp = fopen("./eondata/projects/next_id.txt", "w");
     if (fp != NULL)
     {
         sprintf(id_str, "%d", next_id);
