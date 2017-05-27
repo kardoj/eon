@@ -1,8 +1,5 @@
-#include <string>
 #ifndef TREE_H
 #define TREE_H
-
-using namespace std;
 
 class Tree
 {
@@ -16,8 +13,8 @@ class Tree
     protected:
 
     private:
-        bool create_file(string path, string data, bool add_nl = false);
-        string initial_config_string(char dte[]);
+        bool create_file(char path[], char data[]);
+        void initial_config_str(char dte[], char *return_str);
 };
 
 #endif // TREE_H

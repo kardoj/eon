@@ -22,29 +22,34 @@ bool Tree::init(char dte[], char tme[]) {
     mkdir("./eondata/entries");
     mkdir("./eondata/projects");
 
-    bool projects_id = create_file("./eondata/projects/next_id.txt", "2");
+    bool projects_id = create_file((char*) "./eondata/projects/next_id.txt", (char*) "2");
 
-    string datetime = string(dte) + "_" + string(tme);
-    bool first_project = create_file("./eondata/projects/projects.txt", "1 general " + datetime + " " + datetime, true);
+    char project_data[65];
+    sprintf(project_data, "1 \"general\" \"%s %s\" \"%s %s\"\n", dte, tme, dte, tme);
+    bool first_project = create_file((char*) "./eondata/projects/projects.txt", project_data);
 
-    bool entries_id = create_file("./eondata/entries/next_id.txt", "1");
-    bool config = create_file("./eondata/config.txt", initial_config_string(dte));
+    bool entries_id = create_file((char*) "./eondata/entries/next_id.txt", (char*) "1");
+
+    // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
+    int initial_config_length = 26;
+    char config_str[initial_config_length];
+    initial_config_str(dte, config_str);
+    bool config = create_file((char*) "./eondata/config.txt", config_str);
 
     return projects_id && first_project && entries_id && config;
 }
 
-string Tree::initial_config_string(char dte[])
+void Tree::initial_config_str(char dte[], char *return_str)
 {
-    return "date=" + string(dte) + "\nproject=1";
+    sprintf(return_str, "date=%s\nproject=1", dte);
 }
 
-bool Tree::create_file(string path, string data, bool add_nl/*=false*/) {
+bool Tree::create_file(char path[], char data[]) {
     FILE *fp;
-    fp = fopen(path.c_str(), "w");
+    fp = fopen(path, "w");
     if (fp != NULL)
     {
-        fputs(data.c_str(), fp);
-        if (add_nl) fputs("\n", fp);
+        fputs(data, fp);
         fclose(fp);
         return true;
     }
