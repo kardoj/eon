@@ -28,7 +28,7 @@ bool Tree::init(char dte[], char tme[]) {
     bool entries_id = create_file((char*) "./eondata/entries/next_id.txt", (char*) "1");
 
     // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
-    int initial_config_length = 26;
+    int initial_config_length = 30;
     char config_str[initial_config_length];
     initial_config_str(dte, config_str);
     bool config = create_file((char*) "./eondata/config.txt", config_str);
@@ -38,7 +38,7 @@ bool Tree::init(char dte[], char tme[]) {
 
 void Tree::initial_config_str(char dte[], char *return_str)
 {
-    sprintf(return_str, "date=%s\nproject=1", dte);
+    sprintf(return_str, "date=%s\nproject_id=1", dte);
 }
 
 bool Tree::create_file(char path[], char data[]) {
