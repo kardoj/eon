@@ -1,3 +1,4 @@
+#include <configuration.h>
 #include <ctime>
 #include <tree.h>
 #include <iostream>
@@ -13,8 +14,9 @@ int main(int argc, char* argv[])
     tm *local;
     int year, month, day, hour, minute, second;
     char dte[11], tme[9];
-    Tree *tree = new Tree();
+    Configuration *configuration;
     Project *project;
+    Tree *tree = new Tree();
 
     // The first argument is always the program name
     if (argc < 2)
@@ -40,6 +42,8 @@ int main(int argc, char* argv[])
     second = local->tm_sec;
     sprintf(dte, "%d-%d-%d", year, month, day);
     sprintf(tme, "%d:%d:%d", hour, minute, second);
+
+    configuration = new Configuration();
 
     if (((string) "add").compare(argv[1]) == 0)
     {
