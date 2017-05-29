@@ -30,7 +30,9 @@ void Configuration::read_config()
             {
                 cout << "A line in the configuration file is missing an equals sign.";
                 break;
-            } else {
+            }
+            else
+            {
                 key = row_str.substr(0, split_pos);
                 value = row_str.substr(split_pos + 1);
 
