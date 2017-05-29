@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     tm *local;
     int year, month, day, hour, minute, second;
     char dte[11], tme[9];
-    Tree *tree;
+    Tree *tree = new Tree();
     Project *project;
 
     // The first argument is always the program name
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    if (!(((string) "init").compare(argv[1]) == 0) && !tree->is_eon_dir())
+    if ((((string) "init").compare(argv[1]) != 0) && !tree->is_eon_dir())
     {
         cout << "Directory is not an eon directory. Run eon init to make it one.";
         return 0;
@@ -47,7 +47,6 @@ int main(int argc, char* argv[])
     }
     else if (((string) "init").compare(argv[1]) == 0)
     {
-        tree = new Tree();
         if (tree->is_eon_dir())
         {
             cout << "Directory is already an eon directory.";
