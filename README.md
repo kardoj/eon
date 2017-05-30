@@ -5,7 +5,7 @@ Eon is a command line tool for task time management and statistics. Data is save
 ### Usage
 `eon init` creates a new eon directory in the current directory. Eon will create a directory called `eondata` which will contain all its files.
 
-`eon addproject "eon"` - will add a new project identificator eon that can be used for tasks. Every entry must have a reference to a project.
+`eon addproject "eon"` - will add a new project identificator eon that can be used for entries. Every entry must have a reference to a project. A default project named "General" will be created automatically on `eon init`. It is also set as an active project.
 
 ### In the making
 
