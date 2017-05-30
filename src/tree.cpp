@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <tree.h>
 #include <iostream>
+#include <project.h>
 #include <stdio.h>
 
 Tree::Tree() {}
@@ -19,11 +20,9 @@ bool Tree::init(char dte[], char tme[]) {
     mkdir("./eondata/entries");
     mkdir("./eondata/projects");
 
-    bool projects_id = create_file((char*) "./eondata/projects/next_id.txt", (char*) "2");
-
-    char project_data[65];
-    sprintf(project_data, "1 \"general\" \"%s %s\" \"%s %s\"\n", dte, tme, dte, tme);
-    bool first_project = create_file((char*) "./eondata/projects/projects.txt", project_data);
+    bool projects_id = create_file((char*) "./eondata/projects/next_id.txt", (char*) "1");
+    bool projects_file = create_file((char*) "./eondata/projects/projects.txt", (char*) "");
+    bool first_project = Project::add((char*) Project::DEFAULT_PROJECT_NAME, dte, tme);
 
     bool entries_id = create_file((char*) "./eondata/entries/next_id.txt", (char*) "1");
 
@@ -33,7 +32,7 @@ bool Tree::init(char dte[], char tme[]) {
     initial_config_str(dte, config_str);
     bool config = create_file((char*) "./eondata/config.txt", config_str);
 
-    return projects_id && first_project && entries_id && config;
+    return projects_id && projects_file && first_project && entries_id && config;
 }
 
 void Tree::initial_config_str(char dte[], char *return_str)

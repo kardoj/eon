@@ -4,6 +4,7 @@
 class Project
 {
     public:
+        const static char *DEFAULT_PROJECT_NAME;
         const static int MAX_PROJECT_ROW_LENGTH = 300;
 
         Project();
