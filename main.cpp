@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
     int year, month, day, hour, minute, second;
     char dte[11], tme[9];
     Configuration *configuration;
-    Tree *tree = new Tree();
 
     // The first argument is always the program name
     if (argc < 2)
@@ -24,7 +23,7 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    if ((((string) "init").compare(argv[1]) != 0) && !tree->is_eon_dir())
+    if ((((string) "init").compare(argv[1]) != 0) && !Tree::is_eon_dir())
     {
         cout << "Directory is not an eon directory.\nRun eon init to make it one.";
         return 0;
@@ -50,13 +49,13 @@ int main(int argc, char* argv[])
     }
     else if (((string) "init").compare(argv[1]) == 0)
     {
-        if (tree->is_eon_dir())
+        if (Tree::is_eon_dir())
         {
             cout << "Directory is already an eon directory.";
         }
         else
         {
-            if (tree->init(dte, tme)) {
+            if (Tree::init(dte, tme)) {
                 cout << "Created a new eon directory.";
             }
             else
