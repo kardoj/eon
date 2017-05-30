@@ -56,7 +56,6 @@ void Configuration::set_without_writing(string key, string value)
     else if (key.compare(string("project_id")) == 0)
     {
         int val = atoi(value.c_str());
-        // TODO: Check if project id exists before setting the value
         this->project_id = val;
     }
 }

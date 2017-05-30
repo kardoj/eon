@@ -56,3 +56,36 @@ bool Project::add(char name[], char dte[], char tme[])
         return false;
     }
 }
+
+bool Project::exists(int project_id)
+{
+    FILE *fp;
+    fp = fopen("./eondata/projects/projects.txt", "r");
+    if (fp != NULL)
+    {
+        char row[Project::MAX_PROJECT_ROW_LENGTH];
+        int first_space_pos;
+        string row_str;
+        while(!feof(fp))
+        {
+            if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
+            row_str = string(row);
+            first_space_pos = row_str.find_first_of(" ");
+
+            if (first_space_pos == -1)
+            {
+                cout << "Found a project row with no spaces.";
+                return false;
+            } else
+            {
+                if (atoi(row_str.substr(0, first_space_pos).c_str()) == project_id) return true;
+            }
+        }
+        return false;
+    }
+    else
+    {
+        cout << "There was a problem opening the projects file.";
+        return false;
+    }
+}
