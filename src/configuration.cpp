@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <tree.h>
 
 Configuration::Configuration()
 {
@@ -17,7 +18,7 @@ void Configuration::read_config()
     char row[Configuration::MAX_CONFIG_ROW_LENGTH];
     string row_str, key, value;
 
-    fp = fopen("./eondata/config.txt", "r");
+    fp = fopen(Tree::CONFIG_FILE, "r");
     if (fp != NULL)
     {
         while(!feof(fp))

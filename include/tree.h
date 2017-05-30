@@ -4,6 +4,14 @@
 class Tree
 {
     public:
+        const static char *ROOT_DIR;
+        const static char *CONFIG_FILE;
+        const static char *ENTRIES_DIR;
+        const static char *ENTRIES_ID_FILE;
+        const static char *PROJECTS_DIR;
+        const static char *PROJECTS_FILE;
+        const static char *PROJECTS_ID_FILE;
+
         Tree();
         virtual ~Tree();
         static bool init(char dte[], char tme[]);
