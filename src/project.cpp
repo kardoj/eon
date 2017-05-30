@@ -34,7 +34,7 @@ bool Project::add(char name[], char dte[], char tme[])
     fp = fopen("./eondata/projects/projects.txt", "a");
     if (fp != NULL)
     {
-        string datetime = "\"" + string(dte) + " " + string(tme) + "\"";
+        string datetime = "" + string(dte) + "_" + string(tme) + "";
         string line = string(id_str) + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
