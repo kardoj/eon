@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 
     if ((((string) "init").compare(argv[1]) != 0) && !tree->is_eon_dir())
     {
-        cout << "Directory is not an eon directory. Run eon init to make it one.";
+        cout << "Directory is not an eon directory.\nRun eon init to make it one.";
         return 0;
     }
 
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
     sprintf(dte, "%d-%d-%d", year, month, day);
     sprintf(tme, "%d:%d:%d", hour, minute, second);
 
-    configuration = new Configuration();
+    if (((string) "init").compare(argv[1]) != 0) configuration = new Configuration();
 
     if (((string) "add").compare(argv[1]) == 0)
     {
