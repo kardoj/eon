@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
     int year, month, day, hour, minute, second;
     char dte[11], tme[9];
     Configuration *configuration;
-    Project *project;
     Tree *tree = new Tree();
 
     // The first argument is always the program name
@@ -74,8 +73,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            project = new Project();
-            if (project->add(argv[2], dte, tme))
+            if (Project::add(argv[2], dte, tme))
             {
                 cout << "New project " << argv[2] << " was added.";
             }

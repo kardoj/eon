@@ -8,7 +8,7 @@ class Project
 
         Project();
         virtual ~Project();
-        bool add(char name[], char dte[], char tme[]);
+        static bool add(char name[], char dte[], char tme[]);
         static bool exists(int project_id);
 
     protected:
