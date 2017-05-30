@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
         {
             if (Project::add(argv[2], dte, tme))
             {
-                cout << "New project " << argv[2] << " was added.";
+                cout << "New project \"" << argv[2] << "\" was added.";
             }
             else
             {
