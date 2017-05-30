@@ -8,11 +8,16 @@
 
 using namespace std;
 
+void set_date_and_time(char *dte, char *tme)
+{
+    time_t t = time(0);
+    tm *local = localtime(&t);
+    sprintf(dte, "%d-%d-%d", local->tm_year + 1900, local->tm_mon + 1, local->tm_mday);
+    sprintf(tme, "%d:%d:%d", local->tm_hour, local->tm_min, local->tm_sec);
+}
+
 int main(int argc, char* argv[])
 {
-    time_t t;
-    tm *local;
-    int year, month, day, hour, minute, second;
     char dte[11], tme[9];
     Configuration *configuration;
 
@@ -29,17 +34,7 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    // Set current date and time
-    t = time(0);
-    local = localtime(&t);
-    year = local->tm_year + 1900;
-    month = local->tm_mon + 1;
-    day = local->tm_mday;
-    hour = local->tm_hour;
-    minute = local->tm_min;
-    second = local->tm_sec;
-    sprintf(dte, "%d-%d-%d", year, month, day);
-    sprintf(tme, "%d:%d:%d", hour, minute, second);
+    set_date_and_time(dte, tme);
 
     if (((string) "init").compare(argv[1]) != 0) configuration = new Configuration();
 
