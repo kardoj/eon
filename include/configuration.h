@@ -7,6 +7,8 @@ using namespace std;
 class Configuration
 {
     public:
+        const static int MAX_CONFIG_ROW_LENGTH = 100;
+
         Configuration();
         virtual ~Configuration();
         string get_date();

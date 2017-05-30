@@ -14,8 +14,7 @@ Configuration::~Configuration() {}
 void Configuration::read_config()
 {
     FILE *fp;
-    int row_length = 100;
-    char row[row_length];
+    char row[Configuration::MAX_CONFIG_ROW_LENGTH];
     string row_str, key, value;
 
     fp = fopen("./eondata/config.txt", "r");
@@ -23,7 +22,7 @@ void Configuration::read_config()
     {
         while(!feof(fp))
         {
-            if (fgets(row, row_length, fp) == NULL) break;
+            if (fgets(row, Configuration::MAX_CONFIG_ROW_LENGTH, fp) == NULL) break;
             row_str = string(row);
             int split_pos = row_str.find_first_of("=");
             if (split_pos == -1)
