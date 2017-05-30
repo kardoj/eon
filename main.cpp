@@ -8,6 +8,10 @@
 
 using namespace std;
 
+const string ADD = "add";
+const string INIT = "init";
+const string ADD_PROJECT = "addproject";
+
 void set_date_and_time(char *dte, char *tme)
 {
     time_t t = time(0);
@@ -16,7 +20,12 @@ void set_date_and_time(char *dte, char *tme)
     sprintf(tme, "%d:%d:%d", local->tm_hour, local->tm_min, local->tm_sec);
 }
 
-int main(int argc, char* argv[])
+bool command_is(string command, char *argv[])
+{
+    return command.compare(argv[1]) == 0;
+}
+
+int main(int argc, char *argv[])
 {
     char dte[11], tme[9];
     Configuration *configuration;
@@ -28,7 +37,7 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    if ((((string) "init").compare(argv[1]) != 0) && !Tree::is_eon_dir())
+    if (!command_is(INIT, argv) && !Tree::is_eon_dir())
     {
         cout << "Directory is not an eon directory.\nRun eon init to make it one.";
         return 0;
@@ -36,13 +45,13 @@ int main(int argc, char* argv[])
 
     set_date_and_time(dte, tme);
 
-    if (((string) "init").compare(argv[1]) != 0) configuration = new Configuration();
+    if (!command_is(INIT, argv)) configuration = new Configuration();
 
-    if (((string) "add").compare(argv[1]) == 0)
+    if (command_is(ADD, argv))
     {
         cout << "Running the add command";
     }
-    else if (((string) "init").compare(argv[1]) == 0)
+    else if (command_is(INIT, argv))
     {
         if (Tree::is_eon_dir())
         {
@@ -59,7 +68,7 @@ int main(int argc, char* argv[])
             }
         }
     }
-    else if (((string) "addproject").compare(argv[1]) == 0)
+    else if (command_is(ADD_PROJECT, argv))
     {
         if (argc < 3)
         {
