@@ -1,9 +1,10 @@
-#include <configuration.h>
 #include <cstdlib>
 #include <iostream>
 #include <stdio.h>
 #include <string>
-#include <tree.h>
+
+#include "configuration.h"
+#include "tree.h"
 
 Configuration::Configuration()
 {

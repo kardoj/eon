@@ -1,9 +1,10 @@
 #include <direct.h>
 #include <dirent.h>
-#include <tree.h>
 #include <iostream>
-#include <project.h>
 #include <stdio.h>
+
+#include "project.h"
+#include "tree.h"
 
 const char *Tree::ROOT_DIR = "./eondata";
 const char *Tree::CONFIG_FILE = "./eondata/config.txt";
