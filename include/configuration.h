@@ -16,8 +16,6 @@ class Configuration
         int get_project_id();
         int set_project_id();
 
-    protected:
-
     private:
         string dte;
         int project_id;

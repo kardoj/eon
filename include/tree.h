@@ -4,20 +4,18 @@
 class Tree
 {
     public:
-        const static char *ROOT_DIR;
-        const static char *CONFIG_FILE;
-        const static char *ENTRIES_DIR;
-        const static char *ENTRIES_ID_FILE;
-        const static char *PROJECTS_DIR;
-        const static char *PROJECTS_FILE;
-        const static char *PROJECTS_ID_FILE;
+        static const char *ROOT_DIR;
+        static const char *CONFIG_FILE;
+        static const char *ENTRIES_DIR;
+        static const char *ENTRIES_ID_FILE;
+        static const char *PROJECTS_DIR;
+        static const char *PROJECTS_FILE;
+        static const char *PROJECTS_ID_FILE;
 
         Tree();
         virtual ~Tree();
         static bool init(char dte[], char tme[]);
         static bool is_eon_dir();
-
-    protected:
 
     private:
         static bool create_file(char path[], char data[]);
