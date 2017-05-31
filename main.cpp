@@ -1,16 +1,20 @@
-#include <configuration.h>
 #include <ctime>
-#include <tree.h>
 #include <iostream>
-#include <project.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
+
+#include "configuration.h"
+#include "project.h"
+#include "tree.h"
 
 using namespace std;
 
+// All supported commands
 const string ADD = "add";
-const string INIT = "init";
 const string ADD_PROJECT = "addproject";
+const string INIT = "init";
+const string SET = "set";
 
 void set_date_and_time(char *dte, char *tme)
 {
@@ -44,8 +48,6 @@ int main(int argc, char *argv[])
     }
 
     set_date_and_time(dte, tme);
-
-    if (!command_is(INIT, argv)) configuration = new Configuration();
 
     if (command_is(ADD, argv))
     {
@@ -86,9 +88,51 @@ int main(int argc, char *argv[])
             }
         }
     }
+    else if (command_is(SET, argv))
+    {
+        if (argc == 2)
+        {
+            cout << "No parameters supplied to set. Nothing to do.";
+            return 0;
+        }
+
+        configuration = new Configuration();
+        vector<string> keys;
+        vector<string> values;
+
+        for(int i = 2; i < argc; i++)
+        {
+            int next = i + 1;
+            if (next < argc)
+            {
+                keys.push_back(argv[i]);
+                values.push_back(argv[next]);
+                i = next;
+            }
+            else
+            {
+                cout << "Parsing the parameters failed. Nothing to do.";
+                return 0;
+            }
+        }
+
+        unsigned key_count = keys.size();
+        unsigned updated = 0;
+
+        for (unsigned i = 0; i < key_count; i++)
+        {
+            if (configuration->set_from_param(keys.at(i), values.at(i))) updated++;
+        }
+
+        if (configuration->write_config())
+        {
+            cout << "Found " << key_count << ", successfully updated " << updated << " key(s).";
+        }
+        return 0;
+    }
     else
     {
-        cout << "Unknown command, nothing to do.";
+        cout << "Unknown command \"" << argv[1] << "\". Nothing to do.";
     }
 
     return 0;
