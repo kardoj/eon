@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
             if (configuration->set_from_param(keys.at(i), values.at(i))) updated++;
         }
 
-        if (configuration->write_config())
+        if (configuration->write())
         {
             cout << "Found " << key_count << ", successfully updated " << updated << " key(s).";
         }

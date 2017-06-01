@@ -19,16 +19,16 @@ class Configuration
         Configuration();
         virtual ~Configuration();
         string get_date();
-        void set_date(string dte);
+        bool set_date(string dte);
         int get_project_id();
         bool set_project_id(int project_id);
         bool set_from_param(string key, string value);
-        bool write_config();
+        bool write();
 
     private:
         string dte;
         int project_id;
-        void read_config();
+        void read();
 };
 
 #endif // CONFIGURATION_H

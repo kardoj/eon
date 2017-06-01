@@ -46,7 +46,7 @@ bool Tree::init(char dte[], char tme[]) {
 
 void Tree::initial_config_str(char dte[], char *return_str)
 {
-    sprintf(return_str, "date=%s\nproject_id=1", dte);
+    sprintf(return_str, "date=%s\nproject_id=1\n", dte);
 }
 
 bool Tree::create_file(char path[], char data[]) {

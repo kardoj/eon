@@ -4,6 +4,7 @@
 #include <string>
 
 #include "configuration.h"
+#include "date.h"
 #include "project.h"
 #include "tree.h"
 
@@ -14,12 +15,12 @@ const string Configuration::PROJECT_PARAM_KEY_SHORT = "-p";
 
 Configuration::Configuration()
 {
-    read_config();
+    read();
 }
 
 Configuration::~Configuration() {}
 
-void Configuration::read_config()
+void Configuration::read()
 {
     FILE *fp;
     char row[MAX_CONFIG_ROW_LENGTH];
@@ -32,16 +33,18 @@ void Configuration::read_config()
         {
             if (fgets(row, MAX_CONFIG_ROW_LENGTH, fp) == NULL) break;
             row_str = string(row);
+            row_str.erase(row_str.end()-1);
             int split_pos = row_str.find_first_of("=");
+            int nl_pos = row_str.find_first_of("\n");
             if (split_pos == -1)
             {
-                cout << "A line in the configuration file is missing an equals sign.";
+                cout << "A line in the configuration file is missing an equals sign." << endl;
                 break;
             }
             else
             {
                 key = row_str.substr(0, split_pos);
-                value = row_str.substr(split_pos + 1);
+                value = row_str.substr(split_pos + 1, nl_pos);
 
                 if (key.compare(string("date")) == 0)
                 {
@@ -57,11 +60,11 @@ void Configuration::read_config()
     }
     else
     {
-        cout << "There was a problem reading the configuration file.";
+        cout << "There was a problem reading the configuration file." << endl;
     }
 }
 
-bool Configuration::write_config()
+bool Configuration::write()
 {
     FILE *fp;
     fp = fopen(Tree::CONFIG_FILE, "w");
@@ -80,7 +83,7 @@ bool Configuration::write_config()
     }
     else
     {
-        cout << "There was a problem opening the configuration file.";
+        cout << "There was a problem opening the configuration file." << endl;
         return false;
     }
 }
@@ -89,8 +92,7 @@ bool Configuration::set_from_param(string key, string value)
 {
     if (key.compare(DATE_PARAM_KEY) == 0 || key.compare(DATE_PARAM_KEY_SHORT) == 0)
     {
-        set_date(value);
-        return true;
+        return set_date(value);
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
@@ -127,8 +129,15 @@ string Configuration::get_date()
     return this->dte;
 }
 
-void Configuration::set_date(string dte)
+bool Configuration::set_date(string dte)
 {
-    // TODO: Check if the supplied date is a valid date
-    this->dte = dte;
+    if (Date::is_valid(dte))
+    {
+        this->dte = dte;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
