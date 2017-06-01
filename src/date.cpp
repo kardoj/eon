@@ -19,8 +19,8 @@ bool Date::is_valid(string dte)
     int mon_start, day_start;
 
     // First part must be a 4 digit number
-    // Second part must be a number greater than zero and less than or equal to 31
-    // Third part must be a number greater than zero and less than or equal to 12
+    // Second part must be a number greater than zero and less than or equal to 12
+    // Third part must be a number greater than zero and less than or equal to 31
     // Confirm that the supplied month has the supplied date (e.g. 29 Feb is not valid)
     return true;
 }
