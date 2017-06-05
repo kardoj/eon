@@ -14,6 +14,7 @@ using namespace std;
 const string ADD = "add";
 const string ADD_PROJECT = "addproject";
 const string INIT = "init";
+const string PROJECTS = "projects";
 const string SET = "set";
 
 void set_date_and_time(char *dte, char *tme)
@@ -32,7 +33,7 @@ bool command_is(string command, char *argv[])
 int main(int argc, char *argv[])
 {
     char dte[11], tme[9];
-    Configuration *configuration;
+    Configuration configuration = Configuration();
 
     // The first argument is always the program name
     if (argc < 2)
@@ -88,6 +89,10 @@ int main(int argc, char *argv[])
             }
         }
     }
+    else if (command_is(PROJECTS, argv))
+    {
+        Project::list_projects(configuration);
+    }
     else if (command_is(SET, argv))
     {
         if (argc == 2)
@@ -96,7 +101,6 @@ int main(int argc, char *argv[])
             return 0;
         }
 
-        configuration = new Configuration();
         vector<string> keys;
         vector<string> values;
 
@@ -121,14 +125,13 @@ int main(int argc, char *argv[])
 
         for (unsigned i = 0; i < key_count; i++)
         {
-            if (configuration->set_from_param(keys.at(i), values.at(i))) updated++;
+            if (configuration.set_from_param(keys.at(i), values.at(i))) updated++;
         }
 
-        if (updated > 0 && configuration->write())
+        if (updated > 0 && configuration.write())
         {
             cout << "Found " << key_count << ", successfully updated " << updated << " key(s).";
         }
-        return 0;
     }
     else
     {

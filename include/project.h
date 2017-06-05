@@ -1,3 +1,5 @@
+#include "configuration.h"
+
 #ifndef PROJECT_H
 #define PROJECT_H
 
@@ -11,6 +13,7 @@ class Project
         virtual ~Project();
         static bool add(char name[], char dte[], char tme[]);
         static bool exists(int project_id);
+        static bool list_projects(Configuration &config);
 };
 
 #endif // PROJECT_H

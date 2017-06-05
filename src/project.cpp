@@ -4,6 +4,7 @@
 #include <string>
 
 #include "project.h"
+#include "tree.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ bool Project::add(char name[], char dte[], char tme[])
     char id_str[id_max_length];
 
     // Getting the id
-    fp = fopen("./eondata/projects/next_id.txt", "r");
+    fp = fopen(Tree::PROJECTS_ID_FILE, "r");
     if (fp != NULL)
     {
         fgets(id_str, id_max_length, fp);
@@ -32,7 +33,7 @@ bool Project::add(char name[], char dte[], char tme[])
     }
 
     // Saving the new project
-    fp = fopen("./eondata/projects/projects.txt", "a");
+    fp = fopen(Tree::PROJECTS_FILE, "a");
     if (fp != NULL)
     {
         string datetime = "" + string(dte) + "_" + string(tme) + "";
@@ -47,7 +48,7 @@ bool Project::add(char name[], char dte[], char tme[])
 
     // Incrementing and writing the next id
     int next_id = atoi(id_str) + 1;
-    fp = fopen("./eondata/projects/next_id.txt", "w");
+    fp = fopen(Tree::PROJECTS_ID_FILE, "w");
     if (fp != NULL)
     {
         sprintf(id_str, "%d", next_id);
@@ -64,7 +65,7 @@ bool Project::add(char name[], char dte[], char tme[])
 bool Project::exists(int project_id)
 {
     FILE *fp;
-    fp = fopen("./eondata/projects/projects.txt", "r");
+    fp = fopen(Tree::PROJECTS_FILE, "r");
     if (fp != NULL)
     {
         char row[Project::MAX_PROJECT_ROW_LENGTH];
@@ -86,6 +87,45 @@ bool Project::exists(int project_id)
             }
         }
         return false;
+    }
+    else
+    {
+        cout << "There was a problem opening the projects file.";
+        return false;
+    }
+}
+
+bool Project::list_projects(Configuration &config)
+{
+    FILE *fp;
+    fp = fopen(Tree::PROJECTS_FILE, "r");
+    if (fp != NULL)
+    {
+        char row[MAX_PROJECT_ROW_LENGTH], output_row[MAX_PROJECT_ROW_LENGTH];
+        int id_end, name_end;
+        string id, name, row_str, selected;
+        while(!feof(fp))
+        {
+            if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
+            row_str = string(row);
+            id_end = row_str.find_first_of(" ");
+            name_end = row_str.substr(id_end + 1).find_last_of("\"");
+            id = row_str.substr(0, id_end);
+            name = row_str.substr(id_end + 2, name_end - id_end);
+
+            if (atoi(id.c_str()) == config.get_project_id())
+            {
+                selected = "*";
+            }
+            else
+            {
+                selected = "";
+            }
+
+            sprintf(output_row, "%3s %3s %-100s", selected.c_str(), id.c_str(), name.c_str());
+            cout << output_row << endl;
+        }
+        return true;
     }
     else
     {
