@@ -35,6 +35,8 @@ int main(int argc, char *argv[])
     char dte[11], tme[9];
     Configuration configuration = Configuration();
 
+    setlocale(LC_ALL, "");
+
     // The first argument is always the program name
     if (argc < 2)
     {

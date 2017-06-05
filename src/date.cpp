@@ -44,7 +44,8 @@ bool Date::is_valid(string dte)
     // Confirm that the supplied month has the supplied date (e.g. 29 Feb is not valid)
     time_t t = time(0);
     tm *local = localtime(&t);
-    local->tm_year = year;
+
+    local->tm_year = year - 1900;
     local->tm_mon = mon;
     local->tm_mday = day;
 
