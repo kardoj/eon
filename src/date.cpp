@@ -14,13 +14,6 @@ bool Date::is_valid(string dte)
 {
     string error_msg = string("\"") + dte + string("\" is not a valid date.");
 
-    // If the supplied string's length is less than 8, it can not be a valid date
-    if (dte.size() < 8)
-    {
-        cout << error_msg << endl;
-        return false;
-    }
-
     // Using regex to validate the structure
     if (!regex_match(dte.c_str(), regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?")))
     {
