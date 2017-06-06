@@ -12,20 +12,20 @@ Date::~Date() {}
 // Currently supports date format yyyy-m(m)-d(d)
 bool Date::is_valid(string dte)
 {
+    int year, mon, day;
     string error_msg = string("\"") + dte + string("\" is not a valid date.");
 
-    // Using regex to validate the structure
-    if (!regex_match(dte.c_str(), regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?")))
+    // Using regex to validate the structure of the string
+    if (regex_match(dte.c_str(), regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?")))
+    {
+        get_values_from_yyyy_mm_dd(dte, year, mon, day);
+    }
+    else
     {
         cout << error_msg << endl;
         return false;
     }
 
-    int mon_start = dte.find_first_of("-");
-    int day_start = dte.find_last_of("-");
-    int year = atoi(dte.substr(0, 4).c_str());
-    int mon = atoi(dte.substr(mon_start + 1, day_start - mon_start - 1).c_str());
-    int day = atoi(dte.substr(day_start + 1).c_str());
 
     // Second part must be a number greater than zero and less than or equal to 12
     if (mon < 1 || mon > 12)
@@ -34,7 +34,7 @@ bool Date::is_valid(string dte)
         return false;
     }
 
-    // Confirm that the supplied month has the supplied date (e.g. 29 Feb is not valid)
+    // Confirm that the supplied month has the supplied date (e.g. 30 Feb is not valid)
     time_t t = time(0);
     tm *local = localtime(&t);
 
@@ -50,3 +50,15 @@ bool Date::is_valid(string dte)
 
     return true;
 }
+
+void Date::get_values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
+{
+    int mon_start = dte.find_first_of("-");
+    int day_start = dte.find_last_of("-");
+
+    // Output
+    year = atoi(dte.substr(0, 4).c_str());
+    mon = atoi(dte.substr(mon_start + 1, day_start - mon_start - 1).c_str());
+    day = atoi(dte.substr(day_start + 1).c_str());
+}
+
