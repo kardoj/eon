@@ -103,13 +103,14 @@ int main(int argc, char *argv[])
             return 0;
         }
 
-        vector<string> keys;
-        vector<string> values;
+        vector<string> keys, values;
 
-        for(int i = 2; i < argc; i++)
+        unsigned next, argc_u;
+        argc_u = argc;
+        for(unsigned i = 2; i < argc_u; i++)
         {
-            int next = i + 1;
-            if (next < argc)
+            next = i + 1;
+            if (next < argc_u)
             {
                 keys.push_back(argv[i]);
                 values.push_back(argv[next]);
