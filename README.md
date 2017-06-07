@@ -7,7 +7,7 @@ Eon is a command line tool for task time management and statistics. Data is save
 
 `eon addproject <project_name|"multi word project name">` - adds a new project identificator that can be used for entries. Every entry must have a reference to a project. A default project named "General" is created automatically on `eon init`. It is also set as an active project.
 
-`eon set -d/--date <YYYY-M(M)-D(D)|D(D).M(M).YYYY> -p/--project <project_id>` - sets the date and project so that they are not required on every new entry.
+`eon set -d/--date <YYYY-M(M)-D(D)|D(D).M(M).YYYY> -p/--project <project_id>` - sets the active date and project in the configuration for `add` command.
 
 `eon projects` - lists all available projects and shows the currently active one.
 
