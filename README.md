@@ -17,5 +17,5 @@ Eon is a command line tool for task time management and statistics. Data is save
 `eon add 25.05.2017 "eon" 22.30 23.30 "Improving stability"` - will create an entry similar to the previous command but does not require date and project set beforehand.
 
 #### Backlog
-* Date parser (support dd.mm.yyyy and yyyy-mm-dd for starters).
+* mktime() ingores wrong date? (date verifier)
 * Allow project name for `eon set -p/--project <project_name>`.

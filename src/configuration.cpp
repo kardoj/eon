@@ -133,6 +133,7 @@ bool Configuration::set_date(string dte)
 {
     if (Date::is_valid(dte))
     {
+        Date::to_yyyy_mm_dd(dte);
         this->dte = dte;
         return true;
     }
