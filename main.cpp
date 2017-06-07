@@ -33,7 +33,7 @@ bool command_is(string command, char *argv[])
 int main(int argc, char *argv[])
 {
     char dte[11], tme[9];
-    Configuration configuration = Configuration();
+    Configuration configuration;
 
     setlocale(LC_ALL, "");
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     }
 
     set_date_and_time(dte, tme);
-
+    if (!command_is(INIT, argv)) configuration = Configuration();
     if (command_is(ADD, argv))
     {
         cout << "Running the add command";
