@@ -72,10 +72,10 @@ bool Configuration::write()
     if (fp != NULL)
     {
         // Write all the params one by one
-        sprintf(row, "date=%s\n", this->dte.c_str());
+        sprintf(row, "date=%s\n", dte.c_str());
         fputs(row, fp);
 
-        sprintf(row, "project_id=%d\n", this->project_id);
+        sprintf(row, "project_id=%d\n", project_id);
         fputs(row, fp);
 
         fclose(fp);
@@ -105,10 +105,7 @@ bool Configuration::set_from_param(string key, string value)
     }
 }
 
-int Configuration::get_project_id()
-{
-    return this->project_id;
-}
+int Configuration::get_project_id() { return project_id; }
 
 bool Configuration::set_project_id(int project_id)
 {
@@ -124,21 +121,19 @@ bool Configuration::set_project_id(int project_id)
     }
 }
 
-string Configuration::get_date()
-{
-    return this->dte;
-}
+string Configuration::get_date() { return dte; }
 
 bool Configuration::set_date(string dte)
 {
-    if (Date::is_valid(dte))
+    Date d = Date(dte);
+    if (d.is_valid())
     {
-        Date::to_yyyy_mm_dd(dte);
-        this->dte = dte;
+        this->dte = d.yyyy_mm_dd();
         return true;
     }
     else
     {
+        cout << string("\"") + dte + string("\" is not a valid date.");
         return false;
     }
 }
