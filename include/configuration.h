@@ -21,7 +21,7 @@ class Configuration
         string get_date();
         bool set_date(string dte);
         int get_project_id();
-        bool set_project_id(int project_id);
+        bool set_project_id(string project_id_or_name);
         bool set_from_param(string key, string value);
         bool write();
 

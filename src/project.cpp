@@ -62,28 +62,37 @@ bool Project::add(char name[], char dte[], char tme[])
     }
 }
 
-bool Project::exists(int project_id)
+bool Project::exists(string project_id_or_name, int &project_id)
 {
-    FILE *fp;
-    fp = fopen(Tree::PROJECTS_FILE, "r");
+    FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
     if (fp != NULL)
     {
+        bool name_equals;
         char row[Project::MAX_PROJECT_ROW_LENGTH];
-        int first_space_pos;
+        int id_end_pos, name_end_pos, row_id;
         string row_str;
         while(!feof(fp))
         {
             if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
             row_str = string(row);
-            first_space_pos = row_str.find_first_of(" ");
+            id_end_pos = row_str.find_first_of(" ");
+            name_end_pos = row_str.find_first_of("\"", id_end_pos + 2);
 
-            if (first_space_pos == -1)
+            if (id_end_pos == -1 || name_end_pos == -1)
             {
-                cout << "Found a project row with no spaces.";
+                cout << "Found an invalid project entry in the projects file.";
                 return false;
-            } else
+            }
+            else
             {
-                if (atoi(row_str.substr(0, first_space_pos).c_str()) == project_id) return true;
+                name_equals = row_str.substr(id_end_pos + 2, name_end_pos - id_end_pos - 2)
+                                     .compare(project_id_or_name) == 0;
+                row_id = atoi(row_str.substr(0, id_end_pos).c_str());
+                if (row_id == atoi(project_id_or_name.c_str()) || name_equals)
+                {
+                    project_id = row_id;
+                    return true;
+                }
             }
         }
         return false;

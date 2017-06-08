@@ -52,7 +52,7 @@ void Configuration::read()
                 }
                 else if (key.compare(string("project_id")) == 0)
                 {
-                    set_project_id(atoi(value.c_str()));
+                    set_project_id(value);
                 }
             }
         }
@@ -96,7 +96,7 @@ bool Configuration::set_from_param(string key, string value)
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
-        return set_project_id(atoi(value.c_str()));
+        return set_project_id(value);
     }
     else
     {
@@ -107,16 +107,17 @@ bool Configuration::set_from_param(string key, string value)
 
 int Configuration::get_project_id() { return project_id; }
 
-bool Configuration::set_project_id(int project_id)
+bool Configuration::set_project_id(string project_id_or_name)
 {
-    if (Project::exists(project_id))
+    int p_id;
+    if (Project::exists(project_id_or_name, p_id))
     {
-        this->project_id = project_id;
+        project_id = p_id;
         return true;
     }
     else
     {
-        cout << "Unknown project id \"" << project_id << "\" ignored." << endl;
+        cout << "Unknown project id or name \"" << project_id_or_name << "\" ignored." << endl;
         return false;
     }
 }
