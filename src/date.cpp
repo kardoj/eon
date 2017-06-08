@@ -1,13 +1,9 @@
 #include <ctime>
 #include <iostream>
-#include <regex>
 
 #include "date.h"
 
 using namespace std;
-
-const regex Date::DATE_FORMAT_DD_MM_YYYY = regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");
-const regex Date::DATE_FORMAT_YYYY_MM_DD = regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?");
 
 Date::Date(string dte) {
     if (regex_match(dte, DATE_FORMAT_YYYY_MM_DD))
@@ -46,10 +42,7 @@ Date::Date(string dte) {
 
 Date::~Date() {}
 
-bool Date::is_valid()
-{
-    return valid;
-}
+bool Date::is_valid() { return valid; }
 
 void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
 {
@@ -71,21 +64,10 @@ void Date::values_from_dd_mm_yyyy(string dte, int &year, int &mon, int &day)
     year = atoi(dte.substr(year_start, 4).c_str());
 }
 
-void Date::to_yyyy_mm_dd(string &dte)
+string Date::yyyy_mm_dd()
 {
-    if (regex_match(dte, DATE_FORMAT_YYYY_MM_DD)) return;
-
-    if (regex_match(dte, DATE_FORMAT_DD_MM_YYYY))
-    {
-        int year, mon, day;
-        values_from_dd_mm_yyyy(dte, year, mon, day);
-        char reformatted_date[11];
-        sprintf(reformatted_date, "%d-%d-%d", year, mon, day);
-        dte = string(reformatted_date);
-    }
-    else
-    {
-        cout << string("\"") + dte + string("\" is not a valid date.") << endl;
-    }
+    char reformatted_date[11];
+    sprintf(reformatted_date, "%d-%d-%d", year, mon, day);
+    return string(reformatted_date);
 }
 
