@@ -69,7 +69,7 @@ void Date::values_from_dd_mm_yyyy(string dte, int &year, int &mon, int &day)
 string Date::yyyy_mm_dd()
 {
     char reformatted_date[11];
-    sprintf(reformatted_date, "%d-%d-%d", year, mon, day);
+    sprintf(reformatted_date, "%d-%02d-%02d", year, mon, day);
     return string(reformatted_date);
 }
 
