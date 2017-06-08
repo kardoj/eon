@@ -34,8 +34,10 @@ Date::Date(string dte) {
 
     mktime(local);
 
-    if (local->tm_year != year_val || local->tm_mon != mon_val || local->tm_mday != day)
+    if (local->tm_year == year_val || local->tm_mon == mon_val || local->tm_mday == day)
     {
+        valid = true;
+    } else {
         valid = false;
     }
 }
