@@ -33,12 +33,16 @@ bool Date::is_valid(string dte)
     time_t t = time(0);
     tm *local = localtime(&t);
 
-    local->tm_year = year - 1900;
-    local->tm_mon = mon;
+    int year_val = year - 1900;
+    int mon_val = mon - 1;
+
+    local->tm_year = year_val;
+    local->tm_mon = mon_val;
     local->tm_mday = day;
 
-    // Confirm that the supplied month has the supplied date (e.g. 30 Feb is not valid)
-    if (mktime(local) == -1)
+    mktime(local);
+
+    if (local->tm_year != year_val || local->tm_mon != mon_val || local->tm_mday != day)
     {
         cout << error_msg(dte) << endl;
         return false;
