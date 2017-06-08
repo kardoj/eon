@@ -9,13 +9,7 @@ using namespace std;
 const regex Date::DATE_FORMAT_DD_MM_YYYY = regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");
 const regex Date::DATE_FORMAT_YYYY_MM_DD = regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?");
 
-Date::Date() {}
-Date::~Date() {}
-
-bool Date::is_valid(string dte)
-{
-    int year, mon, day;
-
+Date::Date(string dte) {
     if (regex_match(dte, DATE_FORMAT_YYYY_MM_DD))
     {
         values_from_yyyy_mm_dd(dte, year, mon, day);
@@ -26,8 +20,10 @@ bool Date::is_valid(string dte)
     }
     else
     {
-        cout << error_msg(dte) << endl;
-        return false;
+        this->dte = dte;
+        year = mon = day = -1;
+        valid = false;
+        return;
     }
 
     time_t t = time(0);
@@ -44,11 +40,15 @@ bool Date::is_valid(string dte)
 
     if (local->tm_year != year_val || local->tm_mon != mon_val || local->tm_mday != day)
     {
-        cout << error_msg(dte) << endl;
-        return false;
+        valid = false;
     }
+}
 
-    return true;
+Date::~Date() {}
+
+bool Date::is_valid()
+{
+    return valid;
 }
 
 void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
@@ -85,12 +85,7 @@ void Date::to_yyyy_mm_dd(string &dte)
     }
     else
     {
-        cout << error_msg(dte) << endl;
+        cout << string("\"") + dte + string("\" is not a valid date.") << endl;
     }
-}
-
-string Date::error_msg(string dte)
-{
-    return string("\"") + dte + string("\" is not a valid date.");
 }
 
