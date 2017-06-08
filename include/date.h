@@ -20,6 +20,7 @@ class Date
     private:
         static void values_from_dd_mm_yyyy(string dte, int &year, int &mon, int &day);
         static void values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day);
+        static string error_msg(string dte);
 };
 
 #endif // DATE_H

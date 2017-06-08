@@ -15,7 +15,6 @@ Date::~Date() {}
 bool Date::is_valid(string dte)
 {
     int year, mon, day;
-    string error_msg = string("\"") + dte + string("\" is not a valid date.");
 
     if (regex_match(dte, DATE_FORMAT_YYYY_MM_DD))
     {
@@ -27,13 +26,7 @@ bool Date::is_valid(string dte)
     }
     else
     {
-        cout << error_msg << endl;
-        return false;
-    }
-
-    if (mon < 1 || mon > 12)
-    {
-        cout << error_msg << endl;
+        cout << error_msg(dte) << endl;
         return false;
     }
 
@@ -47,7 +40,7 @@ bool Date::is_valid(string dte)
     // Confirm that the supplied month has the supplied date (e.g. 30 Feb is not valid)
     if (mktime(local) == -1)
     {
-        cout << error_msg << endl;
+        cout << error_msg(dte) << endl;
         return false;
     }
 
@@ -88,7 +81,12 @@ void Date::to_yyyy_mm_dd(string &dte)
     }
     else
     {
-        cout << string("\"") + dte + string("\" is not a valid date.");
+        cout << error_msg(dte) << endl;
     }
+}
+
+string Date::error_msg(string dte)
+{
+    return string("\"") + dte + string("\" is not a valid date.");
 }
 
