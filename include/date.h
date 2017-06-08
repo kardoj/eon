@@ -1,10 +1,10 @@
 #include <regex>
 #include <string>
 
-using namespace std;
-
 #ifndef DATE_H
 #define DATE_H
+
+using namespace std;
 
 class Date
 {
