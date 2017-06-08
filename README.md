@@ -11,7 +11,7 @@ Eon is a command line tool for task time management and statistics. Data is save
 
 `eon set -p/--project <project_id|project_name|"multi word project name">` - sets the active project in the configuration for `add` command.
 
-NB! Both the -p/--project and -d/--date can also be set with one `set` command. Order is not important.
+NB! Both the -p/--project and -d/--date can also be set with one `set` command. Order of the keys is not important.
 
 `eon projects` - lists all available projects and shows the currently active one.
 
