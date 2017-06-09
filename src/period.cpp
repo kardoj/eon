@@ -24,7 +24,7 @@ Period::Period(string start_time, string end_time)
     else
     {
         valid = false;
-        start_hours = start_minutes = end_hours = end_minutes = -1;
+        start_hours = start_minutes = end_hours = end_minutes = period_minutes = -1;
     }
 }
 
