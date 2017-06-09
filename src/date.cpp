@@ -48,7 +48,7 @@ bool Date::is_valid() { return valid; }
 
 int Date::get_year() { return year; }
 
-int Date::get_month() { return month; }
+int Date::get_month() { return mon; }
 
 void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
 {
