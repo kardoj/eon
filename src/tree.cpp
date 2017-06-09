@@ -20,7 +20,7 @@ Tree::~Tree() {}
 bool Tree::is_eon_dir() {
     DIR *d = opendir(ROOT_DIR);
     bool exists = d != NULL ? true : false;
-    closedir(d);
+    if (exists) closedir(d);
     return exists;
 }
 
@@ -59,4 +59,32 @@ bool Tree::create_file(char path[], char data[]) {
         return true;
     }
     return false;
+}
+
+void Tree::ensure_year_dir(string year)
+{
+    string path = string(ENTRIES_DIR) + "/" + year;
+    DIR *d = opendir(path.c_str());
+    if (d == NULL)
+    {
+        mkdir(path.c_str());
+    }
+    else
+    {
+        closedir(d);
+    }
+}
+
+void Tree::ensure_month_dir(string year, string month)
+{
+    string path = string(ENTRIES_DIR) + "/" + year + "/" + month;
+    DIR *d = opendir(path.c_str());
+    if (d == NULL)
+    {
+        mkdir(path.c_str());
+    }
+    else
+    {
+        closedir(d);
+    }
 }

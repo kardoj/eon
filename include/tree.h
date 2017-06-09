@@ -1,6 +1,8 @@
 #ifndef TREE_H
 #define TREE_H
 
+#include <string>
+
 class Tree
 {
     public:
@@ -16,6 +18,8 @@ class Tree
         virtual ~Tree();
         static bool init(char dte[], char tme[]);
         static bool is_eon_dir();
+        static void ensure_year_dir(string year);
+        static void ensure_month_dir(string year, string month);
 
     private:
         static bool create_file(char path[], char data[]);
