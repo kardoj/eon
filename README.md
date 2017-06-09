@@ -5,15 +5,18 @@ Eon is a command line tool for task time management and statistics. Data is save
 ### Usage
 `eon init` creates a new eon directory in the current directory. Eon will create a directory called `eondata` which will contain all its files.
 
-`eon addproject <project_name|"multi word project name">` - adds a new project identificator that can be used for entries. Every entry must have a reference to a project. A default project named "General" is created automatically on `eon init`. It is also set as an active project.
 
 `eon set -d/--date <YYYY-M(M)-D(D)|D(D).M(M).YYYY>` - sets the active date in the configuration for `add` command.
 
 `eon set -p/--project <project_id|project_name|"multi word project name">` - sets the active project in the configuration for `add` command.
 
-NB! Both the -p/--project and -d/--date can also be set with one `set` command. Order of the keys is not important.
+Both the -p/--project and -d/--date can also be set with one `set` command. Order of the keys is not important.
+
+`eon addproject <project_name|"multi word project name">` - adds a new project identificator that can be used for entries. Every entry must have a reference to a project. A default project named "General" is created automatically on `eon init`. It is also set as an active project.
 
 `eon projects` - lists all available projects and shows the currently active one.
+
+`eon date` - shows the currently set date.
 
 ### In the making
 `eon add 12 14 "Improving stability"` - creates a new entry in `eondata/data/2017/5.txt` using the date and project from the configuration file.

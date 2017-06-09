@@ -13,6 +13,7 @@ using namespace std;
 // All supported commands
 const string ADD = "add";
 const string ADD_PROJECT = "addproject";
+const string DATE = "date";
 const string INIT = "init";
 const string PROJECTS = "projects";
 const string SET = "set";
@@ -94,6 +95,10 @@ int main(int argc, char *argv[])
     else if (command_is(PROJECTS, argv))
     {
         Project::list_projects(configuration);
+    }
+    else if (command_is(DATE, argv))
+    {
+        cout << "Currently set date: " << configuration.get_date() << endl;
     }
     else if (command_is(SET, argv))
     {
