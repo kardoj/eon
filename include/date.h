@@ -13,6 +13,8 @@ class Date
         virtual ~Date();
         bool is_valid();
         string yyyy_mm_dd();
+        int get_month();
+        int get_year();
 
     private:
         const regex DATE_FORMAT_DD_MM_YYYY = regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");

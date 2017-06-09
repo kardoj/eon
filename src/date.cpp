@@ -46,6 +46,10 @@ Date::~Date() {}
 
 bool Date::is_valid() { return valid; }
 
+int Date::get_year() { return year; }
+
+int Date::get_month() { return month; }
+
 void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
 {
     int mon_start = dte.find_first_of("-");
