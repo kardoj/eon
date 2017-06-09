@@ -1,8 +1,8 @@
-#include <regex>
-#include <string>
-
 #ifndef DATE_H
 #define DATE_H
+
+#include <regex>
+#include <string>
 
 using namespace std;
 

@@ -1,9 +1,8 @@
-#include <string>
-
-#include "configuration.h"
-
 #ifndef PROJECT_H
 #define PROJECT_H
+
+#include <string>
+#include "configuration.h"
 
 class Project
 {
