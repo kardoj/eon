@@ -29,6 +29,8 @@ Period::Period(string start_time, string end_time)
 }
 
 Period::~Period() {}
+bool Period::is_valid() { return valid; }
+unsigned Period::minutes() { return period_minutes; }
 
 void Period::diff_minutes()
 {

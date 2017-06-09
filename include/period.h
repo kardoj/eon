@@ -11,6 +11,9 @@ class Period
         Period(string start_time, string end_time);
         virtual ~Period();
 
+        bool is_valid();
+        unsigned minutes();
+
     private:
         bool valid;
         int start_hours, start_minutes, end_hours, end_minutes;
