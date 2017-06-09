@@ -41,13 +41,13 @@ int main(int argc, char *argv[])
     // The first argument is always the program name
     if (argc < 2)
     {
-        cout << "No command entered, nothing to do.";
+        cout << "No command entered, nothing to do." << endl;
         return 0;
     }
 
     if (!command_is(INIT, argv) && !Tree::is_eon_dir())
     {
-        cout << "Directory is not an eon directory.\nRun eon init to make it one.";
+        cout << "Directory is not an eon directory.\nRun eon init to make it one." << endl;
         return 0;
     }
 
@@ -55,22 +55,22 @@ int main(int argc, char *argv[])
     if (!command_is(INIT, argv)) configuration = Configuration();
     if (command_is(ADD, argv))
     {
-        cout << "Running the add command";
+        cout << "Running the add command" << endl;
     }
     else if (command_is(INIT, argv))
     {
         if (Tree::is_eon_dir())
         {
-            cout << "Directory is already an eon directory.";
+            cout << "Directory is already an eon directory." << endl;
         }
         else
         {
             if (Tree::init(dte, tme)) {
-                cout << "Created a new eon directory.";
+                cout << "Created a new eon directory." << endl;
             }
             else
             {
-                cout << "Something went wrong while setting up eon.";
+                cout << "Something went wrong while setting up eon." << endl;
             }
         }
     }
@@ -78,17 +78,17 @@ int main(int argc, char *argv[])
     {
         if (argc < 3)
         {
-            cout << "No project name entered, nothing to do.";
+            cout << "No project name entered, nothing to do." << endl;
         }
         else
         {
             if (Project::add(argv[2], dte, tme))
             {
-                cout << "New project \"" << argv[2] << "\" was added.";
+                cout << "New project \"" << argv[2] << "\" was added." << endl;
             }
             else
             {
-                cout << "There was a problem adding a new project.";
+                cout << "There was a problem adding a new project." << endl;
             }
         }
     }
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     {
         if (argc == 2)
         {
-            cout << "No parameters supplied to set. Nothing to do.";
+            cout << "No parameters supplied to set. Nothing to do." << endl;
             return 0;
         }
 
@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-                cout << "Parsing the parameters failed. Nothing to do.";
+                cout << "Parsing the parameters failed. Nothing to do." << endl;
                 return 0;
             }
         }
@@ -138,12 +138,12 @@ int main(int argc, char *argv[])
 
         if (updated > 0 && configuration.write())
         {
-            cout << "Found " << key_count << ", successfully updated " << updated << " key(s).";
+            cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
         }
     }
     else
     {
-        cout << "Unknown command \"" << argv[1] << "\". Nothing to do.";
+        cout << "Unknown command \"" << argv[1] << "\". Nothing to do." << endl;
     }
 
     return 0;
