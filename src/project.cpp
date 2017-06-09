@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string>
 
+#include "date.h"
 #include "project.h"
 #include "tree.h"
 
@@ -14,7 +15,7 @@ const char *Project::DEFAULT_PROJECT_NAME = "General";
 Project::Project() {}
 Project::~Project() {}
 
-bool Project::add(char name[], char dte[], char tme[])
+bool Project::add(char name[])
 {
     FILE *fp;
     int id_max_length = 13;
@@ -36,7 +37,7 @@ bool Project::add(char name[], char dte[], char tme[])
     fp = fopen(Tree::PROJECTS_FILE, "a");
     if (fp != NULL)
     {
-        string datetime = "" + string(dte) + "_" + string(tme) + "";
+        string datetime = Date::current_date_with_time();
         string line = string(id_str) + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);

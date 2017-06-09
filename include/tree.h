@@ -16,7 +16,7 @@ class Tree
 
         Tree();
         virtual ~Tree();
-        static bool init(char dte[], char tme[]);
+        static bool init();
         static bool is_eon_dir();
         static void ensure_year_dir(string year);
         static void ensure_month_dir(string year, string month);

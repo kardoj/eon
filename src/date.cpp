@@ -82,3 +82,14 @@ string Date::yyyy_mm_dd()
     return string(reformatted_date);
 }
 
+string Date::current_date_with_time()
+{
+    time_t t = time(0);
+    tm *local = localtime(&t);
+    char dt[11], tme[9];
+    sprintf(dt, "%d-%d-%d", local->tm_year + 1900, local->tm_mon + 1, local->tm_mday);
+    sprintf(tme, "%d:%d:%d", local->tm_hour, local->tm_min, local->tm_sec);
+
+    return "\"" + string(dt) + "_" + string(tme) + "\"";
+}
+

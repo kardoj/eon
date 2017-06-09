@@ -12,7 +12,7 @@ class Project
 
         Project();
         virtual ~Project();
-        static bool add(char name[], char dte[], char tme[]);
+        static bool add(char name[]);
         static bool exists(string project_id_or_name, int &project_id);
         static bool list_projects(Configuration &config);
 };

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "configuration.h"
+#include "entry.h"
 #include "project.h"
 #include "tree.h"
 
@@ -18,14 +19,6 @@ const string INIT = "init";
 const string PROJECTS = "projects";
 const string SET = "set";
 
-void set_date_and_time(char *dte, char *tme)
-{
-    time_t t = time(0);
-    tm *local = localtime(&t);
-    sprintf(dte, "%d-%d-%d", local->tm_year + 1900, local->tm_mon + 1, local->tm_mday);
-    sprintf(tme, "%d:%d:%d", local->tm_hour, local->tm_min, local->tm_sec);
-}
-
 bool command_is(string command, char *argv[])
 {
     return command.compare(argv[1]) == 0;
@@ -33,7 +26,6 @@ bool command_is(string command, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    char dte[11], tme[9];
     Configuration configuration;
 
     setlocale(LC_CTYPE, "");
@@ -51,12 +43,20 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    set_date_and_time(dte, tme);
     if (!command_is(INIT, argv)) configuration = Configuration();
 
     if (command_is(ADD, argv))
     {
-        cout << "Running the add command" << endl;
+        if (argc < 5) {
+            cout << "Required parameters are missing (eon add <start_time> <end_time> <description>). Nothing to do."
+                 << endl;
+            return 0;
+        } else {
+            if (Entry::add(argv[2], argv[3], argv[4], configuration.get_date(), configuration.get_project_id()))
+            {
+                cout << "A new entry was added: TODO: show by id" << endl;
+            }
+        }
     }
     else if (command_is(INIT, argv))
     {
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            if (Tree::init(dte, tme)) {
+            if (Tree::init()) {
                 cout << "Created a new eon directory." << endl;
             }
             else
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            if (Project::add(argv[2], dte, tme))
+            if (Project::add(argv[2]))
             {
                 cout << "New project \"" << argv[2] << "\" was added." << endl;
             }

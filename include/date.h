@@ -17,6 +17,7 @@ class Date
         int get_year();
         int get_day();
         int get_wday();
+        static string current_date_with_time();
 
     private:
         const regex DATE_FORMAT_DD_MM_YYYY = regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");

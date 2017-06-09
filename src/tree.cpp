@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 
+#include "date.h"
 #include "project.h"
 #include "tree.h"
 
@@ -24,14 +25,20 @@ bool Tree::is_eon_dir() {
     return exists;
 }
 
-bool Tree::init(char dte[], char tme[]) {
+bool Tree::init() {
     mkdir(ROOT_DIR);
     mkdir(ENTRIES_DIR);
     mkdir(PROJECTS_DIR);
 
     bool projects_id = create_file((char*) PROJECTS_ID_FILE, (char*) "1");
     bool projects_file = create_file((char*) PROJECTS_FILE, (char*) "");
-    bool first_project = Project::add((char*) Project::DEFAULT_PROJECT_NAME, dte, tme);
+
+    string datetime = Date::current_date_with_time();
+    char dte[11], tme[9];
+    sprintf(dte, "%s", datetime.substr(1, 10).c_str());
+    sprintf(tme, "%s", datetime.substr(11, datetime.size() - 1).c_str());
+
+    bool first_project = Project::add((char*) Project::DEFAULT_PROJECT_NAME);
 
     bool entries_id = create_file((char*) ENTRIES_ID_FILE, (char*) "1");
 
