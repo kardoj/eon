@@ -15,12 +15,14 @@ class Date
         string yyyy_mm_dd();
         int get_month();
         int get_year();
+        int get_day();
+        int get_wday();
 
     private:
         const regex DATE_FORMAT_DD_MM_YYYY = regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");
         const regex DATE_FORMAT_YYYY_MM_DD = regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?");
         bool valid;
-        int year, mon, day;
+        int year, mon, day, wday;
         string dte;
 
         void values_from_dd_mm_yyyy(string dte, int &year, int &mon, int &day);

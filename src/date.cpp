@@ -17,7 +17,7 @@ Date::Date(string dte) {
     else
     {
         this->dte = dte;
-        year = mon = day = -1;
+        year = mon = day = wday = -1;
         valid = false;
         return;
     }
@@ -36,6 +36,7 @@ Date::Date(string dte) {
 
     if (local->tm_year == year_val || local->tm_mon == mon_val || local->tm_mday == day)
     {
+        wday = local->tm_wday;
         valid = true;
     } else {
         valid = false;
@@ -49,6 +50,10 @@ bool Date::is_valid() { return valid; }
 int Date::get_year() { return year; }
 
 int Date::get_month() { return mon; }
+
+int Date::get_day() { return day; }
+
+int Date::get_wday() { return wday; }
 
 void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
 {
