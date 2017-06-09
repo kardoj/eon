@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
 
     set_date_and_time(dte, tme);
     if (!command_is(INIT, argv)) configuration = Configuration();
+
     if (command_is(ADD, argv))
     {
         cout << "Running the add command" << endl;
