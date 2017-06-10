@@ -1,0 +1,20 @@
+#ifndef CRUDITEM_H
+#define CRUDITEM_H
+
+#include <string>
+
+using namespace std;
+
+class CrudItem
+{
+    public:
+        CrudItem();
+        virtual ~CrudItem();
+
+    protected:
+        static const unsigned MAX_ID_LENGTH = 13;
+
+        static string get_next_id_and_increment(string path, string file_open_error);
+};
+
+#endif // CRUDITEM_H

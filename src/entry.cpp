@@ -44,7 +44,8 @@ bool Entry::add(string start_time, string end_time, string description, string d
 
     if (fp != NULL)
     {
-        string id = get_next_id_and_increment();
+        string id = get_next_id_and_increment(Tree::ENTRIES_ID_FILE,
+                                              string("There was a problem opening entries id file. Nothing to do."));
         if (id.compare("-1") == 0) return false;
 
         char p_id[MAX_ID_LENGTH], minutes[MAX_MINUTES_LENGTH];
@@ -72,24 +73,7 @@ bool Entry::add(string start_time, string end_time, string description, string d
     return true;
 }
 
-string Entry::get_next_id_and_increment()
+string Entry::get_next_id_and_increment(string path, string file_open_error)
 {
-    char id[MAX_ID_LENGTH];
-    char next_id[MAX_ID_LENGTH];
-
-    FILE *fp = fopen(Tree::ENTRIES_ID_FILE, "r+");
-    if (fp != NULL)
-    {
-        fgets(id, MAX_ID_LENGTH, fp);
-        sprintf(next_id, "%d", atoi(id) + 1);
-        rewind(fp);
-        fputs(next_id, fp);
-        fclose(fp);
-        return string(id);
-    }
-    else
-    {
-        cout << "There was a problem opening entries id file. Nothing to do." << endl;
-        return string("-1");
-    }
+    return CrudItem::get_next_id_and_increment(path, file_open_error);
 }
