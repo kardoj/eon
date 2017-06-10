@@ -2,6 +2,8 @@
 
 Eon is a command line tool for task time management and statistics. Data is saved in the filesystem. Eon is inspired by git command line tool.
 
+The project is at a very early stage at the moment and only suitable for testing. I'd like to think that the file and row structure is mostly in place but most everything is subject to rapid change.
+
 ### Usage
 `eon init` creates a new eon directory in the current directory. Eon will create a directory called `eondata` which will contain all its files.
 
