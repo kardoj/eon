@@ -25,7 +25,6 @@ bool Entry::add(string start_time, string end_time, string description, string d
     int dy = d.get_day();
     int wdy = d.get_wday();
 
-    // TODO: see if it is possible to assing to c_str()
     char year[5], month[3], day[3], wday[2];
     sprintf(year, "%d", y);
     sprintf(month, "%d", m);
@@ -45,7 +44,7 @@ bool Entry::add(string start_time, string end_time, string description, string d
 
     if (fp != NULL)
     {
-        string id = get_next_id_and_increase();
+        string id = get_next_id_and_increment();
         if (id.compare("-1") == 0) return false;
 
         char p_id[MAX_ID_LENGTH], minutes[MAX_MINUTES_LENGTH];
@@ -73,7 +72,7 @@ bool Entry::add(string start_time, string end_time, string description, string d
     return true;
 }
 
-string Entry::get_next_id_and_increase()
+string Entry::get_next_id_and_increment()
 {
     char id[MAX_ID_LENGTH];
     char next_id[MAX_ID_LENGTH];

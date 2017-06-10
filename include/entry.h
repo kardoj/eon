@@ -16,7 +16,7 @@ class Entry
         static const int MAX_ID_LENGTH = 13;
         static const int MAX_MINUTES_LENGTH = 5;
 
-        static string get_next_id_and_increase();
+        static string get_next_id_and_increment();
 };
 
 #endif // ENTRY_H
