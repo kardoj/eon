@@ -78,25 +78,25 @@ bool Project::exists(string project_id_or_name, int &project_id)
     }
 }
 
-bool Project::list_projects(Configuration &config)
+bool Project::list(int selected_project_id)
 {
-    FILE *fp;
-    fp = fopen(Tree::PROJECTS_FILE, "r");
+    FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
+
     if (fp != NULL)
     {
         char row[MAX_PROJECT_ROW_LENGTH], output_row[MAX_PROJECT_ROW_LENGTH];
-        int id_end, name_end;
+        int name_start;
         string id, name, row_str, selected;
+
         while(!feof(fp))
         {
             if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
             row_str = string(row);
-            id_end = row_str.find_first_of(" ");
-            name_end = row_str.substr(id_end + 1).find_last_of("\"");
-            id = row_str.substr(0, id_end);
-            name = row_str.substr(id_end + 2, name_end - id_end);
+            id = row_str.substr(0, row_str.find_first_of(" "));
+            name_start = row_str.find_first_of("\"") + 1;
+            name = row_str.substr(name_start, row_str.find_last_of("\"") - name_start);
 
-            if (atoi(id.c_str()) == config.get_project_id())
+            if (atoi(id.c_str()) == selected_project_id)
             {
                 selected = "*";
             }

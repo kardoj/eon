@@ -15,7 +15,7 @@ class Project : protected CrudItem
         virtual ~Project();
         static bool add(char name[]);
         static bool exists(string project_id_or_name, int &project_id);
-        static bool list_projects(Configuration &config);
+        static bool list(int selected_project_id);
 
         static string get_next_id_and_increment(string path, string file_open_error);
 };

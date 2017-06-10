@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     }
     else if (command_is(PROJECTS, argv))
     {
-        Project::list_projects(configuration);
+        Project::list(configuration.get_project_id());
     }
     else if (command_is(DATE, argv))
     {
