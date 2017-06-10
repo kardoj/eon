@@ -20,7 +20,7 @@ Both the -p/--project and -d/--date can also be set with one `set` command. Orde
 
 `eon date` - shows the currently set date.
 
-`eon add 12 14 "Improving stability"` - creates a new entry in `eondata/entries/2017/6/10.txt` using the date and project from the configuration file.
+`eon add 12 14 "Improving stability"` - creates a new entry in `eondata/entries/<year>/<month>.txt` using the date and project from the configuration file.
 
 `eon add 25.05.2017 "eon" 22.30 23.30 "Improving stability"` - creates a new entry similarly to the shorter `add` command but uses the supplied date and project.
 

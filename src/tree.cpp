@@ -81,17 +81,3 @@ void Tree::ensure_year_dir(string year)
         closedir(d);
     }
 }
-
-void Tree::ensure_month_dir(string year, string month)
-{
-    string path = string(ENTRIES_DIR) + "/" + year + "/" + month;
-    DIR *d = opendir(path.c_str());
-    if (d == NULL)
-    {
-        mkdir(path.c_str());
-    }
-    else
-    {
-        closedir(d);
-    }
-}

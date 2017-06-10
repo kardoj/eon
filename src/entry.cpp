@@ -43,23 +43,19 @@ bool Entry::add(string dte, string project_id_or_name, string start_time, string
 
     int y = d.get_year();
     int m = d.get_month();
-    int dy = d.get_day();
     int wdy = d.get_wday();
 
-    char year[5], month[3], day[3], wday[2];
+    char year[5], month[3], wday[2];
     sprintf(year, "%d", y);
     sprintf(month, "%d", m);
-    sprintf(day, "%d", dy);
     sprintf(wday, "%d", wdy);
 
     string year_str = string(year);
-    string mon_str = string(month);
 
     Tree::ensure_year_dir(year_str);
-    Tree::ensure_month_dir(year_str, mon_str);
 
     string datetime = Date::current_date_with_time();
-    string path = string(Tree::ENTRIES_DIR) + "/" + year_str + "/" + mon_str + "/" + string(day) + ".txt";
+    string path = string(Tree::ENTRIES_DIR) + "/" + year_str + "/" + string(month) + ".txt";
 
     FILE *fp = fopen(path.c_str(), "a");
 
