@@ -5,7 +5,7 @@
 #include "configuration.h"
 #include "cruditem.h"
 
-class Project : protected CrudItem
+class Project : public CrudItem
 {
     public:
         static const char *DEFAULT_PROJECT_NAME;

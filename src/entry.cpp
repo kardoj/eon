@@ -2,6 +2,7 @@
 #include "date.h"
 #include "entry.h"
 #include "period.h"
+#include "project.h"
 #include "tree.h"
 
 using namespace std;
@@ -9,7 +10,7 @@ using namespace std;
 Entry::Entry() {}
 Entry::~Entry() {}
 
-bool Entry::add(string start_time, string end_time, string description, string dte, int project_id)
+bool Entry::add(string dte, string project_id_or_name, string start_time, string end_time, string description)
 {
     Period period = Period(start_time, end_time);
 
@@ -20,6 +21,26 @@ bool Entry::add(string start_time, string end_time, string description, string d
     }
 
     Date d = Date(dte);
+
+    if (!d.is_valid())
+    {
+        cout << "Invalid date entered. Nothing to do." << endl;
+        return false;
+    }
+
+    int p_id;
+    char project_id[MAX_ID_LENGTH];
+
+    if (Project::exists(project_id_or_name, p_id))
+    {
+        sprintf(project_id, "%d", p_id);
+    }
+    else
+    {
+        cout << "Project with id or name \"" << project_id_or_name << "\" does not exist. Nothing to do." << endl;
+        return false;
+    }
+
     int y = d.get_year();
     int m = d.get_month();
     int dy = d.get_day();
@@ -48,14 +69,13 @@ bool Entry::add(string start_time, string end_time, string description, string d
                                               string("There was a problem opening entries id file. Nothing to do."));
         if (id.compare("-1") == 0) return false;
 
-        char p_id[MAX_ID_LENGTH], minutes[MAX_MINUTES_LENGTH];
-        sprintf(p_id, "%d", project_id);
+        char minutes[MAX_MINUTES_LENGTH];
         sprintf(minutes, "%d", period.minutes());
         string entry =
             id + " " +
             dte + " " +
             wday + " " +
-            string(p_id) + " " +
+            string(project_id) + " " +
             start_time + " " +
             end_time + " " +
             string(minutes) + " " +
