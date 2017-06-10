@@ -14,7 +14,6 @@ class Entry : protected CrudItem
         static bool add(string start_time, string end_time, string description, string dte, int project_id);
 
     private:
-        static const int MAX_ID_LENGTH = 13;
         static const int MAX_MINUTES_LENGTH = 5;
 
         static string get_next_id_and_increment(string path, string file_open_error);
