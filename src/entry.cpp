@@ -64,13 +64,13 @@ bool Entry::add(string start_time, string end_time, string description, string d
             datetime + "\n";
         fputs(entry.c_str(), fp);
         fclose(fp);
+        return true;
     }
     else
     {
         cout << "Something went wrong while opening the entry file." << endl;
         return false;
     }
-    return true;
 }
 
 string Entry::get_next_id_and_increment(string path, string file_open_error)
