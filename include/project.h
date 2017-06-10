@@ -3,8 +3,9 @@
 
 #include <string>
 #include "configuration.h"
+#include "cruditem.h"
 
-class Project
+class Project : protected CrudItem
 {
     public:
         static const char *DEFAULT_PROJECT_NAME;
@@ -15,6 +16,8 @@ class Project
         static bool add(char name[]);
         static bool exists(string project_id_or_name, int &project_id);
         static bool list_projects(Configuration &config);
+
+        static string get_next_id_and_increment(string path, string file_open_error);
 };
 
 #endif // PROJECT_H

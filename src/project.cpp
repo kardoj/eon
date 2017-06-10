@@ -17,43 +17,16 @@ Project::~Project() {}
 
 bool Project::add(char name[])
 {
-    FILE *fp;
-    int id_max_length = 13;
-    char id_str[id_max_length];
-
-    // Getting the id
-    fp = fopen(Tree::PROJECTS_ID_FILE, "r");
+    FILE *fp = fopen(Tree::PROJECTS_FILE, "a");
     if (fp != NULL)
     {
-        fgets(id_str, id_max_length, fp);
-        fclose(fp);
-    }
-    else
-    {
-        return false;
-    }
+        string id = get_next_id_and_increment(Tree::PROJECTS_ID_FILE,
+                                      string("There was a problem opening projects id file. Nothing to do."));
+        if (id.compare("-1") == 0) return false;
 
-    // Saving the new project
-    fp = fopen(Tree::PROJECTS_FILE, "a");
-    if (fp != NULL)
-    {
         string datetime = Date::current_date_with_time();
-        string line = string(id_str) + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
+        string line = id + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
-        fclose(fp);
-    }
-    else
-    {
-        return false;
-    }
-
-    // Incrementing and writing the next id
-    int next_id = atoi(id_str) + 1;
-    fp = fopen(Tree::PROJECTS_ID_FILE, "w");
-    if (fp != NULL)
-    {
-        sprintf(id_str, "%d", next_id);
-        fputs(id_str, fp);
         fclose(fp);
         return true;
     }
@@ -142,4 +115,9 @@ bool Project::list_projects(Configuration &config)
         cout << "There was a problem opening the projects file.";
         return false;
     }
+}
+
+string Project::get_next_id_and_increment(string path, string file_open_error)
+{
+    return CrudItem::get_next_id_and_increment(path, file_open_error);
 }
