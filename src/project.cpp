@@ -21,7 +21,7 @@ bool Project::add(char name[])
     if (fp != NULL)
     {
         string id = get_next_id_and_increment(Tree::PROJECTS_ID_FILE,
-                                      string("There was a problem opening projects id file. Nothing to do."));
+                                              string("There was a problem opening projects id file. Nothing to do."));
         if (id.compare("-1") == 0) return false;
 
         string datetime = Date::current_date_with_time();
