@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-                cout << "Something went wrong while setting up eon." << endl;
+                cout << "Could not create the required directories." << endl;
             }
         }
     }

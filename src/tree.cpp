@@ -33,11 +33,6 @@ bool Tree::init() {
     bool projects_id = create_file((char*) PROJECTS_ID_FILE, (char*) "1");
     bool projects_file = create_file((char*) PROJECTS_FILE, (char*) "");
 
-    string datetime = Date::current_date_with_time();
-    char dte[11], tme[9];
-    sprintf(dte, "%s", datetime.substr(1, 10).c_str());
-    sprintf(tme, "%s", datetime.substr(11, datetime.size() - 1).c_str());
-
     bool first_project = Project::add((char*) Project::DEFAULT_PROJECT_NAME);
 
     bool entries_id = create_file((char*) ENTRIES_ID_FILE, (char*) "1");
@@ -45,15 +40,15 @@ bool Tree::init() {
     // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
     int initial_config_length = 30;
     char config_str[initial_config_length];
-    initial_config_str(dte, config_str);
+    initial_config_str(Date::current_date(), config_str);
     bool config = create_file((char*) CONFIG_FILE, config_str);
 
     return projects_id && projects_file && first_project && entries_id && config;
 }
 
-void Tree::initial_config_str(char dte[], char *return_str)
+void Tree::initial_config_str(string dte, char *return_str)
 {
-    sprintf(return_str, "date=%s\nproject_id=1\n", dte);
+    sprintf(return_str, "date=%s\nproject_id=1\n", dte.c_str());
 }
 
 bool Tree::create_file(char path[], char data[]) {

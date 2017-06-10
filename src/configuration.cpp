@@ -22,11 +22,10 @@ Configuration::~Configuration() {}
 
 void Configuration::read()
 {
-    FILE *fp;
     char row[MAX_CONFIG_ROW_LENGTH];
     string row_str, key, value;
 
-    fp = fopen(Tree::CONFIG_FILE, "r");
+    FILE *fp = fopen(Tree::CONFIG_FILE, "r");
     if (fp != NULL)
     {
         while(!feof(fp))

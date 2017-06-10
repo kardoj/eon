@@ -93,3 +93,13 @@ string Date::current_date_with_time()
     return string(dt) + "_" + string(tme);
 }
 
+string Date::current_date()
+{
+    time_t t = time(0);
+    tm *local = localtime(&t);
+    char dt[11];
+    sprintf(dt, "%d-%02d-%02d", local->tm_year + 1900, local->tm_mon + 1, local->tm_mday);
+
+    return string(dt);
+}
+
