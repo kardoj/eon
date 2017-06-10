@@ -25,6 +25,7 @@ bool Entry::add(string start_time, string end_time, string description, string d
     int dy = d.get_day();
     int wdy = d.get_wday();
 
+    // TODO: see if it is possible to assing to c_str()
     char year[5], month[3], day[3], wday[2];
     sprintf(year, "%d", y);
     sprintf(month, "%d", m);
@@ -40,31 +41,18 @@ bool Entry::add(string start_time, string end_time, string description, string d
     string datetime = Date::current_date_with_time();
     string path = string(Tree::ENTRIES_DIR) + "/" + year_str + "/" + mon_str + "/" + string(day) + ".txt";
 
-    FILE *fp;
-    int max_id_length = 13;
-    char id[max_id_length];
-
-    fp = fopen(Tree::ENTRIES_ID_FILE, "r");
-    if (fp != NULL)
-    {
-        fgets(id, max_id_length, fp);
-        fclose(fp);
-    }
-    else
-    {
-        cout << "There was a problem opening entries id file. Nothing to do." << endl;
-        return false;
-    }
-
-    fp = fopen(path.c_str(), "a");
+    FILE *fp = fopen(path.c_str(), "a");
 
     if (fp != NULL)
     {
-        char p_id[max_id_length], minutes[max_id_length];
+        string id = get_next_id_and_increase();
+        if (id.compare("-1") == 0) return false;
+
+        char p_id[MAX_ID_LENGTH], minutes[MAX_MINUTES_LENGTH];
         sprintf(p_id, "%d", project_id);
         sprintf(minutes, "%d", period.minutes());
         string entry =
-            string(id) + " " +
+            id + " " +
             dte + " " +
             wday + " " +
             string(p_id) + " " +
@@ -82,19 +70,27 @@ bool Entry::add(string start_time, string end_time, string description, string d
         cout << "Something went wrong while opening the entry file." << endl;
         return false;
     }
+    return true;
+}
 
-    fp = fopen(Tree::ENTRIES_ID_FILE, "w");
+string Entry::get_next_id_and_increase()
+{
+    char id[MAX_ID_LENGTH];
+    char next_id[MAX_ID_LENGTH];
+
+    FILE *fp = fopen(Tree::ENTRIES_ID_FILE, "r+");
     if (fp != NULL)
     {
-        int id_int = atoi(id) + 1;
-        sprintf(id, "%d", id_int);
-        fputs(id, fp);
+        fgets(id, MAX_ID_LENGTH, fp);
+        sprintf(next_id, "%d", atoi(id) + 1);
+        rewind(fp);
+        fputs(next_id, fp);
         fclose(fp);
+        return string(id);
     }
     else
     {
-        return false;
+        cout << "There was a problem opening entries id file. Nothing to do." << endl;
+        return string("-1");
     }
-
-    return true;
 }
