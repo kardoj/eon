@@ -21,14 +21,17 @@ class Configuration
         string get_date();
         bool set_date(string dte);
         int get_project_id();
+        bool has_been_read();
         void read();
         bool set_project_id(string project_id_or_name);
         bool set_from_param(string key, string value);
         bool write();
 
     private:
-        string dte;
+        // If the configuration file has been read
+        bool hb_read;
         int project_id;
+        string dte;
 };
 
 #endif // CONFIGURATION_H

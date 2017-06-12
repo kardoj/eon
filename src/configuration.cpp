@@ -13,7 +13,10 @@ const string Configuration::DATE_PARAM_KEY_SHORT = "-d";
 const string Configuration::PROJECT_PARAM_KEY = "--project";
 const string Configuration::PROJECT_PARAM_KEY_SHORT = "-p";
 
-Configuration::Configuration() {}
+Configuration::Configuration() {
+    hb_read = false;
+}
+
 Configuration::~Configuration() {}
 
 void Configuration::read()
@@ -52,6 +55,7 @@ void Configuration::read()
             }
         }
         fclose(fp);
+        hb_read = true;
     }
     else
     {
@@ -132,4 +136,9 @@ bool Configuration::set_date(string dte)
         cout << string("\"") + dte + string("\" is not a valid date.");
         return false;
     }
+}
+
+bool Configuration::has_been_read()
+{
+    return hb_read;
 }

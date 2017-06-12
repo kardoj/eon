@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "entry.h"
 #include "eon.h"
 #include "project.h"
@@ -10,6 +11,7 @@ using namespace std;
 Eon::Eon(int argc, char *argv[]) {
     this->argc = argc;
     this->argv = argv;
+    Configuration configuration = Configuration();
 }
 
 Eon::~Eon() {}
@@ -78,11 +80,9 @@ bool Eon::add_project()
         cout << "New project \"" << argv[2] << "\" was added." << endl;
         return true;
     }
-    else
-    {
-        cout << "There was a problem adding a new project." << endl;
-        return false;
-    }
+
+    cout << "There was a problem adding a new project." << endl;
+    return false;
 }
 
 bool Eon::list_projects(int project_id)
@@ -95,4 +95,57 @@ bool Eon::display_set_date(string dte)
 {
     cout << "Currently set date: " << dte << endl;
     return true;
+}
+
+bool Eon::set_parameters()
+{
+    if (argc == 2)
+    {
+        cout << "No parameters supplied to set. Nothing to do." << endl;
+        return false;
+    }
+
+    vector<string> keys, values;
+
+    unsigned next, argc_u;
+    argc_u = argc;
+    for(unsigned i = 2; i < argc_u; i++)
+    {
+        next = i + 1;
+        if (next < argc_u)
+        {
+            keys.push_back(argv[i]);
+            values.push_back(argv[next]);
+            i = next;
+        }
+        else
+        {
+            cout << "Parsing the parameters failed. Nothing to do." << endl;
+            return false;
+        }
+    }
+
+    unsigned key_count = keys.size();
+    unsigned updated = 0;
+
+    for (unsigned i = 0; i < key_count; i++)
+    {
+        if (configuration.set_from_param(keys.at(i), values.at(i))) updated++;
+    }
+
+    if (updated > 0 && configuration.write())
+    {
+        cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
+        return true;
+    }
+    return false;
+}
+
+Configuration Eon::get_configuration()
+{
+    if (!configuration.has_been_read())
+    {
+        configuration.read();
+    }
+    return configuration;
 }

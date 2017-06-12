@@ -74,44 +74,8 @@ int main(int argc, char *argv[])
     }
     else if (command_is(SET, argv))
     {
-        if (argc == 2)
-        {
-            cout << "No parameters supplied to set. Nothing to do." << endl;
-            return 0;
-        }
-
-        vector<string> keys, values;
-
-        unsigned next, argc_u;
-        argc_u = argc;
-        for(unsigned i = 2; i < argc_u; i++)
-        {
-            next = i + 1;
-            if (next < argc_u)
-            {
-                keys.push_back(argv[i]);
-                values.push_back(argv[next]);
-                i = next;
-            }
-            else
-            {
-                cout << "Parsing the parameters failed. Nothing to do." << endl;
-                return 0;
-            }
-        }
-
-        unsigned key_count = keys.size();
-        unsigned updated = 0;
-
-        for (unsigned i = 0; i < key_count; i++)
-        {
-            if (configuration.set_from_param(keys.at(i), values.at(i))) updated++;
-        }
-
-        if (updated > 0 && configuration.write())
-        {
-            cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
-        }
+        eon.set_parameters();
+        return 0;
     }
     else
     {
