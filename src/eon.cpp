@@ -7,10 +7,14 @@
 
 using namespace std;
 
-Eon::Eon() {}
+Eon::Eon(int argc, char *argv[]) {
+    this->argc = argc;
+    this->argv = argv;
+}
+
 Eon::~Eon() {}
 
-bool Eon::init(int argc, char *argv[])
+bool Eon::init()
 {
     if (Tree::is_eon_dir())
     {
@@ -29,7 +33,7 @@ bool Eon::init(int argc, char *argv[])
     }
 }
 
-bool Eon::add_entry(int argc, char *argv[], string dte, int project_id)
+bool Eon::add_entry(string dte, int project_id)
 {
     if (argc == 5)
     {
@@ -61,7 +65,7 @@ bool Eon::add_entry(int argc, char *argv[], string dte, int project_id)
     return false;
 }
 
-bool Eon::add_project(int argc, char *argv[])
+bool Eon::add_project()
 {
     if (argc < 3)
     {

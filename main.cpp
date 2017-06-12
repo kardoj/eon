@@ -29,7 +29,7 @@ bool command_is(string command, char *argv[])
 int main(int argc, char *argv[])
 {
     Configuration configuration = Configuration();
-    Eon eon = Eon();
+    Eon eon = Eon(argc, argv);
 
     setlocale(LC_CTYPE, "");
 
@@ -49,17 +49,17 @@ int main(int argc, char *argv[])
 
     if (command_is(ADD, argv))
     {
-        eon.add_entry(argc, argv, configuration.get_date(), configuration.get_project_id());
+        eon.add_entry(configuration.get_date(), configuration.get_project_id());
         return 0;
     }
     else if (command_is(INIT, argv))
     {
-        eon.init(argc, argv);
+        eon.init();
         return 0;
     }
     else if (command_is(ADD_PROJECT, argv))
     {
-        eon.add_project(argc, argv);
+        eon.add_project();
         return 0;
     }
     else if (command_is(PROJECTS, argv))
