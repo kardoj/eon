@@ -10,6 +10,7 @@ class Eon
         virtual ~Eon();
         bool add_entry(string dte, int project_id);
         bool add_project();
+        bool display_set_date(string dte);
         bool init();
         bool list_projects(int project_id);
 

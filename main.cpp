@@ -69,7 +69,8 @@ int main(int argc, char *argv[])
     }
     else if (command_is(DATE, argv))
     {
-        cout << "Currently set date: " << configuration.get_date() << endl;
+        eon.display_set_date(configuration.get_date());
+        return 0;
     }
     else if (command_is(SET, argv))
     {
