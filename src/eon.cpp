@@ -84,3 +84,9 @@ bool Eon::add_project()
         return false;
     }
 }
+
+bool Eon::list_projects(int project_id)
+{
+    Project::list(project_id);
+    return true;
+}

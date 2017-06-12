@@ -11,6 +11,7 @@ class Eon
         bool add_entry(string dte, int project_id);
         bool add_project();
         bool init();
+        bool list_projects(int project_id);
 
     private:
         int argc;

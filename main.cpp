@@ -64,7 +64,8 @@ int main(int argc, char *argv[])
     }
     else if (command_is(PROJECTS, argv))
     {
-        Project::list(configuration.get_project_id());
+        eon.list_projects(configuration.get_project_id());
+        return 0;
     }
     else if (command_is(DATE, argv))
     {
