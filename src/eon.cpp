@@ -35,14 +35,14 @@ bool Eon::init()
     }
 }
 
-bool Eon::add_entry(string dte, int project_id)
+bool Eon::add_entry()
 {
     if (argc == 5)
     {
         char p_id[Project::MAX_ID_LENGTH];
-        sprintf(p_id, "%d", project_id);
+        sprintf(p_id, "%d", get_configuration().get_project_id());
 
-        if (Entry::add(dte, p_id, argv[2], argv[3], argv[4]))
+        if (Entry::add(get_configuration().get_date(), p_id, argv[2], argv[3], argv[4]))
         {
             cout << "A new entry was added: TODO: show by id" << endl;
             return true;
@@ -85,15 +85,15 @@ bool Eon::add_project()
     return false;
 }
 
-bool Eon::list_projects(int project_id)
+bool Eon::list_projects()
 {
-    Project::list(project_id);
+    Project::list(get_configuration().get_project_id());
     return true;
 }
 
-bool Eon::display_set_date(string dte)
+bool Eon::display_set_date()
 {
-    cout << "Currently set date: " << dte << endl;
+    cout << "Currently set date: " << get_configuration().get_date() << endl;
     return true;
 }
 
@@ -127,13 +127,14 @@ bool Eon::set_parameters()
 
     unsigned key_count = keys.size();
     unsigned updated = 0;
+    Configuration conf = get_configuration();
 
     for (unsigned i = 0; i < key_count; i++)
     {
-        if (configuration.set_from_param(keys.at(i), values.at(i))) updated++;
+        if (conf.set_from_param(keys.at(i), values.at(i))) updated++;
     }
 
-    if (updated > 0 && configuration.write())
+    if (updated > 0 && conf.write())
     {
         cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
         return true;

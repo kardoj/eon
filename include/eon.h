@@ -9,18 +9,18 @@ class Eon
     public:
         Eon(int argc, char *argv[]);
         virtual ~Eon();
-        bool add_entry(string dte, int project_id);
+        bool add_entry();
         bool add_project();
-        bool display_set_date(string dte);
+        bool display_set_date();
         bool init();
-        bool list_projects(int project_id);
+        bool list_projects();
         bool set_parameters();
 
     private:
         int argc;
         char **argv;
         Configuration configuration;
-        // Reads the configuration if it has not been read yet. This should be used for accessing the configuration.
+
         Configuration get_configuration();
 };
 
