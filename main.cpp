@@ -54,20 +54,8 @@ int main(int argc, char *argv[])
     }
     else if (command_is(INIT, argv))
     {
-        if (Tree::is_eon_dir())
-        {
-            cout << "Directory is already an eon directory." << endl;
-        }
-        else
-        {
-            if (Tree::init()) {
-                cout << "Created a new eon directory." << endl;
-            }
-            else
-            {
-                cout << "Could not create the required directories." << endl;
-            }
-        }
+        eon.init(argc, argv);
+        return 0;
     }
     else if (command_is(ADD_PROJECT, argv))
     {

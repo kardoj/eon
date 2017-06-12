@@ -3,11 +3,31 @@
 #include "entry.h"
 #include "eon.h"
 #include "project.h"
+#include "tree.h"
 
 using namespace std;
 
 Eon::Eon() {}
 Eon::~Eon() {}
+
+bool Eon::init(int argc, char *argv[])
+{
+    if (Tree::is_eon_dir())
+    {
+        cout << "Directory is already an eon directory." << endl;
+        return false;
+    }
+
+    if (Tree::init()) {
+        cout << "Created a new eon directory." << endl;
+        return true;
+    }
+    else
+    {
+        cout << "Could not create the required directories." << endl;
+        return false;
+    }
+}
 
 bool Eon::add_entry(int argc, char *argv[], string dte, int project_id)
 {

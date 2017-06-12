@@ -9,6 +9,7 @@ class Eon
         Eon();
         virtual ~Eon();
         bool add_entry(int argc, char *argv[], string dte, int project_id);
+        bool init(int argc, char *argv[]);
 };
 
 #endif // EON_H
