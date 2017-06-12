@@ -27,24 +27,23 @@ bool command_is(string command, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    Configuration configuration;
+    Configuration configuration = Configuration();
 
     setlocale(LC_CTYPE, "");
 
-    // The first argument is always the program name
     if (argc < 2)
     {
         cout << "No command entered, nothing to do." << endl;
         return 0;
     }
 
-    if (!command_is(INIT, argv) && !Tree::is_eon_dir())
+    if (!Tree::is_eon_dir() && !command_is(INIT, argv))
     {
         cout << "Directory is not an eon directory.\nRun eon init to make it one." << endl;
         return 0;
     }
 
-    if (!command_is(INIT, argv)) configuration = Configuration();
+    if (!command_is(INIT, argv)) configuration.read();
 
     if (command_is(ADD, argv))
     {

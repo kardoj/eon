@@ -21,6 +21,7 @@ class Configuration
         string get_date();
         bool set_date(string dte);
         int get_project_id();
+        void read();
         bool set_project_id(string project_id_or_name);
         bool set_from_param(string key, string value);
         bool write();
@@ -28,7 +29,6 @@ class Configuration
     private:
         string dte;
         int project_id;
-        void read();
 };
 
 #endif // CONFIGURATION_H

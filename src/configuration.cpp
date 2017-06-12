@@ -13,11 +13,7 @@ const string Configuration::DATE_PARAM_KEY_SHORT = "-d";
 const string Configuration::PROJECT_PARAM_KEY = "--project";
 const string Configuration::PROJECT_PARAM_KEY_SHORT = "-p";
 
-Configuration::Configuration()
-{
-    read();
-}
-
+Configuration::Configuration() {}
 Configuration::~Configuration() {}
 
 void Configuration::read()
