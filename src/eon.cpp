@@ -60,3 +60,23 @@ bool Eon::add_entry(int argc, char *argv[], string dte, int project_id)
          << endl;
     return false;
 }
+
+bool Eon::add_project(int argc, char *argv[])
+{
+    if (argc < 3)
+    {
+        cout << "No project name entered, nothing to do." << endl;
+        return false;
+    }
+
+    if (Project::add(argv[2]))
+    {
+        cout << "New project \"" << argv[2] << "\" was added." << endl;
+        return true;
+    }
+    else
+    {
+        cout << "There was a problem adding a new project." << endl;
+        return false;
+    }
+}

@@ -59,21 +59,8 @@ int main(int argc, char *argv[])
     }
     else if (command_is(ADD_PROJECT, argv))
     {
-        if (argc < 3)
-        {
-            cout << "No project name entered, nothing to do." << endl;
-        }
-        else
-        {
-            if (Project::add(argv[2]))
-            {
-                cout << "New project \"" << argv[2] << "\" was added." << endl;
-            }
-            else
-            {
-                cout << "There was a problem adding a new project." << endl;
-            }
-        }
+        eon.add_project(argc, argv);
+        return 0;
     }
     else if (command_is(PROJECTS, argv))
     {
