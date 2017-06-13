@@ -15,7 +15,7 @@ const char *Project::DEFAULT_PROJECT_NAME = "General";
 Project::Project() {}
 Project::~Project() {}
 
-bool Project::add(char name[])
+bool Project::add(const char name[])
 {
     FILE *fp = fopen(Tree::PROJECTS_FILE, "a");
     if (fp != NULL)

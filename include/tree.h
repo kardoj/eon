@@ -21,7 +21,7 @@ class Tree
         static void ensure_year_dir(string year);
 
     private:
-        static bool create_file(char path[], char data[]);
+        static bool create_file(const char path[], const char data[]);
         static void initial_config_str(string, char *return_str);
 };
 

@@ -30,18 +30,18 @@ bool Tree::init() {
     mkdir(ENTRIES_DIR);
     mkdir(PROJECTS_DIR);
 
-    bool projects_id = create_file((char*) PROJECTS_ID_FILE, (char*) "1");
-    bool projects_file = create_file((char*) PROJECTS_FILE, (char*) "");
+    bool projects_id = create_file(PROJECTS_ID_FILE, "1");
+    bool projects_file = create_file(PROJECTS_FILE, "");
 
-    bool first_project = Project::add((char*) Project::DEFAULT_PROJECT_NAME);
+    bool first_project = Project::add(Project::DEFAULT_PROJECT_NAME);
 
-    bool entries_id = create_file((char*) ENTRIES_ID_FILE, (char*) "1");
+    bool entries_id = create_file(ENTRIES_ID_FILE, "1");
 
     // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
     int initial_config_length = 30;
     char config_str[initial_config_length];
     initial_config_str(Date::current_date(), config_str);
-    bool config = create_file((char*) CONFIG_FILE, config_str);
+    bool config = create_file(CONFIG_FILE, config_str);
 
     return projects_id && projects_file && first_project && entries_id && config;
 }
@@ -51,7 +51,7 @@ void Tree::initial_config_str(string dte, char *return_str)
     sprintf(return_str, "date=%s\nproject_id=1\n", dte.c_str());
 }
 
-bool Tree::create_file(char path[], char data[]) {
+bool Tree::create_file(const char path[], const char data[]) {
     FILE *fp;
     fp = fopen(path, "w");
     if (fp != NULL)
