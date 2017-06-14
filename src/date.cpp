@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Date::Date(string dte) {
+Date::Date(const string dte) {
     if (regex_match(dte, DATE_FORMAT_YYYY_MM_DD))
     {
         values_from_yyyy_mm_dd(dte, year, mon, day);
@@ -55,7 +55,7 @@ int Date::get_day() { return day; }
 
 int Date::get_wday() { return wday; }
 
-void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
+void Date::values_from_yyyy_mm_dd(const string dte, int &year, int &mon, int &day)
 {
     int mon_start = dte.find_first_of("-");
     int day_start = dte.find_last_of("-");
@@ -65,7 +65,7 @@ void Date::values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day)
     day = atoi(dte.substr(day_start + 1).c_str());
 }
 
-void Date::values_from_dd_mm_yyyy(string dte, int &year, int &mon, int &day)
+void Date::values_from_dd_mm_yyyy(const string dte, int &year, int &mon, int &day)
 {
     int mon_start = dte.find_first_of(".") + 1;
     int year_start = dte.find_last_of(".") + 1;

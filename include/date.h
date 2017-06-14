@@ -9,7 +9,7 @@ using namespace std;
 class Date
 {
     public:
-        Date(string dte);
+        Date(const string dte);
         virtual ~Date();
         bool is_valid();
         string yyyy_mm_dd();
@@ -27,8 +27,8 @@ class Date
         int year, mon, day, wday;
         string dte;
 
-        void values_from_dd_mm_yyyy(string dte, int &year, int &mon, int &day);
-        void values_from_yyyy_mm_dd(string dte, int &year, int &mon, int &day);
+        void values_from_dd_mm_yyyy(const string dte, int &year, int &mon, int &day);
+        void values_from_yyyy_mm_dd(const string dte, int &year, int &mon, int &day);
 };
 
 #endif // DATE_H
