@@ -18,11 +18,11 @@ class Tree
         virtual ~Tree();
         static bool init();
         static bool is_eon_dir();
-        static void ensure_year_dir(string year);
+        static void ensure_year_dir(const string year);
 
     private:
         static bool create_file(const char path[], const char data[]);
-        static void initial_config_str(string, char *return_str);
+        static void initial_config_str(const string, char *return_str);
 };
 
 #endif // TREE_H

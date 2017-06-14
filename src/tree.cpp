@@ -46,7 +46,7 @@ bool Tree::init() {
     return projects_id && projects_file && first_project && entries_id && config;
 }
 
-void Tree::initial_config_str(string dte, char *return_str)
+void Tree::initial_config_str(const string dte, char *return_str)
 {
     sprintf(return_str, "date=%s\nproject_id=1\n", dte.c_str());
 }
@@ -63,7 +63,7 @@ bool Tree::create_file(const char path[], const char data[]) {
     return false;
 }
 
-void Tree::ensure_year_dir(string year)
+void Tree::ensure_year_dir(const string year)
 {
     string path = string(ENTRIES_DIR) + "/" + year;
     DIR *d = opendir(path.c_str());
