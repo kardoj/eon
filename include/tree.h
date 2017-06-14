@@ -22,7 +22,7 @@ class Tree
 
     private:
         static bool create_file(const char path[], const char data[]);
-        static void initial_config_str(const string, char *return_str);
+        static void initial_config_str(const string dte, char *return_str);
 };
 
 #endif // TREE_H
