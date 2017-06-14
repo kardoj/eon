@@ -26,6 +26,8 @@ Both the -p/--project and -d/--date can also be set with one `set` command. Orde
 
 ### In the making
 
+Figuring out a testing solution and testing everything that has been implemented so far.
+
 `eon updateproject <project_id|project_name|"multi word project name"> <new_name>` - Updates project name.
 
 Tracking project usage. Additional column with usage count for project which is updated accordingly when adding a new entry or removing an existing one.
