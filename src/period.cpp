@@ -2,7 +2,7 @@
 #include <regex>
 #include "period.h"
 
-Period::Period(string start_time, string end_time)
+Period::Period(const string start_time, const string end_time)
 {
     regex pattern = regex("^([0-2]\\d?):([0-5]?\\d)");
 

@@ -8,7 +8,7 @@ using namespace std;
 class Period
 {
     public:
-        Period(string start_time, string end_time);
+        Period(const string start_time, const string end_time);
         virtual ~Period();
 
         bool is_valid();
