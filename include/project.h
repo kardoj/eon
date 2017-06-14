@@ -14,10 +14,10 @@ class Project : public CrudItem
         Project();
         virtual ~Project();
         static bool add(const char name[]);
-        static bool exists(string project_id_or_name, int &project_id);
-        static bool list(int selected_project_id);
+        static bool exists(const string project_id_or_name, int &project_id);
+        static bool list(const int selected_project_id);
 
-        static string get_next_id_and_increment(string path, string file_open_error);
+        static string get_next_id_and_increment(const string path, const string file_open_error);
 };
 
 #endif // PROJECT_H

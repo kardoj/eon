@@ -36,7 +36,7 @@ bool Project::add(const char name[])
     }
 }
 
-bool Project::exists(string project_id_or_name, int &project_id)
+bool Project::exists(const string project_id_or_name, int &project_id)
 {
     FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
     if (fp != NULL)
@@ -78,7 +78,7 @@ bool Project::exists(string project_id_or_name, int &project_id)
     }
 }
 
-bool Project::list(int selected_project_id)
+bool Project::list(const int selected_project_id)
 {
     FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
 
@@ -117,7 +117,7 @@ bool Project::list(int selected_project_id)
     }
 }
 
-string Project::get_next_id_and_increment(string path, string file_open_error)
+string Project::get_next_id_and_increment(const string path, const string file_open_error)
 {
     return CrudItem::get_next_id_and_increment(path, file_open_error);
 }
