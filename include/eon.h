@@ -7,7 +7,7 @@
 class Eon
 {
     public:
-        Eon(int argc, char *argv[]);
+        Eon(const int argc, const char *argv[]);
         virtual ~Eon();
         bool add_entry();
         bool add_project();
@@ -18,7 +18,7 @@ class Eon
 
     private:
         int argc;
-        char **argv;
+        const char **argv;
         Configuration configuration;
 
         Configuration get_configuration();

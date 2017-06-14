@@ -1,3 +1,4 @@
+#include <cstring>
 #include <iostream>
 #include <string>
 
@@ -14,7 +15,7 @@ const string INIT = "init";
 const string PROJECTS = "projects";
 const string SET = "set";
 
-bool command_is(string command, char *argv[])
+bool command_is(const string command, char *argv[])
 {
     return command.compare(argv[1]) == 0;
 }
@@ -22,7 +23,7 @@ bool command_is(string command, char *argv[])
 int main(int argc, char *argv[])
 {
     setlocale(LC_CTYPE, "");
-    Eon eon = Eon(argc, argv);
+    Eon eon = Eon(argc, (const char**) argv);
 
     if (argc < 2)
     {

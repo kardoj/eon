@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Eon::Eon(int argc, char *argv[]) {
+Eon::Eon(const int argc, const char *argv[]) {
     this->argc = argc;
     this->argv = argv;
     Configuration configuration = Configuration();
