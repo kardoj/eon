@@ -13,7 +13,7 @@ class Project : public CrudItem
 
         Project();
         virtual ~Project();
-        static bool add(const char name[]);
+        static bool add(const char name[], const string datetime);
         static bool exists(const string project_id_or_name, int &project_id);
         static bool list(const int selected_project_id);
 

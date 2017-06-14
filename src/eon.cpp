@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "date.h"
 #include "entry.h"
 #include "eon.h"
 #include "project.h"
@@ -24,7 +25,7 @@ bool Eon::init()
         return false;
     }
 
-    if (Tree::init()) {
+    if (Tree::init(Date::current_date_with_time())) {
         cout << "Created a new eon directory." << endl;
         return true;
     }
@@ -75,7 +76,7 @@ bool Eon::add_project()
         return false;
     }
 
-    if (Project::add(argv[2]))
+    if (Project::add(argv[2], Date::current_date_with_time()))
     {
         cout << "New project \"" << argv[2] << "\" was added." << endl;
         return true;

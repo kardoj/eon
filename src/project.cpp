@@ -15,7 +15,7 @@ const char *Project::DEFAULT_PROJECT_NAME = "General";
 Project::Project() {}
 Project::~Project() {}
 
-bool Project::add(const char name[])
+bool Project::add(const char name[], const string datetime)
 {
     FILE *fp = fopen(Tree::PROJECTS_FILE, "a");
     if (fp != NULL)
@@ -24,7 +24,6 @@ bool Project::add(const char name[])
                                               string("There was a problem opening projects id file. Nothing to do."));
         if (id.compare("-1") == 0) return false;
 
-        string datetime = Date::current_date_with_time();
         string line = id + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);

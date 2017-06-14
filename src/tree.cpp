@@ -25,7 +25,7 @@ bool Tree::is_eon_dir() {
     return exists;
 }
 
-bool Tree::init() {
+bool Tree::init(const string datetime) {
     mkdir(ROOT_DIR);
     mkdir(ENTRIES_DIR);
     mkdir(PROJECTS_DIR);
@@ -33,14 +33,14 @@ bool Tree::init() {
     bool projects_id = create_file(PROJECTS_ID_FILE, "1");
     bool projects_file = create_file(PROJECTS_FILE, "");
 
-    bool first_project = Project::add(Project::DEFAULT_PROJECT_NAME);
+    bool first_project = Project::add(Project::DEFAULT_PROJECT_NAME, datetime);
 
     bool entries_id = create_file(ENTRIES_ID_FILE, "1");
 
     // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
     int initial_config_length = 30;
     char config_str[initial_config_length];
-    initial_config_str(Date::current_date(), config_str);
+    initial_config_str(datetime.substr(0, 11), config_str);
     bool config = create_file(CONFIG_FILE, config_str);
 
     return projects_id && projects_file && first_project && entries_id && config;
