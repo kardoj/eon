@@ -25,7 +25,7 @@ Both the -p/--project and -d/--date can also be set with one `set` command. Orde
 `eon add 25.05.2017 "eon" 22.30 23.30 "Improving stability"` - creates a new entry similarly to the shorter `add` command but uses the supplied date and project.
 
 ### Tests
-There is a (separate project)[https://github.com/kardoj/eontest] for (mostly) unit tests which includes all the files from this project and tests them method by method.
+There is a [separate project](https://github.com/kardoj/eontest) for (mostly) unit tests which includes all the files from this project and tests them method by method.
 
 ### In the making
 
