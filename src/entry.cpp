@@ -10,7 +10,12 @@ using namespace std;
 Entry::Entry() {}
 Entry::~Entry() {}
 
-bool Entry::add(string dte, string project_id_or_name, string start_time, string end_time, string description)
+bool Entry::add(
+    const string dte,
+    const string project_id_or_name,
+    const string start_time,
+    const string end_time,
+    const string description)
 {
     Period period = Period(start_time, end_time);
 
@@ -89,7 +94,7 @@ bool Entry::add(string dte, string project_id_or_name, string start_time, string
     }
 }
 
-string Entry::get_next_id_and_increment(string path, string file_open_error)
+string Entry::get_next_id_and_increment(const string path, const string file_open_error)
 {
     return CrudItem::get_next_id_and_increment(path, file_open_error);
 }
