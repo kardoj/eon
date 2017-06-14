@@ -3,8 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
 class CrudItem
 {
     public:
@@ -14,7 +12,7 @@ class CrudItem
         virtual ~CrudItem();
 
     protected:
-        static string get_next_id_and_increment(const string path, const string file_open_error);
+        static std::string get_next_id_and_increment(const std::string path, const std::string file_open_error);
 };
 
 #endif // CRUDITEM_H

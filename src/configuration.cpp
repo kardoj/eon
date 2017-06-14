@@ -8,6 +8,8 @@
 #include "project.h"
 #include "tree.h"
 
+using namespace std;
+
 const string Configuration::DATE_PARAM_KEY = "--date";
 const string Configuration::DATE_PARAM_KEY_SHORT = "-d";
 const string Configuration::PROJECT_PARAM_KEY = "--project";

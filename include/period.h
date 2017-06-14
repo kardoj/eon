@@ -3,12 +3,10 @@
 
 #include <string>
 
-using namespace std;
-
 class Period
 {
     public:
-        Period(const string start_time, const string end_time);
+        Period(const std::string start_time, const std::string end_time);
         virtual ~Period();
 
         bool is_valid();

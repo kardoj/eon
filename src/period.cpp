@@ -2,6 +2,8 @@
 #include <regex>
 #include "period.h"
 
+using namespace std;
+
 Period::Period(const string start_time, const string end_time)
 {
     regex pattern = regex("^([0-2]\\d?):([0-5]?\\d)");

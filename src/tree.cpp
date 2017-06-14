@@ -7,6 +7,8 @@
 #include "project.h"
 #include "tree.h"
 
+using namespace std;
+
 const char *Tree::ROOT_DIR = "./eondata";
 const char *Tree::CONFIG_FILE = "./eondata/config.txt";
 const char *Tree::ENTRIES_DIR = "./eondata/entries";

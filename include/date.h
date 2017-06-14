@@ -4,31 +4,29 @@
 #include <regex>
 #include <string>
 
-using namespace std;
-
 class Date
 {
     public:
-        Date(const string dte);
+        Date(const std::string dte);
         virtual ~Date();
         bool is_valid();
-        string yyyy_mm_dd();
+        std::string yyyy_mm_dd();
         int get_month();
         int get_year();
         int get_day();
         int get_wday();
-        static string current_date();
-        static string current_date_with_time();
+        static std::string current_date();
+        static std::string current_date_with_time();
 
     private:
-        const regex DATE_FORMAT_DD_MM_YYYY = regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");
-        const regex DATE_FORMAT_YYYY_MM_DD = regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?");
+        const std::regex DATE_FORMAT_DD_MM_YYYY = std::regex("^\\d\\d?.\\d\\d?.\\d\\d\\d\\d");
+        const std::regex DATE_FORMAT_YYYY_MM_DD = std::regex("^\\d\\d\\d\\d-\\d\\d?-\\d\\d?");
         bool valid;
         int year, mon, day, wday;
-        string dte;
+        std::string dte;
 
-        void values_from_dd_mm_yyyy(const string dte, int &year, int &mon, int &day);
-        void values_from_yyyy_mm_dd(const string dte, int &year, int &mon, int &day);
+        void values_from_dd_mm_yyyy(const std::string dte, int &year, int &mon, int &day);
+        void values_from_yyyy_mm_dd(const std::string dte, int &year, int &mon, int &day);
 };
 
 #endif // DATE_H
