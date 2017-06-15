@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <iostream>
 #include <stdio.h>
+#include <vector>
 
 #include "date.h"
 #include "project.h"
@@ -27,10 +28,24 @@ bool Tree::is_eon_dir() {
     return exists;
 }
 
-bool Tree::init(const string datetime) {
-    mkdir(ROOT_DIR);
-    mkdir(ENTRIES_DIR);
-    mkdir(PROJECTS_DIR);
+bool Tree::init(const string datetime, vector<string> &messages_human) {
+    if (is_eon_dir())
+    {
+        messages_human.push_back("Directory is already an eon directory.");
+        return false;
+    }
+
+    if (mkdir(ROOT_DIR) != 0)
+    {
+        messages_human.push_back("Could not create eon root directory.");
+        return false;
+    }
+
+    if (mkdir(ENTRIES_DIR) + mkdir(PROJECTS_DIR) != 0)
+    {
+        messages_human.push_back("Could not create directories for entries and/or projects.");
+        return false;
+    }
 
     bool projects_id = create_file(PROJECTS_ID_FILE, "1");
     bool projects_file = create_file(PROJECTS_FILE, "");
@@ -45,10 +60,19 @@ bool Tree::init(const string datetime) {
     initial_config_str(datetime.substr(0, 11), config_str);
     bool config = create_file(CONFIG_FILE, config_str);
 
-    return projects_id && projects_file && first_project && entries_id && config;
+    if (projects_id && projects_file && first_project && entries_id && config)
+    {
+        messages_human.push_back("Created a new eon directory.");
+        return true;
+    }
+    else
+    {
+        messages_human.push_back("Could not create the required directories.");
+        return false;
+    }
 }
 
-void Tree::initial_config_str(const string dte, char *return_str)
+void Tree::initial_config_str(const string dte, char return_str[])
 {
     sprintf(return_str, "date=%s\nproject_id=1\n", dte.c_str());
 }

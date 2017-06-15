@@ -2,6 +2,7 @@
 #define EON_H
 
 #include <string>
+#include <vector>
 #include "configuration.h"
 
 class Eon
@@ -21,6 +22,7 @@ class Eon
         const char **argv;
         Configuration configuration;
 
+        void format_output(const std::vector<std::string> rows);
         Configuration get_configuration();
 };
 

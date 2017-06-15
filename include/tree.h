@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include <string>
+#include <vector>
 
 class Tree
 {
@@ -16,8 +17,8 @@ class Tree
 
         Tree();
         virtual ~Tree();
-        static bool init(const std::string datetime);
-        static void initial_config_str(const std::string dte, char *return_str);
+        static bool init(const std::string datetime, std::vector<std::string> &messages_human);
+        static void initial_config_str(const std::string dte, char return_str[]);
         static bool is_eon_dir();
         static void ensure_year_dir(const std::string year);
 

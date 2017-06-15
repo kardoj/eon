@@ -19,21 +19,10 @@ Eon::~Eon() {}
 
 bool Eon::init()
 {
-    if (Tree::is_eon_dir())
-    {
-        cout << "Directory is already an eon directory." << endl;
-        return false;
-    }
-
-    if (Tree::init(Date::current_date_with_time())) {
-        cout << "Created a new eon directory." << endl;
-        return true;
-    }
-    else
-    {
-        cout << "Could not create the required directories." << endl;
-        return false;
-    }
+    vector<string> messages_human;
+    bool result = Tree::init(Date::current_date_with_time(), messages_human);
+    format_output(messages_human);
+    return result;
 }
 
 bool Eon::add_entry()
@@ -86,15 +75,24 @@ bool Eon::add_project()
     return false;
 }
 
-bool Eon::list_projects()
-{
-    Project::list(get_configuration().get_project_id());
-    return true;
-}
-
 bool Eon::display_set_date()
 {
     cout << "Currently set date: " << get_configuration().get_date() << endl;
+    return true;
+}
+
+void Eon::format_output(const vector<string> rows)
+{
+    unsigned row_count = rows.size();
+    for (unsigned i = 0; i < row_count; i++)
+    {
+        cout << rows.at(i) << endl;
+    }
+}
+
+bool Eon::list_projects()
+{
+    Project::list(get_configuration().get_project_id());
     return true;
 }
 
