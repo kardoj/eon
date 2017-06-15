@@ -15,6 +15,12 @@ class Tree
         static const char *PROJECTS_FILE;
         static const char *PROJECTS_ID_FILE;
 
+        static const std::string MSG_ALREADY_INITIALIZED;
+        static const std::string MSG_ENTRIES_PROJECTS_DIR_FAILURE;
+        static const std::string MSG_INIT_FAILURE;
+        static const std::string MSG_INIT_SUCCESS;
+        static const std::string MSG_ROOT_DIR_FAILURE;
+
         Tree();
         virtual ~Tree();
         static bool init(const std::string datetime, std::vector<std::string> &messages_human);
