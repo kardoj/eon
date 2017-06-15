@@ -35,6 +35,8 @@ bool Tree::is_eon_dir() {
 }
 
 bool Tree::init(const string datetime, vector<string> &messages_human) {
+    messages_human.clear();
+
     if (is_eon_dir())
     {
         messages_human.push_back(MSG_ALREADY_INITIALIZED);
