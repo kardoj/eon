@@ -28,7 +28,8 @@ class Tree
         static bool is_eon_dir();
         static void ensure_year_dir(const std::string year);
 
-    private:
+    protected:
+        static bool create_dir(const char path[]);
         static bool create_file(const char path[], const char data[]);
 };
 

@@ -43,7 +43,7 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         return false;
     }
 
-    if (mkdir(ROOT_DIR) != 0)
+    if (!create_dir(ROOT_DIR))
     {
         messages_human.push_back(MSG_ROOT_DIR_FAILURE);
         return false;
@@ -78,6 +78,15 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         messages_human.push_back(MSG_INIT_FAILURE);
         return false;
     }
+}
+
+bool Tree::create_dir(const char path[])
+{
+    if (mkdir(path) != 0)
+    {
+        return false;
+    }
+    return true;
 }
 
 void Tree::initial_config_str(const string dte, char return_str[])
