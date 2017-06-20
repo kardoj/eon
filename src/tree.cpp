@@ -49,7 +49,7 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         return false;
     }
 
-    if (mkdir(ENTRIES_DIR) + mkdir(PROJECTS_DIR) != 0)
+    if (mkdir(entries_dir()) + mkdir(projects_dir()) != 0)
     {
         messages_human.push_back(MSG_ENTRIES_PROJECTS_DIR_FAILURE);
         return false;
@@ -123,4 +123,14 @@ void Tree::ensure_year_dir(const string year)
 const char *Tree::root_dir()
 {
     return ROOT_DIR;
+}
+
+const char *Tree::projects_dir()
+{
+    return PROJECTS_DIR;
+}
+
+const char *Tree::entries_dir()
+{
+    return ENTRIES_DIR;
 }

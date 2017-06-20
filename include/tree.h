@@ -33,6 +33,8 @@ class Tree
         static bool create_file(const char path[], const char data[]);
 
     private:
+        virtual const char *entries_dir();
+        virtual const char *projects_dir();
         virtual const char *root_dir();
 };
 
