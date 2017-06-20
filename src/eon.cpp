@@ -20,7 +20,7 @@ Eon::~Eon() {}
 bool Eon::init()
 {
     vector<string> messages_human;
-    bool result = Tree::init(Date::current_date_with_time(), messages_human);
+    bool result = Tree().init(Date::current_date_with_time(), messages_human);
     format_output(messages_human);
     return result;
 }

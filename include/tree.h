@@ -23,14 +23,17 @@ class Tree
 
         Tree();
         virtual ~Tree();
-        static bool init(const std::string datetime, std::vector<std::string> &messages_human);
-        static void initial_config_str(const std::string dte, char return_str[]);
+        bool init(const std::string datetime, std::vector<std::string> &messages_human);
+        void initial_config_str(const std::string dte, char return_str[]);
         static bool is_eon_dir();
         static void ensure_year_dir(const std::string year);
 
     protected:
         static bool create_dir(const char path[]);
         static bool create_file(const char path[], const char data[]);
+
+    private:
+        virtual const char *root_dir();
 };
 
 #endif // TREE_H
