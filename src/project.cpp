@@ -10,7 +10,7 @@
 using namespace std;
 
 // The default project that will be created on init
-const char *Project::DEFAULT_PROJECT_NAME = "General";
+const char *const Project::DEFAULT_PROJECT_NAME = "General";
 
 Project::Project() {}
 Project::~Project() {}

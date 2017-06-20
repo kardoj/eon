@@ -8,7 +8,7 @@
 class Project : public CrudItem
 {
     public:
-        static const char *DEFAULT_PROJECT_NAME;
+        static const char *const DEFAULT_PROJECT_NAME;
         static const int MAX_PROJECT_ROW_LENGTH = 300;
 
         Project();
