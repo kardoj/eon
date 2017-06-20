@@ -42,42 +42,50 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         messages_human.push_back(MSG_ALREADY_INITIALIZED);
         return false;
     }
-
     if (!create_dir(root_dir()))
     {
         messages_human.push_back(MSG_ROOT_DIR_FAILURE);
         return false;
     }
-
     if (mkdir(entries_dir()) + mkdir(projects_dir()) != 0)
     {
         messages_human.push_back(MSG_ENTRIES_PROJECTS_DIR_FAILURE);
         return false;
     }
-
-    bool projects_id = create_file(projects_id_file(), "1");
-    bool projects = create_file(projects_file(), "");
-
-    bool first_project = Project::add(Project::DEFAULT_PROJECT_NAME, datetime);
-
-    bool entries_id = create_file(entries_id_file(), "1");
-
-    // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
-    int initial_config_length = 30;
-    char config_str[initial_config_length];
-    initial_config_str(datetime.substr(0, 11), config_str);
-    bool config = create_file(config_file(), config_str);
-
-    if (projects_id && projects && first_project && entries_id && config)
-    {
-        messages_human.push_back(MSG_INIT_SUCCESS);
-        return true;
-    }
-    else
+    if (!create_file(projects_id_file(), "1"))
     {
         messages_human.push_back(MSG_INIT_FAILURE);
         return false;
     }
+    if (!create_file(projects_file(), ""))
+    {
+        messages_human.push_back(MSG_INIT_FAILURE);
+        return false;
+    }
+    if (!add_default_project(datetime))
+    {
+        messages_human.push_back(MSG_INIT_FAILURE);
+        return false;
+    }
+    if (!create_file(entries_id_file(), "1"))
+    {
+        messages_human.push_back(MSG_INIT_FAILURE);
+        return false;
+    }
+    char config_str[INITIAL_CONFIG_LENGTH];
+    initial_config_str(datetime.substr(0, 11), config_str);
+    if (!create_file(config_file(), config_str))
+    {
+        messages_human.push_back(MSG_INIT_FAILURE);
+        return false;
+    }
+    messages_human.push_back(MSG_INIT_SUCCESS);
+    return true;
+}
+
+bool Tree::add_default_project(const string datetime)
+{
+    return Project::add(Project::DEFAULT_PROJECT_NAME, datetime);
 }
 
 bool Tree::create_dir(const char path[])

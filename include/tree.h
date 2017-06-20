@@ -21,6 +21,8 @@ class Tree
         static const std::string MSG_INIT_SUCCESS;
         static const std::string MSG_ROOT_DIR_FAILURE;
 
+        static const int INITIAL_CONFIG_LENGTH = 30;
+
         Tree();
         virtual ~Tree();
         bool init(const std::string datetime, std::vector<std::string> &messages_human);
@@ -33,6 +35,9 @@ class Tree
         static bool create_file(const char path[], const char data[]);
 
     private:
+        std::string datetime;
+
+        virtual bool add_default_project(const std::string datetime);
         virtual const char *config_file();
         virtual const char *entries_dir();
         virtual const char *entries_id_file();
