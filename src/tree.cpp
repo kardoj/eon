@@ -55,20 +55,20 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         return false;
     }
 
-    bool projects_id = create_file(PROJECTS_ID_FILE, "1");
-    bool projects_file = create_file(PROJECTS_FILE, "");
+    bool projects_id = create_file(projects_id_file(), "1");
+    bool projects = create_file(projects_file(), "");
 
     bool first_project = Project::add(Project::DEFAULT_PROJECT_NAME, datetime);
 
-    bool entries_id = create_file(ENTRIES_ID_FILE, "1");
+    bool entries_id = create_file(entries_id_file(), "1");
 
     // Must be re-calculated and upgraded when new configuration keys are added or existing ones changed
     int initial_config_length = 30;
     char config_str[initial_config_length];
     initial_config_str(datetime.substr(0, 11), config_str);
-    bool config = create_file(CONFIG_FILE, config_str);
+    bool config = create_file(config_file(), config_str);
 
-    if (projects_id && projects_file && first_project && entries_id && config)
+    if (projects_id && projects && first_project && entries_id && config)
     {
         messages_human.push_back(MSG_INIT_SUCCESS);
         return true;
@@ -120,9 +120,19 @@ void Tree::ensure_year_dir(const string year)
     }
 }
 
-const char *Tree::root_dir()
+const char *Tree::config_file()
 {
-    return ROOT_DIR;
+    return CONFIG_FILE;
+}
+
+const char *Tree::entries_dir()
+{
+    return ENTRIES_DIR;
+}
+
+const char *Tree::entries_id_file()
+{
+    return ENTRIES_ID_FILE;
 }
 
 const char *Tree::projects_dir()
@@ -130,7 +140,17 @@ const char *Tree::projects_dir()
     return PROJECTS_DIR;
 }
 
-const char *Tree::entries_dir()
+const char *Tree::projects_file()
 {
-    return ENTRIES_DIR;
+    return PROJECTS_FILE;
+}
+
+const char *Tree::projects_id_file()
+{
+    return PROJECTS_ID_FILE;
+}
+
+const char *Tree::root_dir()
+{
+    return ROOT_DIR;
 }
