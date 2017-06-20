@@ -35,8 +35,6 @@ class Tree
         static bool create_file(const char path[], const char data[]);
 
     private:
-        std::string datetime;
-
         virtual bool add_default_project(const std::string datetime);
         virtual const char *config_file();
         virtual const char *entries_dir();
