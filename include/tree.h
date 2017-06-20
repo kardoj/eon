@@ -7,13 +7,13 @@
 class Tree
 {
     public:
-        static const char *ROOT_DIR;
-        static const char *CONFIG_FILE;
-        static const char *ENTRIES_DIR;
-        static const char *ENTRIES_ID_FILE;
-        static const char *PROJECTS_DIR;
-        static const char *PROJECTS_FILE;
-        static const char *PROJECTS_ID_FILE;
+        static const char *const ROOT_DIR;
+        static const char *const CONFIG_FILE;
+        static const char *const ENTRIES_DIR;
+        static const char *const ENTRIES_ID_FILE;
+        static const char *const PROJECTS_DIR;
+        static const char *const PROJECTS_FILE;
+        static const char *const PROJECTS_ID_FILE;
 
         static const std::string MSG_ALREADY_INITIALIZED;
         static const std::string MSG_ENTRIES_PROJECTS_DIR_FAILURE;

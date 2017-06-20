@@ -10,13 +10,13 @@
 
 using namespace std;
 
-const char *Tree::ROOT_DIR = "./eondata";
-const char *Tree::CONFIG_FILE = "./eondata/config.txt";
-const char *Tree::ENTRIES_DIR = "./eondata/entries";
-const char *Tree::ENTRIES_ID_FILE = "./eondata/entries/next_id.txt";
-const char *Tree::PROJECTS_DIR = "./eondata/projects";
-const char *Tree::PROJECTS_FILE = "./eondata/projects/projects.txt";
-const char *Tree::PROJECTS_ID_FILE = "./eondata/projects/next_id.txt";
+const char *const Tree::ROOT_DIR = "./eondata";
+const char *const Tree::CONFIG_FILE = "./eondata/config.txt";
+const char *const Tree::ENTRIES_DIR = "./eondata/entries";
+const char *const Tree::ENTRIES_ID_FILE = "./eondata/entries/next_id.txt";
+const char *const Tree::PROJECTS_DIR = "./eondata/projects";
+const char *const Tree::PROJECTS_FILE = "./eondata/projects/projects.txt";
+const char *const Tree::PROJECTS_ID_FILE = "./eondata/projects/next_id.txt";
 
 const string Tree::MSG_ALREADY_INITIALIZED = "Directory is already an eon directory.";
 const string Tree::MSG_ENTRIES_PROJECTS_DIR_FAILURE = "Could not create directories for entries and/or projects.";
