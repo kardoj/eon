@@ -21,12 +21,14 @@ Project::~Project() {}
 
 bool Project::add(const char name[], const string datetime, vector<string> &messages_human)
 {
-    FILE *fp = fopen(Tree::PROJECTS_FILE, "a");
+    FILE *fp = fopen(projects_file(), "a");
     if (fp != NULL)
     {
-        string id = get_next_id_and_increment(Tree::PROJECTS_ID_FILE);
+        string id = get_next_id_and_increment(projects_id_file());
         if (id.compare("-1") == 0)
         {
+            // Need to close the opened projects file if it turns out that projects id file was not available
+            fclose(fp);
             messages_human.push_back(MSG_ERROR_OPENING_ID_FILE);
             return false;
         }
@@ -42,6 +44,16 @@ bool Project::add(const char name[], const string datetime, vector<string> &mess
         messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
+}
+
+const char *Project::projects_id_file()
+{
+    return Tree::PROJECTS_ID_FILE;
+}
+
+const char *Project::projects_file()
+{
+    return Tree::PROJECTS_FILE;
 }
 
 string Project::msg_project_added(const string name)

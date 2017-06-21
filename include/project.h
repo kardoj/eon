@@ -17,12 +17,16 @@ class Project : public CrudItem
 
         Project();
         virtual ~Project();
-        static bool add(const char name[], const std::string datetime, std::vector<std::string> &messages_human);
+        bool add(const char name[], const std::string datetime, std::vector<std::string> &messages_human);
         static bool exists(const std::string project_id_or_name, int &project_id);
         static bool list(const int selected_project_id);
 
         static std::string get_next_id_and_increment(const std::string path);
         static std::string msg_project_added(const std::string name);
+
+    private:
+        virtual const char *projects_id_file();
+        virtual const char *projects_file();
 };
 
 #endif // PROJECT_H

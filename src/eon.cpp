@@ -67,7 +67,7 @@ bool Eon::add_project()
     }
 
     vector<string> messages_human;
-    bool result = Project::add(argv[2], Date::current_date_with_time(), messages_human);
+    bool result = Project().add(argv[2], Date::current_date_with_time(), messages_human);
     format_output(messages_human);
     return result;
 }

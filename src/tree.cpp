@@ -89,7 +89,7 @@ bool Tree::add_default_project(const string datetime)
     // and is called on init which means it should not fail
     // TODO: can be thought about later
     vector<string> messages_human;
-    return Project::add(Project::DEFAULT_PROJECT_NAME, datetime, messages_human);
+    return Project().add(Project::DEFAULT_PROJECT_NAME, datetime, messages_human);
 }
 
 bool Tree::create_dir(const char path[])
