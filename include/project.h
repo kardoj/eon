@@ -11,7 +11,6 @@ class Project : public CrudItem
     public:
         static const std::string MSG_ERROR_OPENING_ID_FILE;
         static const std::string MSG_ERROR_OPENING_PROJECTS_FILE;
-        static const std::string MSG_PROJECT_ADDED;
 
         static const char *const DEFAULT_PROJECT_NAME;
         static const int MAX_PROJECT_ROW_LENGTH = 300;
@@ -23,6 +22,7 @@ class Project : public CrudItem
         static bool list(const int selected_project_id);
 
         static std::string get_next_id_and_increment(const std::string path);
+        static std::string msg_project_added(const std::string name);
 };
 
 #endif // PROJECT_H

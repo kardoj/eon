@@ -15,7 +15,6 @@ const char *const Project::DEFAULT_PROJECT_NAME = "General";
 
 const string Project::MSG_ERROR_OPENING_ID_FILE = "There was a problem opening projects id file. Nothing to do.";
 const string Project::MSG_ERROR_OPENING_PROJECTS_FILE = "There was a problem opening the projects file. Nothing to do.";
-const string Project::MSG_PROJECT_ADDED = "New project \"PROJECT_NAME\" was added.";
 
 Project::Project() {}
 Project::~Project() {}
@@ -35,7 +34,7 @@ bool Project::add(const char name[], const string datetime, vector<string> &mess
         string line = id + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
-        messages_human.push_back(MSG_PROJECT_ADDED);
+        messages_human.push_back(msg_project_added(name));
         return true;
     }
     else
@@ -43,6 +42,11 @@ bool Project::add(const char name[], const string datetime, vector<string> &mess
         messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
+}
+
+string Project::msg_project_added(const string name)
+{
+    return "New project \"" + name + "\" was added.";
 }
 
 bool Project::exists(const string project_id_or_name, int &project_id)
