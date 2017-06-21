@@ -1,4 +1,5 @@
 #include <ctime>
+#include <cstdio>
 #include <iostream>
 
 #include "date.h"
