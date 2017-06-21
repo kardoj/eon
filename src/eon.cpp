@@ -66,14 +66,10 @@ bool Eon::add_project()
         return false;
     }
 
-    if (Project::add(argv[2], Date::current_date_with_time()))
-    {
-        cout << "New project \"" << argv[2] << "\" was added." << endl;
-        return true;
-    }
-
-    cout << "There was a problem adding a new project." << endl;
-    return false;
+    vector<string> messages_human;
+    bool result = Project::add(argv[2], Date::current_date_with_time(), messages_human);
+    format_output(messages_human);
+    return result;
 }
 
 bool Eon::display_set_date()

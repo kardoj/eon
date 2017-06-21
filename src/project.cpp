@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <vector>
 
 #include "date.h"
 #include "project.h"
@@ -12,25 +13,34 @@ using namespace std;
 // The default project that will be created on init
 const char *const Project::DEFAULT_PROJECT_NAME = "General";
 
+const string Project::MSG_ERROR_OPENING_ID_FILE = "There was a problem opening projects id file. Nothing to do.";
+const string Project::MSG_ERROR_OPENING_PROJECTS_FILE = "There was a problem opening the projects file. Nothing to do.";
+const string Project::MSG_PROJECT_ADDED = "New project \"PROJECT_NAME\" was added.";
+
 Project::Project() {}
 Project::~Project() {}
 
-bool Project::add(const char name[], const string datetime)
+bool Project::add(const char name[], const string datetime, vector<string> &messages_human)
 {
     FILE *fp = fopen(Tree::PROJECTS_FILE, "a");
     if (fp != NULL)
     {
-        string id = get_next_id_and_increment(Tree::PROJECTS_ID_FILE,
-                                              string("There was a problem opening projects id file. Nothing to do."));
-        if (id.compare("-1") == 0) return false;
+        string id = get_next_id_and_increment(Tree::PROJECTS_ID_FILE);
+        if (id.compare("-1") == 0)
+        {
+            messages_human.push_back(MSG_ERROR_OPENING_ID_FILE);
+            return false;
+        }
 
         string line = id + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
+        messages_human.push_back(MSG_PROJECT_ADDED);
         return true;
     }
     else
     {
+        messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
 }
@@ -116,7 +126,7 @@ bool Project::list(const int selected_project_id)
     }
 }
 
-string Project::get_next_id_and_increment(const string path, const string file_open_error)
+string Project::get_next_id_and_increment(const string path)
 {
-    return CrudItem::get_next_id_and_increment(path, file_open_error);
+    return CrudItem::get_next_id_and_increment(path);
 }

@@ -85,7 +85,11 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
 
 bool Tree::add_default_project(const string datetime)
 {
-    return Project::add(Project::DEFAULT_PROJECT_NAME, datetime);
+    // Ignoring possbile errors here because this method is private
+    // and is called on init which means it should not fail
+    // TODO: can be thought about later
+    vector<string> messages_human;
+    return Project::add(Project::DEFAULT_PROJECT_NAME, datetime, messages_human);
 }
 
 bool Tree::create_dir(const char path[])

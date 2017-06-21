@@ -12,7 +12,7 @@ class CrudItem
         virtual ~CrudItem();
 
     protected:
-        static std::string get_next_id_and_increment(const std::string path, const std::string file_open_error);
+        static std::string get_next_id_and_increment(const std::string path);
 };
 
 #endif // CRUDITEM_H

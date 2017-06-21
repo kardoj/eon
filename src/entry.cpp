@@ -97,5 +97,5 @@ bool Entry::add(
 
 string Entry::get_next_id_and_increment(const string path, const string file_open_error)
 {
-    return CrudItem::get_next_id_and_increment(path, file_open_error);
+    return CrudItem::get_next_id_and_increment(path);
 }

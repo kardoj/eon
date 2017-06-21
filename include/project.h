@@ -2,22 +2,27 @@
 #define PROJECT_H
 
 #include <string>
+#include <vector>
 #include "configuration.h"
 #include "cruditem.h"
 
 class Project : public CrudItem
 {
     public:
+        static const std::string MSG_ERROR_OPENING_ID_FILE;
+        static const std::string MSG_ERROR_OPENING_PROJECTS_FILE;
+        static const std::string MSG_PROJECT_ADDED;
+
         static const char *const DEFAULT_PROJECT_NAME;
         static const int MAX_PROJECT_ROW_LENGTH = 300;
 
         Project();
         virtual ~Project();
-        static bool add(const char name[], const std::string datetime);
+        static bool add(const char name[], const std::string datetime, std::vector<std::string> &messages_human);
         static bool exists(const std::string project_id_or_name, int &project_id);
         static bool list(const int selected_project_id);
 
-        static std::string get_next_id_and_increment(const std::string path, const std::string file_open_error);
+        static std::string get_next_id_and_increment(const std::string path);
 };
 
 #endif // PROJECT_H

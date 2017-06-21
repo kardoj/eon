@@ -8,7 +8,7 @@ using namespace std;
 CrudItem::CrudItem() {}
 CrudItem::~CrudItem() {}
 
-string CrudItem::get_next_id_and_increment(const string path, const string file_open_error)
+string CrudItem::get_next_id_and_increment(const string path)
 {
     char id[MAX_ID_LENGTH];
     char next_id[MAX_ID_LENGTH];
@@ -25,7 +25,6 @@ string CrudItem::get_next_id_and_increment(const string path, const string file_
     }
     else
     {
-        cout << file_open_error << endl;
         return string("-1");
     }
 }
