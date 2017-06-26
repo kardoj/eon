@@ -4,3 +4,6 @@
 *.depend
 *.layout
 /eondata
+.idea/
+CMakeLists.txt
+/cmake-build-debug
