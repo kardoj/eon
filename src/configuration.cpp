@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdio.h>
-#include <string>
 
 #include "configuration.h"
 #include "date.h"
@@ -52,7 +51,9 @@ void Configuration::read()
                 }
                 else if (key.compare(string("project_id")) == 0)
                 {
-                    set_project_id(value);
+                    // TODO: Should the errors be displayed here?
+                    vector<string> messages_human;
+                    set_project_id(value, messages_human);
                 }
             }
         }
@@ -89,7 +90,7 @@ bool Configuration::write()
     }
 }
 
-bool Configuration::set_from_param(string key, string value)
+bool Configuration::set_from_param(string key, string value, vector<string> &messages_human)
 {
     if (key.compare(DATE_PARAM_KEY) == 0 || key.compare(DATE_PARAM_KEY_SHORT) == 0)
     {
@@ -97,28 +98,32 @@ bool Configuration::set_from_param(string key, string value)
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
-        return set_project_id(value);
+        return set_project_id(value, messages_human);
     }
     else
     {
-        cout << "Unrecognized key \"" << key<< "\" was ignored." << endl;
+        messages_human.push_back(msg_unrecognized_key(key));
         return false;
     }
 }
 
+string Configuration::msg_unrecognized_key(const string key)
+{
+    return "Unrecognized key \"" + key + "\" was ignored.";
+}
+
 int Configuration::get_project_id() { return project_id; }
 
-bool Configuration::set_project_id(string project_id_or_name)
+bool Configuration::set_project_id(string project_id_or_name, vector<string> &messages_human)
 {
     int p_id;
-    if (Project::exists(project_id_or_name, p_id))
+    if (Project::exists(project_id_or_name, p_id, messages_human))
     {
         project_id = p_id;
         return true;
     }
     else
     {
-        cout << "Unknown project id or name \"" << project_id_or_name << "\" ignored." << endl;
         return false;
     }
 }

@@ -13,6 +13,7 @@ using namespace std;
 // The default project that will be created on init
 const char *const Project::DEFAULT_PROJECT_NAME = "General";
 
+const string Project::MSG_ERROR_INVALID_PROJECT = "Found an invalid project entry in the projects file.";
 const string Project::MSG_ERROR_OPENING_ID_FILE = "There was a problem opening projects id file. Nothing to do.";
 const string Project::MSG_ERROR_OPENING_PROJECTS_FILE = "There was a problem opening the projects file. Nothing to do.";
 
@@ -61,8 +62,14 @@ string Project::msg_project_added(const string name)
     return "New project \"" + name + "\" was added.";
 }
 
-bool Project::exists(const string project_id_or_name, int &project_id)
+string Project::msg_not_a_valid_project(const string project_id_or_name)
 {
+    return "Unknown project id or name \"" + project_id_or_name + "\" ignored.";
+}
+
+bool Project::exists(const string project_id_or_name, int &project_id, vector<string> &messages_human)
+{
+    project_id = -1;
     FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
     if (fp != NULL)
     {
@@ -79,7 +86,8 @@ bool Project::exists(const string project_id_or_name, int &project_id)
 
             if (id_end_pos == -1 || name_end_pos == -1)
             {
-                cout << "Found an invalid project entry in the projects file.";
+                fclose(fp);
+                messages_human.push_back(Project::MSG_ERROR_INVALID_PROJECT);
                 return false;
             }
             else
@@ -89,16 +97,19 @@ bool Project::exists(const string project_id_or_name, int &project_id)
                 row_id = atoi(row_str.substr(0, id_end_pos).c_str());
                 if (row_id == atoi(project_id_or_name.c_str()) || name_equals)
                 {
+                    fclose(fp);
                     project_id = row_id;
                     return true;
                 }
             }
         }
+        fclose(fp);
+        messages_human.push_back(msg_not_a_valid_project(project_id_or_name));
         return false;
     }
     else
     {
-        cout << "There was a problem opening the projects file.";
+        messages_human.push_back(Project::MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
 }

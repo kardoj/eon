@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 
 #include <string>
+#include <vector>
 
 class Configuration
 {
@@ -21,9 +22,10 @@ class Configuration
         int get_project_id();
         bool has_been_read();
         void read();
-        bool set_project_id(std::string project_id_or_name);
-        bool set_from_param(std::string key, std::string value);
+        bool set_project_id(std::string project_id_or_name, std::vector<std::string> &messages_human);
+        bool set_from_param(std::string key, std::string value, std::vector<std::string> &messages_human);
         bool write();
+        std::string msg_unrecognized_key(const std::string key);
 
     private:
         // If the configuration file has been read

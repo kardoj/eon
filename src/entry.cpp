@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <vector>
 #include "date.h"
 #include "entry.h"
 #include "period.h"
@@ -36,14 +37,18 @@ bool Entry::add(
 
     int p_id;
     char project_id[MAX_ID_LENGTH];
+    vector<string> messages_human;
 
-    if (Project::exists(project_id_or_name, p_id))
+    if (Project::exists(project_id_or_name, p_id, messages_human))
     {
         sprintf(project_id, "%d", p_id);
     }
     else
     {
-        cout << "Project with id or name \"" << project_id_or_name << "\" does not exist. Nothing to do." << endl;
+        if (messages_human.size() >= 1)
+        {
+            cout << messages_human.at(0) << endl;
+        }
         return false;
     }
 

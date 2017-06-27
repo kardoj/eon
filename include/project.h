@@ -9,6 +9,7 @@
 class Project : public CrudItem
 {
     public:
+        static const std::string MSG_ERROR_INVALID_PROJECT;
         static const std::string MSG_ERROR_OPENING_ID_FILE;
         static const std::string MSG_ERROR_OPENING_PROJECTS_FILE;
 
@@ -18,10 +19,14 @@ class Project : public CrudItem
         Project();
         virtual ~Project();
         bool add(const char name[], const std::string datetime, std::vector<std::string> &messages_human);
-        static bool exists(const std::string project_id_or_name, int &project_id);
+        static bool exists(
+            const std::string project_id_or_name,
+            int &project_id, std::vector<std::string> &messages_human
+        );
         static bool list(const int selected_project_id);
 
         static std::string get_next_id_and_increment(const std::string path);
+        static std::string msg_not_a_valid_project(const std::string project_id_or_name);
         static std::string msg_project_added(const std::string name);
 
     private:
