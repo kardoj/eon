@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
     if (!Tree::is_eon_dir() && !command_is(INIT, argv))
     {
-        cout << "Directory is not an eon directory.\nRun eon init to make it one." << endl;
+        cout << "Directory is not an eon directory. Run\n\neon init\n\nto make it one." << endl;
         return 0;
     }
 
