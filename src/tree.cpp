@@ -11,7 +11,6 @@ using namespace std;
 const char *const Tree::ROOT_DIR = "./eondata";
 const char *const Tree::CONFIG_FILE = "./eondata/config.txt";
 const char *const Tree::ENTRIES_DIR = "./eondata/entries";
-const char *const Tree::ENTRIES_ID_FILE = "./eondata/entries/next_id.txt";
 const char *const Tree::PROJECTS_DIR = "./eondata/projects";
 const char *const Tree::PROJECTS_FILE = "./eondata/projects/projects.txt";
 
@@ -53,11 +52,6 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         return false;
     }
     if (!add_default_project(datetime))
-    {
-        messages_human.push_back(MSG_INIT_FAILURE);
-        return false;
-    }
-    if (!create_file(entries_id_file(), "1"))
     {
         messages_human.push_back(MSG_INIT_FAILURE);
         return false;
@@ -130,11 +124,6 @@ const char *Tree::config_file()
 const char *Tree::entries_dir()
 {
     return ENTRIES_DIR;
-}
-
-const char *Tree::entries_id_file()
-{
-    return ENTRIES_ID_FILE;
 }
 
 const char *Tree::projects_dir()

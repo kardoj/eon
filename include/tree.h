@@ -10,7 +10,6 @@ class Tree
         static const char *const ROOT_DIR;
         static const char *const CONFIG_FILE;
         static const char *const ENTRIES_DIR;
-        static const char *const ENTRIES_ID_FILE;
         static const char *const PROJECTS_DIR;
         static const char *const PROJECTS_FILE;
 
@@ -37,7 +36,6 @@ class Tree
         virtual bool add_default_project(const std::string datetime);
         virtual const char *config_file();
         virtual const char *entries_dir();
-        virtual const char *entries_id_file();
         virtual const char *projects_dir();
         virtual const char *projects_file();
         virtual const char *root_dir();
