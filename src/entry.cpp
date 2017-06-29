@@ -52,23 +52,19 @@ bool Entry::add(
         return false;
     }
 
-    int y = d.get_year();
-    int m = d.get_month();
-    int wdy = d.get_wday();
-
     char year[5], month[3], wday[2];
-    sprintf(year, "%d", y);
-    sprintf(month, "%d", m);
-    sprintf(wday, "%d", wdy);
+    sprintf(year, "%d", d.get_year());
+    sprintf(month, "%02d", d.get_month());
+    sprintf(wday, "%d", d.get_wday());
 
     string year_str = string(year);
 
     Tree::ensure_year_dir(year_str);
 
-    string datetime = Date::current_date_with_time();
+    string created_at = Date::current_date_with_time();
     string path = string(Tree::ENTRIES_DIR) + "/" + year_str + "/" + string(month) + ".txt";
 
-    FILE *fp = fopen(path.c_str(), "r+");
+    FILE *fp = fopen(path.c_str(), "a+");
 
     if (fp != NULL)
     {
@@ -85,15 +81,15 @@ bool Entry::add(
             end_time + " " +
             string(minutes) + " " +
             "\"" + description + "\" " +
-            datetime + " " +
-            datetime + "\n";
+            created_at + " " +
+            created_at + "\n";
         fputs(entry.c_str(), fp);
         fclose(fp);
         return true;
     }
     else
     {
-        cout << "Could not open the entry file. Nothing to do." << endl;
+        cout << "Could not open the entries file. Nothing to do." << endl;
         return false;
     }
 }
@@ -122,6 +118,6 @@ string Entry::build_id(const string year, const string month, const string previ
 {
     int current_nr = atoi(previous_nr.c_str());
     char current_nr_ch[previous_nr.size() + 1];
-    sprintf(current_nr_ch, "%d", current_nr);
+    sprintf(current_nr_ch, "%d", current_nr + 1);
     return year + month + string(current_nr_ch);
 }
