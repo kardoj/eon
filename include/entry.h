@@ -19,8 +19,10 @@ class Entry : public CrudItem
 
     private:
         static const int MAX_MINUTES_LENGTH = 5;
+        static const int MAX_ENTRY_ROW_LENGTH = 1000;
 
-        static std::string get_next_id_and_increment(const std::string path);
+        static std::string build_id(const std::string year, const std::string month, const std::string previous_nr);
+        static std::string get_nr_from_last_row_and_move_pointer_to_the_end(FILE *fp);
 };
 
 #endif // ENTRY_H

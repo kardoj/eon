@@ -68,12 +68,11 @@ bool Entry::add(
     string datetime = Date::current_date_with_time();
     string path = string(Tree::ENTRIES_DIR) + "/" + year_str + "/" + string(month) + ".txt";
 
-    FILE *fp = fopen(path.c_str(), "a");
+    FILE *fp = fopen(path.c_str(), "r+");
 
     if (fp != NULL)
     {
-        string id = get_next_id_and_increment(Tree::ENTRIES_ID_FILE);
-        if (id.compare("-1") == 0) return false;
+        string id = build_id(year, month, get_nr_from_last_row_and_move_pointer_to_the_end(fp));
 
         char minutes[MAX_MINUTES_LENGTH];
         sprintf(minutes, "%d", period.minutes());
@@ -94,12 +93,35 @@ bool Entry::add(
     }
     else
     {
-        cout << "Something went wrong while opening the entry file." << endl;
+        cout << "Could not open the entry file. Nothing to do." << endl;
         return false;
     }
 }
 
-string Entry::get_next_id_and_increment(const string path)
+string Entry::get_nr_from_last_row_and_move_pointer_to_the_end(FILE *fp)
 {
-    return CrudItem::get_next_id_and_increment(path);
+    char row[MAX_ENTRY_ROW_LENGTH] = { "0" };
+    while (!feof(fp))
+    {
+        if (fgets(row, MAX_ENTRY_ROW_LENGTH, fp) == NULL) break;
+    }
+
+    string row_str = string(row);
+    if (row_str.compare("0") == 0)
+    {
+        return row_str;
+    }
+    else
+    {
+        int split_pos = row_str.find_first_of(" ");
+        return row_str.substr(6, split_pos);
+    }
+}
+
+string Entry::build_id(const string year, const string month, const string previous_nr)
+{
+    int current_nr = atoi(previous_nr.c_str());
+    char current_nr_ch[previous_nr.size() + 1];
+    sprintf(current_nr_ch, "%d", current_nr);
+    return year + month + string(current_nr_ch);
 }

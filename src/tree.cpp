@@ -1,7 +1,6 @@
 #include <direct.h>
 #include <dirent.h>
 #include <iostream>
-#include <stdio.h>
 #include <vector>
 
 #include "date.h"
@@ -71,7 +70,7 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
         return false;
     }
     char config_str[INITIAL_CONFIG_LENGTH];
-    initial_config_str(datetime.substr(0, 11), config_str);
+    initial_config_str(datetime.substr(0, 10), config_str);
     if (!create_file(config_file(), config_str))
     {
         messages_human.push_back(MSG_INIT_FAILURE);
