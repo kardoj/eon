@@ -12,6 +12,7 @@ class Tree
         static const char *const ENTRIES_DIR;
         static const char *const PROJECTS_DIR;
         static const char *const PROJECTS_FILE;
+        static const char *const PROJECTS_TEMP_FILE;
 
         static const std::string MSG_ALREADY_INITIALIZED;
         static const std::string MSG_ENTRIES_PROJECTS_DIR_FAILURE;

@@ -45,6 +45,7 @@ bool Entry::add(
     }
     else
     {
+        // TODO: refactor so that Project::add takes messages_human and communicates this message back
         if (messages_human.size() >= 1)
         {
             cout << messages_human.at(0) << endl;
@@ -63,6 +64,8 @@ bool Entry::add(
 
     string created_at = Date::current_date_with_time();
     string path = string(Tree::ENTRIES_DIR) + "/" + year_str + "/" + string(month) + ".txt";
+
+    Project::update_use_count(project_id_or_name, 1);
 
     FILE *fp = fopen(path.c_str(), "a+");
 
@@ -85,6 +88,8 @@ bool Entry::add(
             created_at + "\n";
         fputs(entry.c_str(), fp);
         fclose(fp);
+
+        if (ferror(fp)) Project::update_use_count(project_id_or_name, -1);
         return true;
     }
     else

@@ -11,6 +11,7 @@ const char *const Project::DEFAULT_PROJECT_NAME = "General";
 
 const string Project::MSG_ERROR_INVALID_PROJECT = "Found an invalid project entry in the projects file.";
 const string Project::MSG_ERROR_OPENING_PROJECTS_FILE = "There was a problem opening the projects file. Nothing to do.";
+const string Project::MSG_ERROR_CREATING_PROJECTS_TEMP_FILE = "Could not create projects temp file. Nothing to do.";
 
 Project::Project() {}
 Project::~Project() {}
@@ -22,7 +23,7 @@ bool Project::add(const char name[], const string datetime, vector<string> &mess
     {
         string id = get_next_id(fp);
 
-        string line = id + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
+        string line = id + " \"" + string(name) + "\" 0 " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
         messages_human.push_back(msg_project_added(name));
@@ -63,6 +64,7 @@ bool Project::exists(const string project_id_or_name, int &project_id, vector<st
         while(!feof(fp))
         {
             if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
+            // TODO: Use split_project_row
             row_str = string(row);
             id_end_pos = row_str.find_first_of(" ");
             name_end_pos = row_str.find_first_of("\"", id_end_pos + 2);
@@ -110,6 +112,7 @@ bool Project::list(const int selected_project_id)
         while(!feof(fp))
         {
             if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
+            // TODO: Use split project row
             row_str = string(row);
             id = row_str.substr(0, row_str.find_first_of(" "));
             name_start = row_str.find_first_of("\"") + 1;
@@ -159,5 +162,91 @@ string Project::get_next_id(FILE *fp)
     char helper[MAX_PROJECT_ID_LENGTH];
     sprintf(helper, "%d", atoi(id_str.c_str()) + 1);
     return string(helper);
+}
+
+bool Project::update_use_count(const string project_id_or_name, const int change)
+{
+    FILE *fp_in = fopen(Tree::PROJECTS_FILE, "r");
+
+    if (fp_in != NULL)
+    {
+        FILE *fp_out = fopen(Tree::PROJECTS_TEMP_FILE, "w");
+
+        if (fp_out != NULL)
+        {
+            char row[MAX_PROJECT_ROW_LENGTH];
+            string id, name, use_count, created_at, updated_at;
+            bool found = false;
+            while(!feof(fp_in))
+            {
+                if (fgets(row, MAX_PROJECT_ROW_LENGTH, fp_in) == NULL) break;
+                // Check if this is the project row we are looking for
+                split_project_row(row, id, name, use_count, created_at, updated_at);
+                // If it is, change and write
+                found = true;
+                // If it is not, write
+            }
+
+            // Delete original projects file
+            // Rename tempfile
+
+            if (!found)
+            {
+                cout << msg_not_a_valid_project(project_id_or_name) << endl;
+                fclose(fp_out);
+                fclose(fp_in);
+                return false;
+            }
+        }
+        else
+        {
+            cout << MSG_ERROR_CREATING_PROJECTS_TEMP_FILE << endl;
+            fclose(fp_in);
+            return false;
+        }
+
+        fclose(fp_out);
+        fclose(fp_in);
+        return true;
+    }
+    else
+    {
+        cout << MSG_ERROR_OPENING_PROJECTS_FILE << endl;
+        return false;
+    }
+}
+
+void Project::split_project_row(
+        const string row,
+        string &id,
+        string &name,
+        string &use_count,
+        string &created_at,
+        string &updated_at)
+{
+    string search_str = row;
+    int from = 0;
+    int to = row.find_first_of(" ");
+    id = row.substr(from, to);
+
+    search_str = search_str.substr(to + 1);
+    from = search_str.find_first_of("\"") + 1;
+    to = search_str.find_last_of("\"");
+    name = search_str.substr(from, to - from);
+
+    search_str = search_str.substr(to + 1);
+    from = search_str.find_first_of(" ") + 1;
+    to = search_str.substr(from).find_first_of(" ");
+    use_count = search_str.substr(from, to);
+
+    search_str = search_str.substr(to + 1);
+    from = search_str.find_first_of(" ") + 1;
+    to = search_str.substr(from).find_first_of(" ");
+    created_at = search_str.substr(from, to);
+
+    search_str = search_str.substr(to + 1);
+    from = search_str.find_first_of(" ") + 1;
+    to = search_str.substr(from).find_first_of("\n");
+    updated_at = search_str.substr(from, to);
 }
 
