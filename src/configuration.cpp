@@ -136,8 +136,9 @@ bool Configuration::set_date(string dte)
     {
         dte = Date::current_date();
     }
-    
+
     Date d = Date(dte);
+    
     if (d.is_valid())
     {
         this->dte = d.yyyy_mm_dd();
