@@ -13,7 +13,6 @@ class Tree
         static const char *const ENTRIES_ID_FILE;
         static const char *const PROJECTS_DIR;
         static const char *const PROJECTS_FILE;
-        static const char *const PROJECTS_ID_FILE;
 
         static const std::string MSG_ALREADY_INITIALIZED;
         static const std::string MSG_ENTRIES_PROJECTS_DIR_FAILURE;
@@ -41,7 +40,6 @@ class Tree
         virtual const char *entries_id_file();
         virtual const char *projects_dir();
         virtual const char *projects_file();
-        virtual const char *projects_id_file();
         virtual const char *root_dir();
 };
 

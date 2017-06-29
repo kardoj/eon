@@ -14,7 +14,6 @@ const char *const Tree::ENTRIES_DIR = "./eondata/entries";
 const char *const Tree::ENTRIES_ID_FILE = "./eondata/entries/next_id.txt";
 const char *const Tree::PROJECTS_DIR = "./eondata/projects";
 const char *const Tree::PROJECTS_FILE = "./eondata/projects/projects.txt";
-const char *const Tree::PROJECTS_ID_FILE = "./eondata/projects/next_id.txt";
 
 const string Tree::MSG_ALREADY_INITIALIZED = "Directory is already an eon directory.";
 const string Tree::MSG_ENTRIES_PROJECTS_DIR_FAILURE = "Could not create directories for entries and/or projects.";
@@ -46,11 +45,6 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
     if (mkdir(entries_dir()) + mkdir(projects_dir()) != 0)
     {
         messages_human.push_back(MSG_ENTRIES_PROJECTS_DIR_FAILURE);
-        return false;
-    }
-    if (!create_file(projects_id_file(), "1"))
-    {
-        messages_human.push_back(MSG_INIT_FAILURE);
         return false;
     }
     if (!create_file(projects_file(), ""))
@@ -151,11 +145,6 @@ const char *Tree::projects_dir()
 const char *Tree::projects_file()
 {
     return PROJECTS_FILE;
-}
-
-const char *Tree::projects_id_file()
-{
-    return PROJECTS_ID_FILE;
 }
 
 const char *Tree::root_dir()

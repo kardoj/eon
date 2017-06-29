@@ -2,9 +2,8 @@
 #define ENTRY_H
 
 #include <string>
-#include "cruditem.h"
 
-class Entry : public CrudItem
+class Entry
 {
     public:
         Entry();

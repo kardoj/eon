@@ -4,17 +4,16 @@
 #include <string>
 #include <vector>
 #include "configuration.h"
-#include "cruditem.h"
 
-class Project : public CrudItem
+class Project
 {
     public:
         static const std::string MSG_ERROR_INVALID_PROJECT;
-        static const std::string MSG_ERROR_OPENING_ID_FILE;
         static const std::string MSG_ERROR_OPENING_PROJECTS_FILE;
 
         static const char *const DEFAULT_PROJECT_NAME;
-        static const int MAX_PROJECT_ROW_LENGTH = 300;
+        static const unsigned MAX_PROJECT_ID_LENGTH = 13;
+        static const unsigned MAX_PROJECT_ROW_LENGTH = 300;
 
         Project();
         virtual ~Project();
@@ -23,15 +22,14 @@ class Project : public CrudItem
             const std::string project_id_or_name,
             int &project_id, std::vector<std::string> &messages_human
         );
-        static bool list(const int selected_project_id);
 
-        static std::string get_next_id_and_increment(const std::string path);
+        static bool list(const int selected_project_id);
         static std::string msg_not_a_valid_project(const std::string project_id_or_name);
         static std::string msg_project_added(const std::string name);
 
     private:
-        virtual const char *projects_id_file();
         virtual const char *projects_file();
+        static std::string get_next_id(FILE *fp);
 };
 
 #endif // PROJECT_H

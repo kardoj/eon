@@ -138,7 +138,7 @@ bool Configuration::set_date(string dte)
     }
 
     Date d = Date(dte);
-    
+
     if (d.is_valid())
     {
         this->dte = d.yyyy_mm_dd();

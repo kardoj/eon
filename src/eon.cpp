@@ -30,7 +30,7 @@ bool Eon::add_entry()
 {
     if (argc == 5)
     {
-        char p_id[Project::MAX_ID_LENGTH];
+        char p_id[Project::MAX_PROJECT_ID_LENGTH];
         sprintf(p_id, "%d", get_configuration().get_project_id());
 
         if (Entry::add(get_configuration().get_date(), p_id, argv[2], argv[3], argv[4]))

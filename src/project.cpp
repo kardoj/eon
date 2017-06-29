@@ -10,7 +10,6 @@ using namespace std;
 const char *const Project::DEFAULT_PROJECT_NAME = "General";
 
 const string Project::MSG_ERROR_INVALID_PROJECT = "Found an invalid project entry in the projects file.";
-const string Project::MSG_ERROR_OPENING_ID_FILE = "There was a problem opening projects id file. Nothing to do.";
 const string Project::MSG_ERROR_OPENING_PROJECTS_FILE = "There was a problem opening the projects file. Nothing to do.";
 
 Project::Project() {}
@@ -18,17 +17,10 @@ Project::~Project() {}
 
 bool Project::add(const char name[], const string datetime, vector<string> &messages_human)
 {
-    FILE *fp = fopen(projects_file(), "a");
+    FILE *fp = fopen(projects_file(), "a+");
     if (fp != NULL)
     {
-        string id = get_next_id_and_increment(projects_id_file());
-        if (id.compare("-1") == 0)
-        {
-            // Need to close the opened projects file if it turns out that projects id file was not available
-            fclose(fp);
-            messages_human.push_back(MSG_ERROR_OPENING_ID_FILE);
-            return false;
-        }
+        string id = get_next_id(fp);
 
         string line = id + " \"" + string(name) + "\" " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
@@ -41,11 +33,6 @@ bool Project::add(const char name[], const string datetime, vector<string> &mess
         messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
-}
-
-const char *Project::projects_id_file()
-{
-    return Tree::PROJECTS_ID_FILE;
 }
 
 const char *Project::projects_file()
@@ -149,7 +136,28 @@ bool Project::list(const int selected_project_id)
     }
 }
 
-string Project::get_next_id_and_increment(const string path)
+string Project::get_next_id(FILE *fp)
 {
-    return CrudItem::get_next_id_and_increment(path);
+    char row[MAX_PROJECT_ROW_LENGTH] = { "0" };
+    while (!feof(fp))
+    {
+        if (fgets(row, MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
+    }
+
+    string row_str = string(row);
+    string id_str;
+
+    if (row_str.compare("0") != 0)
+    {
+        id_str = row_str.substr(0, row_str.find_first_of(" "));
+    }
+    else
+    {
+        id_str = row_str;
+    }
+
+    char helper[MAX_PROJECT_ID_LENGTH];
+    sprintf(helper, "%d", atoi(id_str.c_str()) + 1);
+    return string(helper);
 }
+

@@ -36,7 +36,7 @@ bool Entry::add(
     }
 
     int p_id;
-    char project_id[MAX_ID_LENGTH];
+    char project_id[Project::MAX_PROJECT_ID_LENGTH];
     vector<string> messages_human;
 
     if (Project::exists(project_id_or_name, p_id, messages_human))
