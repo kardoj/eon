@@ -72,8 +72,7 @@ bool Entry::add(
 
     if (fp != NULL)
     {
-        string id = get_next_id_and_increment(Tree::ENTRIES_ID_FILE,
-                                              string("There was a problem opening entries id file. Nothing to do."));
+        string id = get_next_id_and_increment(Tree::ENTRIES_ID_FILE);
         if (id.compare("-1") == 0) return false;
 
         char minutes[MAX_MINUTES_LENGTH];
@@ -100,7 +99,7 @@ bool Entry::add(
     }
 }
 
-string Entry::get_next_id_and_increment(const string path, const string file_open_error)
+string Entry::get_next_id_and_increment(const string path)
 {
     return CrudItem::get_next_id_and_increment(path);
 }

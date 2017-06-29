@@ -20,7 +20,7 @@ class Entry : public CrudItem
     private:
         static const int MAX_MINUTES_LENGTH = 5;
 
-        static std::string get_next_id_and_increment(const std::string path, const std::string file_open_error);
+        static std::string get_next_id_and_increment(const std::string path);
 };
 
 #endif // ENTRY_H
