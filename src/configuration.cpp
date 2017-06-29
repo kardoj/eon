@@ -132,6 +132,11 @@ string Configuration::get_date() { return dte; }
 
 bool Configuration::set_date(string dte)
 {
+    if (dte.compare("today") == 0)
+    {
+        dte = Date::current_date();
+    }
+    
     Date d = Date(dte);
     if (d.is_valid())
     {

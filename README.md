@@ -8,7 +8,7 @@ The project is at a very early stage at the moment and is suitable for testing o
 `eon init` creates a new eon directory in the current directory. Eon will create a directory called `eondata` which will contain all its files.
 
 
-`eon set -d/--date <YYYY-M(M)-D(D)|D(D).M(M).YYYY>` - sets the active date in the configuration for `add` command.
+`eon set -d/--date <YYYY-M(M)-D(D)|D(D).M(M).YYYY|today>` - sets the active date in the configuration for `add` command.
 
 `eon set -p/--project <project_id|project_name|"multi word project name">` - sets the active project in the configuration for `add` command.
 
