@@ -136,7 +136,8 @@ bool Eon::set_parameters()
     // TODO: Replace with success messages from set_from_param
     if (updated > 0 && conf.write())
     {
-        cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
+        //cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
+        format_output(messages_human);
         return true;
     }
     format_output(messages_human);

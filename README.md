@@ -36,3 +36,7 @@ Testing everything that has been implemented so far.
 Tracking project usage. Additional column with usage count for project which is updated accordingly when adding a new entry or removing an existing one.
 
 `eon deleteproject <project_id|project_name|"multi word project name">` - Deletes the project if the project is not in use.
+
+### Bugs
+
+Don't allow 31th February to be set as a date.

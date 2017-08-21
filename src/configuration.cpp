@@ -44,15 +44,15 @@ void Configuration::read()
             {
                 key = row_str.substr(0, split_pos);
                 value = row_str.substr(split_pos + 1, nl_pos);
+                // TODO: Should the errors be displayed here?
+                vector<string> messages_human;
 
                 if (key.compare(string("date")) == 0)
                 {
-                    set_date(value);
+                    set_date(value, messages_human);
                 }
                 else if (key.compare(string("project_id")) == 0)
                 {
-                    // TODO: Should the errors be displayed here?
-                    vector<string> messages_human;
                     set_project_id(value, messages_human);
                 }
             }
@@ -94,7 +94,7 @@ bool Configuration::set_from_param(string key, string value, vector<string> &mes
 {
     if (key.compare(DATE_PARAM_KEY) == 0 || key.compare(DATE_PARAM_KEY_SHORT) == 0)
     {
-        return set_date(value);
+        return set_date(value, messages_human);
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
@@ -102,14 +102,9 @@ bool Configuration::set_from_param(string key, string value, vector<string> &mes
     }
     else
     {
-        messages_human.push_back(msg_unrecognized_key(key));
+        messages_human.push_back("Unrecognized key \"" + key + "\" was ignored.");
         return false;
     }
-}
-
-string Configuration::msg_unrecognized_key(const string key)
-{
-    return "Unrecognized key \"" + key + "\" was ignored.";
 }
 
 int Configuration::get_project_id() { return project_id; }
@@ -120,17 +115,19 @@ bool Configuration::set_project_id(string project_id_or_name, vector<string> &me
     if (Project::exists(project_id_or_name, p_id, messages_human))
     {
         project_id = p_id;
+        messages_human.push_back("Project successfully set to " + project_id_or_name + ".");
         return true;
     }
     else
     {
+        // NOTE: Project::exists handles failure message
         return false;
     }
 }
 
 string Configuration::get_date() { return dte; }
 
-bool Configuration::set_date(string dte)
+bool Configuration::set_date(string dte, vector<string> &messages_human)
 {
     if (dte.compare("today") == 0)
     {
@@ -141,12 +138,14 @@ bool Configuration::set_date(string dte)
 
     if (d.is_valid())
     {
-        this->dte = d.yyyy_mm_dd();
+        string dte_str = d.yyyy_mm_dd();
+        this->dte = dte_str;
+        messages_human.push_back("Date successfully set to " + dte_str + ".");
         return true;
     }
     else
     {
-        cout << string("\"") + dte + string("\" is not a valid date.");
+        messages_human.push_back("\"" + dte + "\" is not a valid date.");
         return false;
     }
 }

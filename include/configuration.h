@@ -18,14 +18,13 @@ class Configuration
         Configuration();
         virtual ~Configuration();
         std::string get_date();
-        bool set_date(std::string dte);
+        bool set_date(std::string dte, std::vector<std::string> &messages_human);
         int get_project_id();
         bool has_been_read();
         void read();
         bool set_project_id(std::string project_id_or_name, std::vector<std::string> &messages_human);
         bool set_from_param(std::string key, std::string value, std::vector<std::string> &messages_human);
         bool write();
-        std::string msg_unrecognized_key(const std::string key);
 
     private:
         // If the configuration file has been read
