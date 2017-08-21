@@ -115,7 +115,7 @@ bool Configuration::set_project_id(string project_id_or_name, vector<string> &me
     if (Project::exists(project_id_or_name, p_id, messages_human))
     {
         project_id = p_id;
-        messages_human.push_back("Project successfully set to " + project_id_or_name + ".");
+        messages_human.push_back("Project successfully set to id/name " + project_id_or_name + ".");
         return true;
     }
     else

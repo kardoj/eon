@@ -133,10 +133,8 @@ bool Eon::set_parameters()
         if (conf.set_from_param(keys.at(i), values.at(i), messages_human)) updated++;
     }
 
-    // TODO: Replace with success messages from set_from_param
     if (updated > 0 && conf.write())
     {
-        //cout << "Found " << key_count << ", successfully updated " << updated << " key(s)." << endl;
         format_output(messages_human);
         return true;
     }
