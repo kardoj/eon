@@ -99,25 +99,20 @@ bool Project::exists(const string project_id_or_name, int &project_id, vector<st
     }
 }
 
-bool Project::list(const int selected_project_id)
+bool Project::list(const int selected_project_id, vector<string> &messages_human)
 {
-    FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
+    FILE *fp = fopen(projects_file(), "r");
 
     if (fp != NULL)
     {
         char row[MAX_PROJECT_ROW_LENGTH], output_row[MAX_PROJECT_ROW_LENGTH];
-        int name_start;
-        string id, name, row_str, selected;
+        string id, name, selected, use_count, created_at, updated_at;
 
         while(!feof(fp))
         {
             if (fgets(row, Project::MAX_PROJECT_ROW_LENGTH, fp) == NULL) break;
-            // TODO: Use split project row
-            row_str = string(row);
-            id = row_str.substr(0, row_str.find_first_of(" "));
-            name_start = row_str.find_first_of("\"") + 1;
-            name = row_str.substr(name_start, row_str.find_last_of("\"") - name_start);
 
+            split_project_row(string(row), id, name, use_count, created_at, updated_at);
             if (atoi(id.c_str()) == selected_project_id)
             {
                 selected = "*";
@@ -134,7 +129,7 @@ bool Project::list(const int selected_project_id)
     }
     else
     {
-        cout << "There was a problem opening the projects file.";
+        messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
 }

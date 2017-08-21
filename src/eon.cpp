@@ -51,9 +51,9 @@ bool Eon::add_entry()
     }
 
     cout << "Required parameters are missing:\n"
-         << "eon add <start_time> <end_time> <description>\n"
+         << "eon add <start:time> <end:time> <description>\n"
          << "eon add <date> <project_id|project_name|\"multi word project name\"> "
-         << "<start_time> <end_time> <description>\nNothing to do."
+         << "<start:time> <end:time> <description>\nNothing to do."
          << endl;
     return false;
 }
@@ -89,7 +89,9 @@ void Eon::format_output(const vector<string> rows)
 
 bool Eon::list_projects()
 {
-    Project::list(get_configuration().get_project_id());
+    vector<string> messages_human;
+    Project().list(get_configuration().get_project_id(), messages_human);
+    format_output(messages_human);
     return true;
 }
 
