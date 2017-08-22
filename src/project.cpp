@@ -54,7 +54,7 @@ string Project::msg_not_a_valid_project(const string project_id_or_name)
 bool Project::exists(const string project_id_or_name, int &project_id, vector<string> &messages_human)
 {
     project_id = -1;
-    FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
+    FILE *fp = fopen(projects_file(), "r");
     if (fp != NULL)
     {
         bool name_equals;

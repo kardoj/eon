@@ -19,7 +19,7 @@ class Project
         Project();
         virtual ~Project();
         bool add(const char name[], const std::string datetime, std::vector<std::string> &messages_human);
-        static bool exists(
+        bool exists(
             const std::string project_id_or_name,
             int &project_id,
             std::vector<std::string> &messages_human
