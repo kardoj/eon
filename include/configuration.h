@@ -27,8 +27,7 @@ class Configuration
         bool write();
 
     private:
-        // If the configuration file has been read
-        bool hb_read;
+        bool hb_read; // If the configuration file has been read
         int project_id;
         std::string dte;
 };

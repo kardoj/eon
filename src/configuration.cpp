@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <iostream>
-#include <stdio.h>
 
 #include "configuration.h"
 #include "date.h"

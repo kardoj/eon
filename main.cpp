@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 #include "eon.h"
 #include "tree.h"
@@ -21,7 +20,7 @@ bool command_is(const string command, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    setlocale(LC_CTYPE, "");
+    setlocale(LC_CTYPE, ""); // Enables non-ansi characters (e.g. ä)
     Eon eon = Eon(argc, (const char**) argv);
 
     if (argc < 2)
