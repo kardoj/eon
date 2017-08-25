@@ -13,6 +13,9 @@ const string Configuration::DATE_PARAM_KEY_SHORT = "-d";
 const string Configuration::PROJECT_PARAM_KEY = "--project";
 const string Configuration::PROJECT_PARAM_KEY_SHORT = "-p";
 
+const string Configuration::MSG_INVALID_CONFIG_ROW = "A line in the configuration file is missing an equals sign.";
+const string Configuration::MSG_ERROR_OPENING_CONFIG_FILE = "There was a problem reading the configuration file.";
+
 Configuration::Configuration() {
     hb_read = false;
 }
@@ -36,7 +39,7 @@ void Configuration::read()
             int nl_pos = row_str.find_first_of("\n");
             if (split_pos == -1)
             {
-                cout << "A line in the configuration file is missing an equals sign." << endl;
+                this->add_message(MSG_INVALID_CONFIG_ROW);
                 break;
             }
             else
@@ -61,7 +64,7 @@ void Configuration::read()
     }
     else
     {
-        cout << "There was a problem reading the configuration file." << endl;
+        this->add_message(MSG_ERROR_OPENING_CONFIG_FILE);
     }
 }
 

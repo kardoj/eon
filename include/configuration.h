@@ -3,8 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "eonbase.h"
 
-class Configuration
+class Configuration : public EonBase
 {
     public:
         // Known command line parameters to set command
@@ -12,6 +13,9 @@ class Configuration
         static const std::string DATE_PARAM_KEY_SHORT;
         static const std::string PROJECT_PARAM_KEY;
         static const std::string PROJECT_PARAM_KEY_SHORT;
+
+        static const std::string MSG_INVALID_CONFIG_ROW;
+        static const std::string MSG_ERROR_OPENING_CONFIG_FILE;
 
         static const int MAX_CONFIG_ROW_LENGTH = 100;
 

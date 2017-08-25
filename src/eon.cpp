@@ -145,6 +145,7 @@ Configuration Eon::get_configuration()
     if (!configuration.has_been_read())
     {
         configuration.read();
+        format_output(configuration.get_messages());
     }
     return configuration;
 }
