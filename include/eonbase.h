@@ -16,5 +16,4 @@ class EonBase {
         std::vector<std::string> messages;
 };
 
-
 #endif //EON_EONBASE_H

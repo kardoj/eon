@@ -94,11 +94,29 @@ bool Configuration::set_from_param(string key, string value)
 {
     if (key.compare(DATE_PARAM_KEY) == 0 || key.compare(DATE_PARAM_KEY_SHORT) == 0)
     {
+        bool ok = set_date(value);
+        if (ok)
+        {
+            add_message("Date successfully set to " + value + ".");
+        }
+        else
+        {
+            add_message("\"" + dte + "\" is not a valid date.");
+        }
         return set_date(value);
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
-        return set_project_id(value);
+        bool ok = set_project_id(value);
+        if (ok)
+        {
+            add_message("Project successfully set to id/name " + value + ".");
+        }
+        else
+        {
+            add_message("Unknown project id/name " + value + " ignored.");
+        }
+        return ok;
     }
     else
     {
@@ -117,10 +135,6 @@ bool Configuration::set_project_id(string project_id_or_name)
     if (p.exists(project_id_or_name, p_id))
     {
         project_id = p_id;
-
-        add_messages(p.get_messages());
-        add_message("Project successfully set to id/name " + project_id_or_name + ".");
-
         return true;
     }
     else
@@ -144,12 +158,10 @@ bool Configuration::set_date(string dte)
     {
         string dte_str = d.yyyy_mm_dd();
         this->dte = dte_str;
-        add_message("Date successfully set to " + dte_str + ".");
         return true;
     }
     else
     {
-        add_message("\"" + dte + "\" is not a valid date.");
         return false;
     }
 }
