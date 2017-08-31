@@ -26,7 +26,7 @@ class Tree : public EonBase
         Tree();
         virtual ~Tree();
         bool init(const std::string datetime);
-        void initial_config_str(const std::string dte, char return_str[]);
+        virtual void initial_config_str(const std::string dte, char return_str[]);
         static bool is_eon_dir();
         static void ensure_year_dir(const std::string year);
 

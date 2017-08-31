@@ -22,7 +22,7 @@ Configuration::Configuration() {
 
 Configuration::~Configuration() {}
 
-void Configuration::read()
+bool Configuration::read()
 {
     char row[MAX_CONFIG_ROW_LENGTH];
     string row_str, key, value;
@@ -40,7 +40,9 @@ void Configuration::read()
             if (split_pos == -1)
             {
                 add_message(MSG_INVALID_CONFIG_ROW);
-                break;
+                // TODO: What to do here? Maybe some repair routine to reset default configuration in case someone has
+                // manually edited it?
+                return false;
             }
             else
             {
@@ -59,10 +61,12 @@ void Configuration::read()
         }
         fclose(fp);
         hb_read = true;
+        return true;
     }
     else
     {
         add_message(MSG_ERROR_OPENING_CONFIG_FILE);
+        return false;
     }
 }
 
