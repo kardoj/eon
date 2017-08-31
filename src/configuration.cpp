@@ -39,7 +39,7 @@ void Configuration::read()
             int nl_pos = row_str.find_first_of("\n");
             if (split_pos == -1)
             {
-                this->add_message(MSG_INVALID_CONFIG_ROW);
+                add_message(MSG_INVALID_CONFIG_ROW);
                 break;
             }
             else
@@ -62,7 +62,7 @@ void Configuration::read()
     }
     else
     {
-        this->add_message(MSG_ERROR_OPENING_CONFIG_FILE);
+        add_message(MSG_ERROR_OPENING_CONFIG_FILE);
     }
 }
 
