@@ -16,7 +16,7 @@ const string Project::MSG_ERROR_CREATING_PROJECTS_TEMP_FILE = "Could not create 
 Project::Project() {}
 Project::~Project() {}
 
-bool Project::add(const char name[], const string datetime, vector<string> &messages_human)
+bool Project::add(const char name[], const string datetime)
 {
     FILE *fp = fopen(projects_file(), "a+");
     if (fp != NULL)
@@ -26,12 +26,12 @@ bool Project::add(const char name[], const string datetime, vector<string> &mess
         string line = id + " \"" + string(name) + "\" 0 " + datetime + " " + datetime + "\n";
         fputs(line.c_str(), fp);
         fclose(fp);
-        messages_human.push_back(msg_project_added(name));
+        add_message(msg_project_added(name));
         return true;
     }
     else
     {
-        messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
+        add_message(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
 }
@@ -51,7 +51,7 @@ string Project::msg_not_a_valid_project(const string project_id_or_name)
     return "Unknown project id or name \"" + project_id_or_name + "\" ignored.";
 }
 
-bool Project::exists(const string project_id_or_name, int &project_id, vector<string> &messages_human)
+bool Project::exists(const string project_id_or_name, int &project_id)
 {
     project_id = -1;
     FILE *fp = fopen(Tree::PROJECTS_FILE, "r");
@@ -72,7 +72,7 @@ bool Project::exists(const string project_id_or_name, int &project_id, vector<st
             if (id_end_pos == -1 || name_end_pos == -1)
             {
                 fclose(fp);
-                messages_human.push_back(Project::MSG_ERROR_INVALID_PROJECT);
+                add_message(Project::MSG_ERROR_INVALID_PROJECT);
                 return false;
             }
             else
@@ -89,17 +89,17 @@ bool Project::exists(const string project_id_or_name, int &project_id, vector<st
             }
         }
         fclose(fp);
-        messages_human.push_back(msg_not_a_valid_project(project_id_or_name));
+        add_message(msg_not_a_valid_project(project_id_or_name));
         return false;
     }
     else
     {
-        messages_human.push_back(Project::MSG_ERROR_OPENING_PROJECTS_FILE);
+        add_message(Project::MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
 }
 
-bool Project::list(const int selected_project_id, vector<string> &messages_human)
+bool Project::list(const int selected_project_id)
 {
     FILE *fp = fopen(projects_file(), "r");
 
@@ -129,7 +129,7 @@ bool Project::list(const int selected_project_id, vector<string> &messages_human
     }
     else
     {
-        messages_human.push_back(MSG_ERROR_OPENING_PROJECTS_FILE);
+        add_message(MSG_ERROR_OPENING_PROJECTS_FILE);
         return false;
     }
 }

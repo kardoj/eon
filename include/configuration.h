@@ -3,8 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "eonbase.h"
 
-class Configuration
+class Configuration : public EonBase
 {
     public:
         // Known command line parameters to set command
@@ -18,12 +19,12 @@ class Configuration
         Configuration();
         virtual ~Configuration();
         std::string get_date();
-        bool set_date(std::string dte, std::vector<std::string> &messages_human);
+        bool set_date(std::string dte);
         int get_project_id();
         bool has_been_read();
         void read();
-        bool set_project_id(std::string project_id_or_name, std::vector<std::string> &messages_human);
-        bool set_from_param(std::string key, std::string value, std::vector<std::string> &messages_human);
+        bool set_project_id(std::string project_id_or_name);
+        bool set_from_param(std::string key, std::string value);
         bool write();
 
     private:

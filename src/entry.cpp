@@ -37,19 +37,15 @@ bool Entry::add(
 
     int p_id;
     char project_id[Project::MAX_PROJECT_ID_LENGTH];
-    vector<string> messages_human;
+    Project p;
 
-    if (Project::exists(project_id_or_name, p_id, messages_human))
+    if (p.exists(project_id_or_name, p_id))
     {
         sprintf(project_id, "%d", p_id);
     }
     else
     {
-        // TODO: refactor so that Project::add takes messages_human and communicates this message back
-        if (messages_human.size() >= 1)
-        {
-            cout << messages_human.at(0) << endl;
-        }
+        add_messages(p.get_messages());
         return false;
     }
 

@@ -31,34 +31,34 @@ bool Tree::is_eon_dir() {
     return exists;
 }
 
-bool Tree::init(const string datetime, vector<string> &messages_human) {
+bool Tree::init(const string datetime) {
     if (is_eon_dir())
     {
-        messages_human.push_back(MSG_ALREADY_INITIALIZED);
+        add_message(MSG_ALREADY_INITIALIZED);
         return false;
     }
 
     if (!create_dir(root_dir()))
     {
-        messages_human.push_back(MSG_ROOT_DIR_FAILURE);
+        add_message(MSG_ROOT_DIR_FAILURE);
         return false;
     }
 
     if (mkdir(entries_dir()) + mkdir(projects_dir()) != 0)
     {
-        messages_human.push_back(MSG_ENTRIES_PROJECTS_DIR_FAILURE);
+        add_message(MSG_ENTRIES_PROJECTS_DIR_FAILURE);
         return false;
     }
 
     if (!create_file(projects_file(), ""))
     {
-        messages_human.push_back(MSG_INIT_FAILURE);
+        add_message(MSG_INIT_FAILURE);
         return false;
     }
 
     if (!add_default_project(datetime))
     {
-        messages_human.push_back(MSG_INIT_FAILURE);
+        add_message(MSG_INIT_FAILURE);
         return false;
     }
 
@@ -66,11 +66,11 @@ bool Tree::init(const string datetime, vector<string> &messages_human) {
     initial_config_str(datetime.substr(0, 10), config_str);
     if (!create_file(config_file(), config_str))
     {
-        messages_human.push_back(MSG_INIT_FAILURE);
+        add_message(MSG_INIT_FAILURE);
         return false;
     }
 
-    messages_human.push_back(MSG_INIT_SUCCESS);
+    add_message(MSG_INIT_SUCCESS);
     return true;
 }
 
@@ -79,8 +79,8 @@ bool Tree::add_default_project(const string datetime)
     // Ignoring possible errors here because this method is private
     // and is called on init which means it should not fail
     // TODO: can be thought about later
-    vector<string> messages_human;
-    return Project().add(Project::DEFAULT_PROJECT_NAME, datetime, messages_human);
+    Project p;
+    return p.add(Project::DEFAULT_PROJECT_NAME, datetime);
 }
 
 bool Tree::create_dir(const char path[])

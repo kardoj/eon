@@ -44,16 +44,14 @@ void Configuration::read()
             {
                 key = row_str.substr(0, split_pos);
                 value = row_str.substr(split_pos + 1, nl_pos);
-                // TODO: Should the errors be displayed here?
-                vector<string> messages_human;
 
                 if (key.compare(string("date")) == 0)
                 {
-                    set_date(value, messages_human);
+                    set_date(value);
                 }
                 else if (key.compare(string("project_id")) == 0)
                 {
-                    set_project_id(value, messages_human);
+                    set_project_id(value);
                 }
             }
         }
@@ -85,49 +83,53 @@ bool Configuration::write()
     }
     else
     {
-        cout << "There was a problem opening the configuration file." << endl;
+        add_message("There was a problem opening the configuration file.");
         return false;
     }
 }
 
-bool Configuration::set_from_param(string key, string value, vector<string> &messages_human)
+bool Configuration::set_from_param(string key, string value)
 {
     if (key.compare(DATE_PARAM_KEY) == 0 || key.compare(DATE_PARAM_KEY_SHORT) == 0)
     {
-        return set_date(value, messages_human);
+        return set_date(value);
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
-        return set_project_id(value, messages_human);
+        return set_project_id(value);
     }
     else
     {
-        messages_human.push_back("Unrecognized key \"" + key + "\" was ignored.");
+        add_message("Unrecognized key \"" + key + "\" was ignored.");
         return false;
     }
 }
 
 int Configuration::get_project_id() { return project_id; }
 
-bool Configuration::set_project_id(string project_id_or_name, vector<string> &messages_human)
+bool Configuration::set_project_id(string project_id_or_name)
 {
     int p_id;
-    if (Project::exists(project_id_or_name, p_id, messages_human))
+    Project p;
+
+    if (p.exists(project_id_or_name, p_id))
     {
         project_id = p_id;
-        messages_human.push_back("Project successfully set to id/name " + project_id_or_name + ".");
+
+        add_messages(p.get_messages());
+        add_message("Project successfully set to id/name " + project_id_or_name + ".");
+
         return true;
     }
     else
     {
-        // NOTE: Project::exists handles failure message
         return false;
     }
 }
 
 string Configuration::get_date() { return dte; }
 
-bool Configuration::set_date(string dte, vector<string> &messages_human)
+bool Configuration::set_date(string dte)
 {
     if (dte.compare("today") == 0)
     {
@@ -140,12 +142,12 @@ bool Configuration::set_date(string dte, vector<string> &messages_human)
     {
         string dte_str = d.yyyy_mm_dd();
         this->dte = dte_str;
-        messages_human.push_back("Date successfully set to " + dte_str + ".");
+        add_message("Date successfully set to " + dte_str + ".");
         return true;
     }
     else
     {
-        messages_human.push_back("\"" + dte + "\" is not a valid date.");
+        add_message("\"" + dte + "\" is not a valid date.");
         return false;
     }
 }

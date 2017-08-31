@@ -2,13 +2,14 @@
 #define ENTRY_H
 
 #include <string>
+#include "eonbase.h"
 
-class Entry
+class Entry : public EonBase
 {
     public:
         Entry();
         virtual ~Entry();
-        static bool add(
+        bool add(
             const std::string dte,
             const std::string project_id_or_name,
             const std::string start_time,

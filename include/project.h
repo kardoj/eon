@@ -5,7 +5,7 @@
 #include <vector>
 #include "configuration.h"
 
-class Project
+class Project : public EonBase
 {
     public:
         static const std::string MSG_ERROR_INVALID_PROJECT;
@@ -18,13 +18,9 @@ class Project
 
         Project();
         virtual ~Project();
-        bool add(const char name[], const std::string datetime, std::vector<std::string> &messages_human);
-        static bool exists(
-            const std::string project_id_or_name,
-            int &project_id,
-            std::vector<std::string> &messages_human
-        );
-        bool list(const int selected_project_id, std::vector<std::string> &messages_human);
+        bool add(const char name[], const std::string datetime);
+        bool exists(const std::string project_id_or_name, int &project_id);
+        bool list(const int selected_project_id);
 
         static bool update_use_count(const std::string project_id_or_name, const int change);
         static std::string msg_not_a_valid_project(const std::string project_id_or_name);

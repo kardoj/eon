@@ -20,9 +20,9 @@ Eon::~Eon() {}
 
 bool Eon::init()
 {
-    vector<string> messages_human;
-    bool result = Tree().init(Date::current_date_with_time(), messages_human);
-    format_output(messages_human);
+    Tree t;
+    bool result = t.init(Date::current_date_with_time());
+    format_output(t.get_messages());
     return result;
 }
 
@@ -33,7 +33,7 @@ bool Eon::add_entry()
         char p_id[Project::MAX_PROJECT_ID_LENGTH];
         sprintf(p_id, "%d", get_configuration().get_project_id());
 
-        if (Entry::add(get_configuration().get_date(), p_id, argv[2], argv[3], argv[4]))
+        if (Entry().add(get_configuration().get_date(), p_id, argv[2], argv[3], argv[4]))
         {
             cout << "A new entry was added: TODO: show by id" << endl;
             return true;
@@ -42,7 +42,7 @@ bool Eon::add_entry()
     }
     else if (argc >= 7)
     {
-        if (Entry::add(argv[2], argv[3], argv[4], argv[5], argv[6]))
+        if (Entry().add(argv[2], argv[3], argv[4], argv[5], argv[6]))
         {
             cout << "A new entry was added: TODO: show by id" << endl;
             return true;
@@ -66,9 +66,9 @@ bool Eon::add_project()
         return false;
     }
 
-    vector<string> messages_human;
-    bool result = Project().add(argv[2], Date::current_date_with_time(), messages_human);
-    format_output(messages_human);
+    Project p;
+    bool result = p.add(argv[2], Date::current_date_with_time());
+    format_output(p.get_messages());
     return result;
 }
 
@@ -89,9 +89,9 @@ void Eon::format_output(const vector<string> rows)
 
 bool Eon::list_projects()
 {
-    vector<string> messages_human;
-    Project().list(get_configuration().get_project_id(), messages_human);
-    format_output(messages_human);
+    Project p;
+    p.list(get_configuration().get_project_id());
+    format_output(p.get_messages());
     return true;
 }
 
@@ -126,19 +126,18 @@ bool Eon::set_parameters()
     unsigned key_count = keys.size();
     unsigned updated = 0;
     Configuration conf = get_configuration();
-    vector<string> messages_human;
 
     for (unsigned i = 0; i < key_count; i++)
     {
-        if (conf.set_from_param(keys.at(i), values.at(i), messages_human)) updated++;
+        if (conf.set_from_param(keys.at(i), values.at(i))) updated++;
     }
 
     if (updated > 0 && conf.write())
     {
-        format_output(messages_human);
+        format_output(conf.get_messages());
         return true;
     }
-    format_output(messages_human);
+    format_output(conf.get_messages());
     return false;
 }
 
