@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <iostream>
-#include <string>
 #include <vector>
 #include "date.h"
 #include "entry.h"
@@ -13,7 +12,6 @@ using namespace std;
 Eon::Eon(const int argc, const char *argv[]) {
     this->argc = argc;
     this->argv = argv;
-    Configuration configuration = Configuration();
 }
 
 Eon::~Eon() {}
@@ -146,6 +144,7 @@ Configuration Eon::get_configuration()
     if (!configuration.has_been_read())
     {
         configuration.read();
+        format_output(configuration.get_messages());
     }
     return configuration;
 }

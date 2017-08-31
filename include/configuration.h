@@ -14,6 +14,9 @@ class Configuration : public EonBase
         static const std::string PROJECT_PARAM_KEY;
         static const std::string PROJECT_PARAM_KEY_SHORT;
 
+        static const std::string MSG_INVALID_CONFIG_ROW;
+        static const std::string MSG_ERROR_OPENING_CONFIG_FILE;
+
         static const int MAX_CONFIG_ROW_LENGTH = 100;
 
         Configuration();
@@ -28,8 +31,7 @@ class Configuration : public EonBase
         bool write();
 
     private:
-        // If the configuration file has been read
-        bool hb_read;
+        bool hb_read; // If the configuration file has been read
         int project_id;
         std::string dte;
 };
