@@ -40,8 +40,7 @@ bool Configuration::read()
             if (split_pos == -1)
             {
                 add_message(MSG_INVALID_CONFIG_ROW);
-                // TODO: What to do here? Maybe some repair routine to reset default configuration in case someone has
-                // manually edited it?
+                // TODO: Maybe a repair routine to reset default configuration in case someone has manually edited it?
                 return false;
             }
             else
