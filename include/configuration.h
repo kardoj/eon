@@ -31,6 +31,7 @@ class Configuration : public EonBase
         bool write();
 
     private:
+        virtual const char *config_file();
         bool hb_read; // If the configuration file has been read
         int project_id;
         std::string dte;

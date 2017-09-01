@@ -27,7 +27,7 @@ bool Configuration::read()
     char row[MAX_CONFIG_ROW_LENGTH];
     string row_str, key, value;
 
-    FILE *fp = fopen(Tree::CONFIG_FILE, "r");
+    FILE *fp = fopen(config_file(), "r");
     if (fp != NULL)
     {
         while(!feof(fp))
@@ -40,6 +40,7 @@ bool Configuration::read()
             if (split_pos == -1)
             {
                 add_message(MSG_INVALID_CONFIG_ROW);
+                fclose(fp);
                 // TODO: Maybe a repair routine to reset default configuration in case someone has manually edited it?
                 return false;
             }
@@ -67,6 +68,11 @@ bool Configuration::read()
         add_message(MSG_ERROR_OPENING_CONFIG_FILE);
         return false;
     }
+}
+
+const char *Configuration::config_file()
+{
+    return Tree::CONFIG_FILE;
 }
 
 bool Configuration::write()
