@@ -93,7 +93,7 @@ bool Configuration::write()
     }
     else
     {
-        add_message("There was a problem opening the configuration file.");
+        add_message(MSG_ERROR_OPENING_CONFIG_FILE);
         return false;
     }
 }
