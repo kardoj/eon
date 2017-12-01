@@ -15,6 +15,7 @@ class Date
         int get_year();
         int get_day();
         int get_wday();
+        static std::string get_date(std::string datetime);
         static std::string current_date();
         static std::string current_date_with_time();
 

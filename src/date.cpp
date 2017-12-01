@@ -46,6 +46,11 @@ Date::Date(const string dte) {
 
 Date::~Date() {}
 
+string Date::get_date(string datetime)
+{
+    return datetime.substr(0, 10);
+}
+
 bool Date::is_valid() { return valid; }
 
 int Date::get_year() { return year; }
