@@ -28,10 +28,11 @@ bool Eon::add_entry()
 {
     if (argc == 5)
     {
+        Configuration conf;
         char p_id[Project::MAX_PROJECT_ID_LENGTH];
-        sprintf(p_id, "%d", get_configuration().get_project_id());
+        sprintf(p_id, "%d", conf.get_project_id());
 
-        if (Entry().add(get_configuration().get_date(), p_id, argv[2], argv[3], argv[4]))
+        if (Entry().add(conf.get_date(), p_id, argv[2], argv[3], argv[4]))
         {
             cout << "A new entry was added: TODO: show by id" << endl;
             return true;
@@ -72,7 +73,7 @@ bool Eon::add_project()
 
 bool Eon::display_set_date()
 {
-    cout << "Currently set date: " << get_configuration().get_date() << endl;
+    cout << "Currently set date: " << Configuration().get_date() << endl;
     return true;
 }
 
@@ -88,7 +89,7 @@ void Eon::format_output(const vector<string> rows)
 bool Eon::list_projects()
 {
     Project p;
-    p.list(get_configuration().get_project_id());
+    p.list(Configuration().get_project_id());
     format_output(p.get_messages());
     return true;
 }
@@ -123,7 +124,7 @@ bool Eon::set_parameters()
 
     unsigned key_count = keys.size();
     unsigned updated = 0;
-    Configuration conf = get_configuration();
+    Configuration conf;
 
     for (unsigned i = 0; i < key_count; i++)
     {
@@ -137,14 +138,4 @@ bool Eon::set_parameters()
     }
     format_output(conf.get_messages());
     return false;
-}
-
-Configuration Eon::get_configuration()
-{
-    if (!configuration.has_been_read())
-    {
-        configuration.read();
-        format_output(configuration.get_messages());
-    }
-    return configuration;
 }

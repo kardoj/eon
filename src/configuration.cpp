@@ -17,7 +17,7 @@ const string Configuration::MSG_INVALID_CONFIG_ROW = "A line in the configuratio
 const string Configuration::MSG_ERROR_OPENING_CONFIG_FILE = "There was a problem reading the configuration file.";
 
 Configuration::Configuration() {
-    hb_read = false;
+    read();
 }
 
 Configuration::~Configuration() {}
@@ -60,7 +60,6 @@ bool Configuration::read()
             }
         }
         fclose(fp);
-        hb_read = true;
         return true;
     }
     else
@@ -77,10 +76,6 @@ const char *Configuration::config_file()
 
 bool Configuration::write()
 {
-    if (!hb_read)
-    {
-        read();
-    }
     FILE *fp;
     fp = fopen(Tree::CONFIG_FILE, "w");
     char row[MAX_CONFIG_ROW_LENGTH];
@@ -177,9 +172,4 @@ bool Configuration::set_date(string dte)
     {
         return false;
     }
-}
-
-bool Configuration::has_been_read()
-{
-    return hb_read;
 }

@@ -24,7 +24,6 @@ class Configuration : public EonBase
         std::string get_date();
         bool set_date(std::string dte);
         int get_project_id();
-        bool has_been_read();
         bool read();
         bool set_project_id(std::string project_id_or_name);
         bool set_from_param(std::string key, std::string value);
