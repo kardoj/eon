@@ -111,7 +111,7 @@ bool Configuration::set_from_param(string key, string value)
         {
             add_message("\"" + dte + "\" is not a valid date.");
         }
-        return set_date(value);
+        return ok;
     }
     else if (key.compare(PROJECT_PARAM_KEY) == 0 || key.compare(PROJECT_PARAM_KEY_SHORT) == 0)
     {
