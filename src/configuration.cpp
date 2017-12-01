@@ -77,7 +77,7 @@ const char *Configuration::config_file()
 bool Configuration::write()
 {
     FILE *fp;
-    fp = fopen(Tree::CONFIG_FILE, "w");
+    fp = fopen(config_file(), "w");
     char row[MAX_CONFIG_ROW_LENGTH];
     if (fp != NULL)
     {
