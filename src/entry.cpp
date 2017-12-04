@@ -27,9 +27,14 @@ bool Entry::add(
         return false;
     }
 
-    Date d = Date(dte);
+    Date *d_ptr;
 
-    if (!d.is_valid())
+    try
+    {
+        d_ptr = new Date(dte);
+
+    }
+    catch (invalid_argument &e)
     {
         cout << "Invalid date entered. Nothing to do." << endl;
         return false;
@@ -50,9 +55,10 @@ bool Entry::add(
     }
 
     char year[5], month[3], wday[2];
-    sprintf(year, "%d", d.get_year());
-    sprintf(month, "%02d", d.get_month());
-    sprintf(wday, "%d", d.get_wday());
+    sprintf(year, "%d", d_ptr->get_year());
+    sprintf(month, "%02d", d_ptr->get_month());
+    sprintf(wday, "%d", d_ptr->get_wday());
+    delete(d_ptr);
 
     string year_str = string(year);
 

@@ -160,15 +160,14 @@ bool Configuration::set_date(string dte)
         dte = Date::current_date();
     }
 
-    Date d = Date(dte);
-
-    if (d.is_valid())
+    try
     {
+        Date d = Date(dte);
         string dte_str = d.yyyy_mm_dd();
         this->dte = dte_str;
         return true;
     }
-    else
+    catch(invalid_argument &e)
     {
         return false;
     }

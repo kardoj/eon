@@ -17,10 +17,7 @@ Date::Date(const string dte) {
     }
     else
     {
-        this->dte = dte;
-        year = mon = day = wday = -1;
-        valid = false;
-        return;
+        throw invalid_argument("Could not parse a date from the given string");
     }
 
     time_t t = time(0);
@@ -50,8 +47,6 @@ string Date::get_date(string datetime)
 {
     return datetime.substr(0, 10);
 }
-
-bool Date::is_valid() { return valid; }
 
 int Date::get_year() { return year; }
 
