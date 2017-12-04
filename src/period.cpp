@@ -19,14 +19,11 @@ Period::Period(const string start_time, const string end_time)
         end_hours = atoi(end_time.substr(0, end_split_pos).c_str());
         end_minutes = atoi(end_time.substr(end_split_pos + 1).c_str());
 
-        valid = true;
-
         diff_minutes();
     }
     else
     {
-        valid = false;
-        start_hours = start_minutes = end_hours = end_minutes = period_minutes = -1;
+        throw invalid_argument("Could not parse period from the given input");
     }
 }
 

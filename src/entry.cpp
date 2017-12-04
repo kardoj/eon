@@ -19,16 +19,18 @@ bool Entry::add(
     const string end_time,
     const string description)
 {
-    Period period = Period(start_time, end_time);
-
-    if (!period.is_valid())
+    Period *period_ptr;
+    try
+    {
+        period_ptr = new Period(start_time, end_time);
+    }
+    catch (invalid_argument &e)
     {
         cout << "Invalid time period entered. Nothing to do." << endl;
         return false;
     }
 
     Date *d_ptr;
-
     try
     {
         d_ptr = new Date(dte);
@@ -71,12 +73,13 @@ bool Entry::add(
 
     FILE *fp = fopen(path.c_str(), "a+");
 
+    bool ok = false;
     if (fp != NULL)
     {
         string id = build_id(year, month, get_nr_from_last_row_and_move_pointer_to_the_end(fp));
 
         char minutes[MAX_MINUTES_LENGTH];
-        sprintf(minutes, "%d", period.minutes());
+        sprintf(minutes, "%d", period_ptr->minutes());
         string entry =
             id + " " +
             dte + " " +
@@ -92,13 +95,15 @@ bool Entry::add(
         fclose(fp);
 
         if (ferror(fp)) Project::update_use_count(project_id_or_name, -1);
-        return true;
+        ok = true;
     }
     else
     {
         cout << "Could not open the entries file. Nothing to do." << endl;
-        return false;
     }
+
+    delete(period_ptr);
+    return ok;
 }
 
 string Entry::get_nr_from_last_row_and_move_pointer_to_the_end(FILE *fp)
