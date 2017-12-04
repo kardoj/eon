@@ -26,7 +26,7 @@ bool Eon::init()
 
 bool Eon::add_entry()
 {
-    if (argc == 5)
+    if (argc == 5 || argc == 6)
     {
         Configuration conf;
         char p_id[Project::MAX_PROJECT_ID_LENGTH];
